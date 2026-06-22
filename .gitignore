@@ -1,0 +1,71 @@
+# Dependencies
+node_modules/
+venv/
+.venv/
+env/
+ENV/
+
+# Build output
+dist/
+dist-ssr/
+build/
+*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+.coverage.*
+
+# ML runtime / training cache
+catboost_info/
+mlruns/
+.wandb/
+
+# Large training datasets (GitHub 100MB file limit)
+ml_training/data/**/*.csv
+ml_training/data/**/*.zip
+!ml_training/data/**/.gitkeep
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+*.pem
+credentials.json
+secrets.json
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS & editor
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Cursor / local tooling
+.cursor/
