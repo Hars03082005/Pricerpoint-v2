@@ -1,7 +1,13 @@
-const API_BASE_URL =
-  (typeof window !== 'undefined' && window.PRICERPOINT_API_URL) ||
-  import.meta.env.VITE_ML_API_URL ||
-  'http://localhost:8000';
+// Lazy getter — evaluated at call time so the Flutter WebView shell's
+// window.PRICERPOINT_API_URL injection (fired after onPageFinished) is
+// always picked up, even though it arrives after module initialisation.
+function getApiBase() {
+  return (
+    (typeof window !== 'undefined' && window.PRICERPOINT_API_URL) ||
+    import.meta.env.VITE_ML_API_URL ||
+    'http://localhost:8000'
+  );
+}
 
 function toNumber(value, fallback = 0) {
   if (value === null || value === undefined || value === '') return fallback;
@@ -165,7 +171,7 @@ function normalizeApiResult(data, inputs) {
 }
 
 async function postJson(path, payload) {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  const response = await fetch(`${getApiBase()}${path}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
@@ -178,7 +184,7 @@ async function postJson(path, payload) {
 }
 
 export async function fetchBrands() {
-  const response = await fetch(`${API_BASE_URL}/api/brands`);
+  const response = await fetch(`${getApiBase()}/api/brands`);
   if (!response.ok) {
     const message = await response.text().catch(() => '');
     throw new Error(`Brands API error ${response.status}${message ? `: ${message}` : ''}`);
