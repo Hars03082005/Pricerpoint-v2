@@ -27,11 +27,16 @@ export default function SearchableSelect({
 
   // ── close on outside click ─────────────────────────────────────────
   useEffect(() => {
-    const handleClick = (e) => {
+    const handleOutside = (e) => {
       if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
     };
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
+    // mousedown for desktop, touchstart for Android WebView
+    document.addEventListener('mousedown', handleOutside);
+    document.addEventListener('touchstart', handleOutside, { passive: true });
+    return () => {
+      document.removeEventListener('mousedown', handleOutside);
+      document.removeEventListener('touchstart', handleOutside);
+    };
   }, []);
 
   // ── reset query / cursor when closed ───────────────────────────────
@@ -42,7 +47,12 @@ export default function SearchableSelect({
         setCursor(-1);
       }, 0);
     } else {
-      setTimeout(() => inputRef.current?.focus(), 0);
+      // Skip auto-focus on touch devices: it triggers the keyboard which
+      // shifts layout and pushes the dropdown options off-screen.
+      const isTouch = window.matchMedia('(pointer: coarse)').matches;
+      if (!isTouch) {
+        setTimeout(() => inputRef.current?.focus(), 0);
+      }
     }
   }, [open]);
 
@@ -153,6 +163,7 @@ export default function SearchableSelect({
                   key={option}
                   type="button"
                   className={`searchable-select-option ${isActive ? 'active' : ''} ${isCursor ? 'cursor' : ''}`}
+                  onPointerDown={(e) => e.preventDefault()} // prevent blur-before-click on mobile
                   onClick={() => handleSelect(option)}
                   onMouseEnter={() => setCursor(i)}
                   role="option"

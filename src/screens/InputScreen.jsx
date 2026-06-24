@@ -224,7 +224,7 @@ export default function InputScreen() {
     }
   };
 
-  const isFormValid = inputs.brand && inputs.model && inputs.year && inputs.mileage && !brandsLoading;
+  const isFormValid = inputs.brand && inputs.model && inputs.year && inputs.mileage;
 
   return (
     <div className="screen">

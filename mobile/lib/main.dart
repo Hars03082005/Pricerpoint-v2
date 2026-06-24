@@ -62,7 +62,16 @@ class _PricerPointWebShellState extends State<PricerPointWebShell> {
           },
           onPageFinished: (_) => _injectRuntimeConfig(),
           onWebResourceError: (error) {
-            if (mounted) {
+            // Only show the full-screen error overlay for the main page
+            // load failure. API fetch timeouts (ERR_CONNECTION_TIMED_OUT)
+            // targeting the FastAPI backend are sub-resource errors and
+            // must NOT replace the entire loaded UI.
+            final url = error.url ?? '';
+            final isMainPage = url.isEmpty ||
+                url == 'http://localhost:$_serverPort/' ||
+                url.endsWith('/index.html') ||
+                url == AppConfig.devWebUrl;
+            if (isMainPage && mounted) {
               setState(() {
                 _loadError = error.description;
                 _loading = false;
