@@ -55,3 +55,5 @@ flutter:
 
   assets:
     - assets/web/
+    - assets/web/assets/
+    - assets/web/cars/

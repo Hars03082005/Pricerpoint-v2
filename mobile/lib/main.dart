@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import 'app_config.dart';
+import 'asset_server.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,6 +42,7 @@ class _PricerPointWebShellState extends State<PricerPointWebShell> {
   late final WebViewController _controller;
   var _loading = true;
   var _loadError = '';
+  int _serverPort = 0;
 
   @override
   void initState() {
@@ -70,7 +72,21 @@ class _PricerPointWebShellState extends State<PricerPointWebShell> {
         ),
       );
 
-    _loadWebApp();
+    _initAndLoad();
+  }
+
+  /// Starts the local asset HTTP server then loads the web app.
+  Future<void> _initAndLoad() async {
+    if (AppConfig.useBundledWeb) {
+      _serverPort = await AssetServer.start();
+    }
+    await _loadWebApp();
+  }
+
+  @override
+  void dispose() {
+    AssetServer.stop();
+    super.dispose();
   }
 
   Future<void> _injectRuntimeConfig() async {
@@ -85,7 +101,10 @@ class _PricerPointWebShellState extends State<PricerPointWebShell> {
 
   Future<void> _loadWebApp() async {
     if (AppConfig.useBundledWeb) {
-      await _controller.loadFlutterAsset('assets/web/index.html');
+      // Serve via local HTTP server to avoid Android file:// cross-origin
+      // restrictions (net::ERR_ACCESS_DENIED with loadFlutterAsset).
+      final url = 'http://localhost:$_serverPort/';
+      await _controller.loadRequest(Uri.parse(url));
       return;
     }
     await _controller.loadRequest(Uri.parse(AppConfig.devWebUrl));
