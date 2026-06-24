@@ -17,7 +17,7 @@ function EmptyHome({ setActiveScreen }) {
       <div className="home-risk-icon"><Icon name="car" size={20} color="#f75d34" /></div>
       <div>
         <h3>No evaluations yet</h3>
-        <p>Run a single vehicle valuation or upload a bulk CSV. Your Home and Analytics dashboards will update automatically from those ML evaluations.</p>
+        <p>Run a vehicle valuation to get ML-powered buy/sell quotes. Your Home and Analytics dashboards will update automatically from those evaluations.</p>
         <button className="cd-btn-orange" onClick={() => setActiveScreen('input')}>Start ML Evaluation</button>
       </div>
     </div>
@@ -83,7 +83,7 @@ export default function HomeScreen() {
       </div>
 
       <div className="home-kpi-grid-light">
-        <div className="home-kpi-light"><div className="home-kpi-light-head"><span>Total Evaluations</span><Icon name="clipboard" size={15} color="#007be5" /></div><strong>{data.kpis.evaluations}</strong><small>Single + bulk</small></div>
+        <div className="home-kpi-light"><div className="home-kpi-light-head"><span>Total Evaluations</span><Icon name="clipboard" size={15} color="#007be5" /></div><strong>{data.kpis.evaluations}</strong><small>Completed valuations</small></div>
         <div className="home-kpi-light"><div className="home-kpi-light-head"><span>BUY Recommendations</span><Icon name="shield" size={15} color="#00a651" /></div><strong>{data.kpis.buy}</strong><small>ML + decision engine</small></div>
         <div className="home-kpi-light"><div className="home-kpi-light-head"><span>Avg Profit</span><Icon name="coins" size={15} color="#f75d34" /></div><strong>{formatINR(data.kpis.avgProfit)}</strong><small>From evaluated cars</small></div>
         <div className="home-kpi-light"><div className="home-kpi-light-head"><span>Pipeline</span><Icon name="lightning" size={15} color="#f7941d" /></div><strong>₹{data.kpis.pipelineL}L</strong><small>Active ML valuations</small></div>

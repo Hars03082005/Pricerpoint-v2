@@ -1,4 +1,7 @@
-const API_BASE_URL = import.meta.env.VITE_ML_API_URL || 'http://localhost:8000';
+const API_BASE_URL =
+  (typeof window !== 'undefined' && window.PRICERPOINT_API_URL) ||
+  import.meta.env.VITE_ML_API_URL ||
+  'http://localhost:8000';
 
 function toNumber(value, fallback = 0) {
   if (value === null || value === undefined || value === '') return fallback;
@@ -54,6 +57,7 @@ export function payloadFromInputs(inputs) {
   return {
     brand: titleCase(inputs.brand || 'Unknown'),
     model: titleCase(inputs.model || 'Unknown'),
+    variant: inputs.variant ? String(inputs.variant).trim().toLowerCase() : 'unknown',
     year: Math.trunc(toNumber(inputs.year, 2021)),
     fuel_type: normalizeFuel(inputs.fuel || inputs.fuel_type),
     transmission: normalizeTransmission(inputs.transmission),
@@ -69,7 +73,7 @@ export function payloadFromInputs(inputs) {
   };
 }
 
-function buildCounterfactuals(inputs, data) {
+function buildCounterfactuals(inputs) {
   const km = toNumber(inputs.mileage ?? inputs.odometer_reading, 0);
   const age = new Date().getFullYear() - toNumber(inputs.year, new Date().getFullYear());
   const condition = normalizeCondition(inputs.condition);
@@ -142,7 +146,7 @@ function normalizeApiResult(data, inputs) {
     quoteMessage: data.quote_message ?? '',
     warnings: data.warnings ?? [],
     shap: data.shap ?? [],
-    counterfactuals: buildCounterfactuals(inputs, data),
+    counterfactuals: buildCounterfactuals(inputs),
     damageBoxes: [],
     models: [
       { name: 'CatBoost Base Market Value', price: baseMarketValue, weight: 65 },
@@ -173,42 +177,19 @@ async function postJson(path, payload) {
   return response.json();
 }
 
+export async function fetchBrands() {
+  const response = await fetch(`${API_BASE_URL}/api/brands`);
+  if (!response.ok) {
+    const message = await response.text().catch(() => '');
+    throw new Error(`Brands API error ${response.status}${message ? `: ${message}` : ''}`);
+  }
+  const data = await response.json();
+  return data.brands || {};
+}
+
 export async function runMLValuation(inputs) {
   const data = await postJson('/evaluate', payloadFromInputs(inputs));
   return normalizeApiResult(data, inputs);
-}
-
-export async function runBulkMLValuation(rows, defaults, rowToInputs) {
-  const mapped = rows.map(row => rowToInputs(row, defaults));
-  const payload = mapped.map(payloadFromInputs);
-  const data = await postJson('/bulk-evaluate', payload);
-
-  return (data.results || []).map((r, idx) => {
-    const input = mapped[idx];
-    const normalized = normalizeApiResult(r, input);
-    return {
-      ...normalized,
-      id: `bulk-${Date.now()}-${idx}`,
-      rowNumber: rows[idx]?.rowNumber ?? r.row_number ?? idx + 1,
-      vehicle: r.vehicle || `${input.year} ${input.brand} ${input.model}`,
-      brand: input.brand,
-      model: input.model,
-      year: input.year,
-      fuel: input.fuel,
-      transmission: input.transmission,
-      city: r.city || input.city,
-      odometer: r.odometer ?? toNumber(input.mileage, 0),
-      fuelEfficiency: input.fuelEfficiency,
-      ownerCount: input.ownerCount,
-      engineCc: input.engineCc,
-      condition: input.condition,
-      input,
-      marketValue: normalized.predictedPrice,
-      buyPrice: normalized.recommendedBuyPrice,
-      sellPrice: normalized.recommendedSellPrice,
-      source: 'CatBoost ML',
-    };
-  });
 }
 
 function normalizeEnhancedResult(data, inputs) {

@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useApp } from '../context/AppContext.jsx';
-import { BRANDS, VIN_DATABASE, CITY_DEMAND, CAR_IMAGES, formatINR } from '../utils/mockData.js';
-import { runMLValuation, runBulkMLValuation } from '../utils/apiValuation.js';
+import { CITY_DEMAND, CAR_IMAGES } from '../utils/mockData.js';
+import { fetchBrands, runMLValuation } from '../utils/apiValuation.js';
+import SearchableSelect from '../components/SearchableSelect.jsx';
 import Icon from '../components/Icon.jsx';
 
 const FUELS         = ['Petrol', 'Diesel', 'Electric', 'CNG', 'Hybrid'];
@@ -19,149 +20,185 @@ const FUEL_ICONS = {
   Hybrid:   { icon: 'recycle',   color: '#16a085' },
 };
 
-const TEMPLATE_CSV = `brand,model,year,fuel,transmission,odometer_reading,fuel_efficiency,city,owner_count,engine_cc,condition\nHonda,City,2021,Petrol,Manual,28000,17.5,Mumbai,1,1497,Good\nHyundai,Creta,2020,Diesel,Automatic,45000,18.0,Delhi,2,1493,Good\nToyota,Fortuner,2021,Diesel,Automatic,22000,14.2,Bangalore,1,2755,Excellent`;
+// ── Brand display icons (emoji abbreviations) ─────────────────────────────
+const BRAND_ICONS = {
+  Maruti: '🔵', Honda: '🔴', Hyundai: '🟡', Toyota: '🟢', Tata: '🟠',
+  Kia: '⚪', Mahindra: '🟤', BMW: '🔵', 'Mercedes-Benz': '⚫',
+  Audi: '⚫', Volkswagen: '⚪', Ford: '🔵', Renault: '🟡', Skoda: '🟢',
+  Nissan: '🔴', MG: '🟠', Jeep: '🟤', Volvo: '🔵', Lexus: '⚫',
+  Tesla: '🔴', Porsche: '🟡', 'Land Rover': '🟢', Jaguar: '🟤',
+};
 
-function normalizeKey(key) {
-  return String(key || '').trim().toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+// ── Common variants per model (curated list for popular models) ───────────
+const VARIANT_CATALOG = {
+  // Maruti
+  'Swift':         ['LXi', 'VXi', 'ZXi', 'ZXi+', 'LDi', 'VDi', 'ZDi', 'ZDi+'],
+  'Baleno':        ['Sigma', 'Delta', 'Zeta', 'Alpha', 'Delta Turbo', 'Zeta Turbo', 'Alpha Turbo'],
+  'Alto':          ['Std', 'LXi', 'VXi', 'LXi CNG', 'VXi CNG'],
+  'WagonR':        ['LXi', 'VXi', 'ZXi', 'ZXi+', 'LXi CNG', 'VXi CNG'],
+  'Vitara Brezza': ['LXi', 'VXi', 'ZXi', 'ZXi+'],
+  'Grand Vitara':  ['Sigma', 'Delta', 'Zeta', 'Alpha', 'Zeta Hybrid', 'Alpha Hybrid'],
+  'Ertiga':        ['LXi', 'VXi', 'ZXi', 'ZXi+', 'LDi', 'VDi', 'ZDi'],
+  'Ciaz':          ['Sigma', 'Delta', 'Zeta', 'Alpha'],
+  'XL6':           ['Zeta', 'Alpha'],
+  // Hyundai
+  'Creta':         ['E', 'EX', 'S', 'S+', 'SX', 'SX Tech', 'SX(O)'],
+  'i20':           ['Era', 'Magna', 'Sportz', 'Asta', 'Asta(O)', 'N Line N6', 'N Line N8'],
+  'Venue':         ['E', 'S', 'S+', 'SX', 'SX(O)', 'N Line N4', 'N Line N8'],
+  'Verna':         ['EX', 'S', 'S+', 'SX', 'SX Tech', 'SX(O)'],
+  'Alcazar':       ['Prestige', 'Prestige(O)', 'Platinum', 'Platinum(O)'],
+  'Tucson':        ['Platinum', 'Signature'],
+  'i10':           ['Era', 'Magna', 'Sportz', 'Asta'],
+  // Tata
+  'Nexon':         ['Smart', 'Smart+', 'Pure', 'Creative', 'Fearless', 'Fearless+'],
+  'Nexon EV':      ['Medium Range', 'Long Range', 'Max', 'Max Long Range'],
+  'Harrier':       ['Smart', 'Smart+', 'Pure', 'Adventure', 'Fearless', 'Fearless+', 'King Edition'],
+  'Safari':        ['Smart', 'Smart+', 'Pure', 'Adventure', 'Fearless', 'Fearless+', 'Gold Edition'],
+  'Punch':         ['Pure', 'Adventure', 'Accomplished', 'Creative'],
+  'Altroz':        ['XE', 'XM', 'XT', 'XZ', 'XZ+'],
+  'Tiago':         ['XE', 'XM', 'XT', 'XZ', 'XZ+', 'XM CNG', 'XZ CNG'],
+  // Honda
+  'City':          ['SV', 'V', 'VX', 'ZX', 'RS'],
+  'Amaze':         ['E', 'S', 'V', 'VX'],
+  'Jazz':          ['S', 'V', 'VX'],
+  'WR-V':          ['S', 'V', 'VX'],
+  'CR-V':          ['15W-4WD', 'Petrol CVT'],
+  // Toyota
+  'Fortuner':      ['2WD MT', '2WD AT', '4WD AT', 'Legender 2WD AT', 'Legender 4WD AT'],
+  'Innova Crysta': ['GX MT', 'GX AT', 'VX MT', 'VX AT', 'ZX AT'],
+  'Yaris':         ['J', 'V', 'VX'],
+  'Urban Cruiser':  ['Mid', 'High', 'Premium'],
+  'Glanza':        ['S', 'G', 'V'],
+  // Mahindra
+  'Scorpio':       ['S3', 'S5', 'S7', 'S9', 'S11'],
+  'Scorpio N':     ['Z2', 'Z4', 'Z6', 'Z8', 'Z8 L'],
+  'Thar':          ['AX Opt', 'LX Petrol MT 2WD', 'LX Diesel AT 4WD', 'LX Diesel MT 4WD'],
+  'XUV700':        ['MX', 'AX3', 'AX5', 'AX7'],
+  'XUV300':        ['W4', 'W6', 'W8', 'W8(O)'],
+  'Bolero':        ['B2', 'B4', 'B6', 'B6(O)', 'Power+'],
+  // Kia
+  'Seltos':        ['HTE', 'HTK', 'HTK+', 'HTX', 'HTX+', 'GTX+'],
+  'Sonet':         ['HTE', 'HTK', 'HTK+', 'HTX', 'HTX+', 'GTX+'],
+  'Carens':        ['Premium', 'Prestige', 'Prestige+', 'Luxury', 'Luxury+'],
+  'EV6':           ['GT Line RWD', 'GT Line AWD'],
+  // Volkswagen
+  'Polo':          ['Trendline', 'Comfortline', 'Highline', 'GT TSI'],
+  'Vento':         ['Comfortline', 'Highline', 'Highline Plus'],
+  'Taigun':        ['Trendline', 'Comfortline', 'Topline', 'GT Plus Sport'],
+  // Skoda
+  'Octavia':       ['Style', 'L&K'],
+  'Kushaq':        ['Active', 'Ambition', 'Style', 'Monte Carlo'],
+  'Slavia':        ['Active', 'Ambition', 'Style', 'Monte Carlo'],
+  // Ford
+  'EcoSport':      ['Ambiente', 'Trend', 'Trend+', 'Titanium', 'Titanium+', 'S'],
+  'Endeavour':     ['Titanium 2WD AT', 'Titanium+ 4WD AT', 'Sport AT 4WD'],
+  // MG
+  'Hector':        ['Style', 'Super', 'Smart', 'Sharp', 'Savvy'],
+  'ZS EV':         ['Excite', 'Exclusive'],
+  // BMW
+  '3 Series':      ['320i Sport', '320d Sport', '330i M Sport', 'M340i xDrive'],
+  '5 Series':      ['520d Luxury Line', '520d M Sport', '530d M Sport'],
+  'X1':            ['sDrive20i', 'xDrive20i'],
+  'X3':            ['xDrive20i', 'xDrive20d M Sport'],
+  'X5':            ['xDrive40i M Sport', 'xDrive30d M Sport'],
+};
+
+function formatRegistrationNumber(value) {
+  return String(value || '')
+    .toUpperCase()
+    .replace(/[^A-Z0-9]/g, '')
+    .slice(0, 11);
 }
 
-function splitCsvLine(line) {
-  const values = [];
-  let current = '';
-  let inQuotes = false;
-  for (let i = 0; i < line.length; i++) {
-    const ch = line[i];
-    const next = line[i + 1];
-    if (ch === '"' && inQuotes && next === '"') { current += '"'; i++; continue; }
-    if (ch === '"') { inQuotes = !inQuotes; continue; }
-    if (ch === ',' && !inQuotes) { values.push(current.trim()); current = ''; continue; }
-    current += ch;
+function getValidFuelsForModel(brand, model, year) {
+  if (!model) return ['Petrol', 'Diesel', 'Electric', 'CNG', 'Hybrid'];
+  const brandLower = (brand || '').toLowerCase().trim();
+  const modelLower = model.toLowerCase().trim();
+  const yearNum = Number(year);
+
+  // 1. Maruti 800, Alto, Nano → Petrol only
+  if (modelLower === 'maruti 800' || modelLower === '800' || modelLower === 'alto' || modelLower === 'nano') {
+    return ['Petrol'];
   }
-  values.push(current.trim());
-  return values;
-}
+  // 2. All EVs → Electric only
+  const isEv = brandLower === 'tesla' ||
+    modelLower.split(/[\s\-_]+/).some(w => w.startsWith('ev')) ||
+    modelLower.includes('electric') || modelLower.endsWith('ev');
+  if (isEv) return ['Electric'];
 
-function parseCsv(text) {
-  const lines = text.split(/\r?\n/).filter(line => line.trim());
-  if (lines.length < 2) return [];
-  const headers = splitCsvLine(lines[0]).map(normalizeKey);
-  return lines.slice(1).map((line, index) => {
-    const values = splitCsvLine(line);
-    const row = { rowNumber: index + 1 };
-    headers.forEach((h, i) => { row[h] = values[i] || ''; });
-    return row;
-  });
-}
-
-function getFirst(row, keys) {
-  for (const key of keys) {
-    const v = row[normalizeKey(key)];
-    if (v !== undefined && String(v).trim() !== '') return String(v).trim();
+  // 3. Fortuner, Endeavour, Scorpio → Diesel, Petrol only
+  if (modelLower === 'fortuner' || modelLower === 'endeavour' || modelLower === 'scorpio') {
+    return ['Diesel', 'Petrol'];
   }
-  return '';
-}
+  // 4. Common hatchbacks before 2015 → Petrol, CNG only
+  const hatchbacks = [
+    'swift', 'baleno', 'wagonr', 'ignis', 'celerio', 's-presso', 'alto k10',
+    'i10', 'i20', 'santro', 'tiago', 'altroz', 'bolt', 'indica', 'jazz',
+    'glanza', 'kwid', 'micra', 'polo', 'figo', 'liva', 'etios liva', 'brio',
+    'zen', 'estilo', 'zen estilo', 'ritz', 'a-star', 'beat', 'spark', 'kuv100',
+  ];
+  if (hatchbacks.includes(modelLower) && yearNum < 2015) return ['Petrol', 'CNG'];
 
-function numberFrom(value, fallback = '') {
-  if (value === undefined || value === null || value === '') return fallback;
-  const match = String(value).replace(/,/g, '').match(/-?\d+(\.\d+)?/);
-  return match ? match[0] : fallback;
-}
-
-function titleCase(value) {
-  return String(value || '').trim().split(/\s+/).map(w => w ? w[0].toUpperCase() + w.slice(1).toLowerCase() : '').join(' ');
-}
-
-function inferBrandModel(row, defaults) {
-  const brandRaw = getFirst(row, ['brand', 'make', 'oem', 'brand_name', 'manufacturer']);
-  const modelRaw = getFirst(row, ['model', 'car_model', 'model_name']);
-  const carName = getFirst(row, ['car_name', 'name', 'full_name', 'vehicle_name']);
-  let brand = brandRaw || defaults.brand;
-  let model = modelRaw || defaults.model;
-  if (carName && (!brandRaw || !modelRaw)) {
-    const parts = carName.split(/\s+/);
-    if (!brandRaw && parts[0]) brand = parts[0];
-    if (!modelRaw && parts.length > 1) model = parts.slice(1).join(' ');
-  }
-  return { brand: titleCase(brand), model: titleCase(model) };
-}
-
-function parseOwner(value, fallback) {
-  const text = String(value || '').toLowerCase();
-  if (/first|1st|\b1\b/.test(text)) return '1';
-  if (/second|2nd|\b2\b/.test(text)) return '2';
-  if (/third|3rd|\b3\b/.test(text)) return '3';
-  if (/fourth|4th|\b4\b/.test(text)) return '4';
-  if (/more|fifth|\b5\b/.test(text)) return '5';
-  return numberFrom(value, fallback);
-}
-
-function rowToInputs(row, defaults) {
-  const { brand, model } = inferBrandModel(row, defaults);
-  const vehicleAge = numberFrom(getFirst(row, ['vehicle_age', 'age']), '');
-  const yearValue = getFirst(row, ['year', 'manufacturing_year', 'mfg_year', 'model_year', 'myear']) || (vehicleAge ? String(new Date().getFullYear() - Number(vehicleAge)) : defaults.year);
-  const odometer = getFirst(row, ['odometer_reading', 'odometer', 'km_driven', 'kms_driven', 'kilometers_driven', 'driven_kms', 'distance_travelled']);
-  const fuelEfficiency = getFirst(row, ['fuel_efficiency', 'mileage_kmpl', 'kmpl', 'mileage_new', 'fuel_efficiency_kmpl', 'mileage']);
-  const owner = getFirst(row, ['owner_count', 'owners', 'owner', 'owner_type', 'owner_type_new']);
-
-  return {
-    ...defaults,
-    brand,
-    model,
-    year: numberFrom(yearValue, defaults.year),
-    fuel: titleCase(getFirst(row, ['fuel', 'fuel_type', 'fuel_type_new', 'ft']) || defaults.fuel),
-    transmission: titleCase(getFirst(row, ['transmission', 'transmission_type', 'transmission_type_new', 'tt']) || defaults.transmission),
-    mileage: numberFrom(odometer, defaults.mileage),
-    fuelEfficiency: numberFrom(fuelEfficiency, defaults.fuelEfficiency),
-    city: titleCase(getFirst(row, ['city', 'location', 'city_name', 'city_name_new', 'city_y', 'city_x']) || defaults.city),
-    ownerCount: parseOwner(owner, defaults.ownerCount),
-    engineCc: numberFrom(getFirst(row, ['engine_cc', 'engine_capacity', 'engine', 'displacement', 'engine_capacity_new']), defaults.engineCc),
-    condition: titleCase(getFirst(row, ['condition', 'vehicle_condition']) || defaults.condition),
-  };
+  return ['Petrol', 'Diesel', 'Electric', 'CNG', 'Hybrid'];
 }
 
 export default function InputScreen() {
   const {
-    inputs, updateInput, fillFromVIN,
-    uploadedImage, handleImageUpload,
+    inputs, updateInput,
     setValuationResult, setActiveScreen, setIsLoading,
-    addEvaluation, addBulkEvaluations,
+    addEvaluation,
   } = useApp();
 
-  const [vinInput, setVinInput]     = useState('');
-  const [vinLoading, setVinLoading] = useState(false);
-  const [vinStatus, setVinStatus]   = useState(null);
-  const [isDragOver, setIsDragOver] = useState(false);
-  const [step, setStep]             = useState(1);
-  const [bulkRows, setBulkRows]     = useState([]);
-  const [bulkError, setBulkError]   = useState('');
+  const [brandCatalog, setBrandCatalog] = useState({});
+  const [brandsLoading, setBrandsLoading] = useState(true);
+  const [brandsError,   setBrandsError]   = useState('');
   const [valuationError, setValuationError] = useState('');
 
-  const brands   = Object.keys(BRANDS);
-  const models   = BRANDS[inputs.brand] || [];
+  const brandOptions = useMemo(
+    () => Object.keys(brandCatalog).sort((a, b) => a.localeCompare(b)),
+    [brandCatalog],
+  );
+  const modelOptions = useMemo(
+    () => brandCatalog[inputs.brand] || [],
+    [brandCatalog, inputs.brand],
+  );
+  // Variant options: use VARIANT_CATALOG key = model (strip brand prefix if present)
+  const variantOptions = useMemo(() => {
+    if (!inputs.model) return [];
+    // Try exact key first, then strip brand prefix
+    const direct = VARIANT_CATALOG[inputs.model];
+    if (direct) return direct;
+    const stripped = inputs.model.replace(new RegExp(`^${inputs.brand}\\s+`, 'i'), '');
+    return VARIANT_CATALOG[stripped] || [];
+  }, [inputs.brand, inputs.model]);
+
+  const validFuels = useMemo(
+    () => getValidFuelsForModel(inputs.brand, inputs.model, inputs.year),
+    [inputs.brand, inputs.model, inputs.year],
+  );
   const carImage = CAR_IMAGES[`${inputs.brand} ${inputs.model}`] || '/cars/placeholder.png';
+  const brandIcon = BRAND_ICONS[inputs.brand] || '🚗';
 
-  const handleVinLookup = () => {
-    if (!vinInput.trim()) return;
-    setVinLoading(true);
-    setVinStatus(null);
-    setTimeout(() => {
-      const data = VIN_DATABASE[vinInput.trim().toUpperCase()];
-      if (data) { fillFromVIN(data); setVinStatus('ok'); }
-      else       { setVinStatus('error'); }
-      setVinLoading(false);
-    }, 1200);
+  useEffect(() => {
+    let active = true;
+    fetchBrands()
+      .then((brands) => { if (active) setBrandCatalog(brands); })
+      .catch((error) => {
+        console.error(error);
+        if (active) setBrandsError('Could not load brand list. Start FastAPI with: uvicorn backend.main:app --reload');
+      })
+      .finally(() => { if (active) setBrandsLoading(false); });
+    return () => { active = false; };
+  }, []);
+
+  const handleBrandChange = (brand) => {
+    updateInput('brand', brand);
+    const models = brandCatalog[brand] || [];
+    updateInput('model', models[0] || '');
   };
 
-  const handleFileInput = (e) => {
-    const file = e.target.files?.[0];
-    if (file) handleImageUpload(file);
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setIsDragOver(false);
-    const file = e.dataTransfer.files?.[0];
-    if (file && file.type.startsWith('image/')) handleImageUpload(file);
+  const handleRegistrationChange = (value) => {
+    updateInput('vin', formatRegistrationNumber(value));
   };
 
   const handleSubmit = async () => {
@@ -170,7 +207,12 @@ export default function InputScreen() {
     setValuationResult(null);
     setActiveScreen('result');
     try {
-      const result = await runMLValuation({ ...inputs });
+      // Pass variant as suffix to model for more accurate ML lookup
+      const payload = {
+        ...inputs,
+        model: inputs.variant ? `${inputs.model} ${inputs.variant}` : inputs.model,
+      };
+      const result = await runMLValuation(payload);
       setValuationResult(result);
       addEvaluation({ ...inputs }, result, 'Single Vehicle');
     } catch (error) {
@@ -182,39 +224,10 @@ export default function InputScreen() {
     }
   };
 
-  const handleBulkUpload = async (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setBulkError('');
-    setBulkRows([]);
-    if (!file.name.toLowerCase().endsWith('.csv')) {
-      setBulkError('Please upload a CSV file.');
-      return;
-    }
-    try {
-      const text = await file.text();
-      const rows = parseCsv(text);
-      if (!rows.length) {
-        setBulkError('CSV is empty or missing rows.');
-        return;
-      }
-      const results = await runBulkMLValuation(rows, inputs, rowToInputs);
-      setBulkRows(results);
-      addBulkEvaluations(results);
-    } catch (error) {
-      console.error(error);
-      setBulkError('Bulk ML evaluation failed. Please make sure the FastAPI backend is running and the CSV has valid vehicle columns.');
-    }
-  };
-
-  const isFormValid = inputs.brand && inputs.model && inputs.year && inputs.mileage;
-  const totalProfit = bulkRows.reduce((sum, r) => sum + (r.expectedProfit || 0), 0);
-  const buyCount = bulkRows.filter(r => r.action === 'BUY').length;
-  const negotiateCount = bulkRows.filter(r => r.action === 'NEGOTIATE').length;
+  const isFormValid = inputs.brand && inputs.model && inputs.year && inputs.mileage && !brandsLoading;
 
   return (
     <div className="screen">
-      {/* Hero car display */}
       <div className="car-hero-banner">
         <div className="car-hero-info">
           <div className="car-hero-badge">
@@ -222,7 +235,8 @@ export default function InputScreen() {
             Dealer Quote Engine
           </div>
           <h1 className="car-hero-title">
-            {inputs.year} {inputs.brand} {inputs.model}
+            {inputs.year} {inputs.model}
+            {inputs.variant && <span className="car-hero-variant"> · {inputs.variant}</span>}
           </h1>
           <p className="car-hero-sub">{inputs.fuel} · {inputs.transmission} · {inputs.city}</p>
         </div>
@@ -231,383 +245,214 @@ export default function InputScreen() {
         </div>
       </div>
 
-      {/* Step tabs */}
-      <div className="step-tabs">
-        <button className={`step-tab ${step === 1 ? 'active' : ''}`} onClick={() => setStep(1)}>
-          <span className="step-num">1</span> Single Vehicle
-        </button>
-        <button className={`step-tab ${step === 3 ? 'active' : ''}`} onClick={() => setStep(3)}>
-          <span className="step-num">2</span> Bulk CSV
-        </button>
-        <button className={`step-tab ${step === 2 ? 'active' : ''}`} onClick={() => setStep(2)}>
-          <span className="step-num">3</span> Upload Photos
-        </button>
-      </div>
-
       {valuationError && (
         <div className="vin-error" style={{ marginBottom: 12 }}>
           <Icon name="warning" size={14} color="#e02020" strokeWidth={2} /> {valuationError}
         </div>
       )}
-
-      {step === 1 && (
-        <div className="valuation-desktop-layout">
-          <div className="valuation-col-left">
-            <div className="cd-card valuation-picker-card">
-              <div className="cd-section-label">Select Vehicle</div>
-              <div className="brand-scroll brand-scroll-vertical">
-                {brands.map(b => (
-                  <button key={b} className={`brand-pill ${inputs.brand === b ? 'active' : ''}`} onClick={() => updateInput('brand', b)}>
-                    {b}
-                  </button>
-                ))}
-              </div>
-              <div className="model-grid model-grid-desktop">
-                {models.map(m => (
-                  <button
-                    key={m}
-                    className={`model-tile ${inputs.model === m ? 'active' : ''}`}
-                    onClick={() => updateInput('model', m)}
-                  >
-                    <img src={CAR_IMAGES[`${inputs.brand} ${m}`] || '/cars/placeholder.png'} alt={m} className="model-tile-img" />
-                    <span className="model-tile-name">{m}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="valuation-col-right">
-            <div className="valuation-form-scroll">
-              <div className="cd-card">
-                <div className="cd-card-head">
-                  <div className="card-icon-circle blue">
-                    <Icon name="search" size={16} color="#007be5" strokeWidth={2} />
-                  </div>
-                  <div>
-                    <div className="cd-card-title">Quick Registration / VIN Lookup</div>
-                    <div className="cd-card-sub">Auto-fill car details from registration number or VIN</div>
-                  </div>
-                </div>
-                <div className="vin-row">
-                  <input
-                    className="cd-input vin-input"
-                    placeholder="Enter Reg No. / VIN (e.g. VIN-HONDA-2021)"
-                    value={vinInput}
-                    onChange={e => { setVinInput(e.target.value); setVinStatus(null); }}
-                    onKeyDown={e => e.key === 'Enter' && handleVinLookup()}
-                  />
-                  <button
-                    className={`cd-btn-orange vin-lookup-btn ${vinLoading ? 'loading' : ''}`}
-                    onClick={handleVinLookup}
-                    disabled={vinLoading}
-                  >
-                    {vinLoading
-                      ? <span className="cd-spinner" />
-                      : <Icon name="search" size={15} color="white" strokeWidth={2.2} />
-                    }
-                    {!vinLoading && <span>Lookup</span>}
-                  </button>
-                </div>
-                {vinStatus === 'ok'    && (
-                  <div className="vin-success">
-                    <Icon name="check" size={14} color="#00a651" strokeWidth={2} /> Vehicle details auto-filled!
-                  </div>
-                )}
-                {vinStatus === 'error' && (
-                  <div className="vin-error">
-                    <Icon name="warning" size={14} color="#e02020" strokeWidth={2} /> Not found. Try: VIN-TESLA-2023
-                  </div>
-                )}
-                <div className="vin-samples">
-                  {['VIN-HONDA-2021','VIN-TESLA-2023','VIN-BMW-2022'].map(v => (
-                    <button key={v} className="vin-sample-chip" onClick={() => { setVinInput(v); setVinStatus(null); }}>
-                      {v}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="cd-card">
-                <div className="cd-section-label">Vehicle Specifications</div>
-                <div className="spec-grid">
-                  <div className="spec-field">
-                    <label className="spec-label">Year of Manufacture</label>
-                    <select className="cd-input" value={inputs.year} onChange={e => updateInput('year', e.target.value)}>
-                      {YEARS.map(y => <option key={y}>{y}</option>)}
-                    </select>
-                  </div>
-                  <div className="spec-field">
-                    <label className="spec-label">City</label>
-                    <select className="cd-input" value={inputs.city} onChange={e => updateInput('city', e.target.value)}>
-                      {CITIES.map(c => <option key={c}>{c}</option>)}
-                    </select>
-                  </div>
-                  <div className="spec-field">
-                    <label className="spec-label">Odometer Reading (km)</label>
-                    <input
-                      type="number"
-                      className="cd-input"
-                      placeholder="e.g. 28000"
-                      value={inputs.mileage}
-                      onChange={e => updateInput('mileage', e.target.value)}
-                    />
-                  </div>
-                  <div className="spec-field">
-                    <label className="spec-label">Fuel Efficiency (km/l)</label>
-                    <input
-                      type="number"
-                      step="0.1"
-                      className="cd-input"
-                      placeholder="e.g. 17.5"
-                      value={inputs.fuelEfficiency}
-                      onChange={e => updateInput('fuelEfficiency', e.target.value)}
-                    />
-                  </div>
-                  <div className="spec-field">
-                    <label className="spec-label">Transmission</label>
-                    <select className="cd-input" value={inputs.transmission} onChange={e => updateInput('transmission', e.target.value)}>
-                      {TRANSMISSIONS.map(t => <option key={t}>{t}</option>)}
-                    </select>
-                  </div>
-                  <div className="spec-field">
-                    <label className="spec-label">Ownership Count</label>
-                    <select className="cd-input" value={inputs.ownerCount} onChange={e => updateInput('ownerCount', e.target.value)}>
-                      {OWNER_COUNTS.map(o => <option key={o} value={o}>{o}{o === '1' ? 'st' : o === '2' ? 'nd' : o === '3' ? 'rd' : 'th'} Owner</option>)}
-                    </select>
-                  </div>
-                  <div className="spec-field">
-                    <label className="spec-label">Engine Capacity (cc)</label>
-                    <input
-                      type="number"
-                      className="cd-input"
-                      placeholder="e.g. 1497"
-                      value={inputs.engineCc}
-                      onChange={e => updateInput('engineCc', e.target.value)}
-                    />
-                  </div>
-                  <div className="spec-field">
-                    <label className="spec-label">Condition</label>
-                    <select className="cd-input" value={inputs.condition} onChange={e => updateInput('condition', e.target.value)}>
-                      {CONDITIONS.map(c => <option key={c}>{c}</option>)}
-                    </select>
-                  </div>
-                </div>
-
-                <div className="spec-label" style={{ marginTop: 12 }}>Fuel Type</div>
-                <div className="fuel-pills">
-                  {FUELS.map(f => {
-                    const fi = FUEL_ICONS[f];
-                    const isActive = inputs.fuel === f;
-                    return (
-                      <button
-                        key={f}
-                        className={`fuel-pill ${isActive ? 'active' : ''}`}
-                        onClick={() => updateInput('fuel', f)}
-                      >
-                        <Icon name={fi.icon} size={15} color={isActive ? '#f75d34' : fi.color} strokeWidth={1.8} />
-                        <span>{f}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-
-            <div className="valuation-sticky-footer">
-              <button
-                className={`cd-btn-orange cd-btn-full ${!isFormValid ? 'disabled' : ''}`}
-                onClick={() => setStep(2)}
-                disabled={!isFormValid}
-              >
-                Next: Upload Photos
-                <Icon name="arrowRight" size={16} color="white" strokeWidth={2.2} />
-              </button>
-            </div>
-          </div>
+      {brandsError && (
+        <div className="vin-error" style={{ marginBottom: 12 }}>
+          <Icon name="warning" size={14} color="#e02020" strokeWidth={2} /> {brandsError}
         </div>
       )}
 
-      {step === 3 && (
-        <>
-          <div className="cd-card">
-            <div className="cd-card-head">
-              <div className="card-icon-circle orange">
-                <Icon name="clipboard" size={16} color="#f75d34" strokeWidth={2} />
-              </div>
-              <div>
-                <div className="cd-card-title">Bulk Dealer Valuation</div>
-                <div className="cd-card-sub">Upload a CSV to evaluate multiple cars for a dealership inventory or acquisition list</div>
-              </div>
-            </div>
-            <div className="upload-zone" onClick={() => document.getElementById('bulk-csv-input').click()}>
-              <input id="bulk-csv-input" type="file" accept=".csv,text/csv" style={{ display:'none' }} onChange={handleBulkUpload} />
-              <div className="upload-empty">
-                <div className="upload-icon-circle">
-                  <Icon name="upload" size={28} color="#f75d34" strokeWidth={1.8} />
-                </div>
-                <div className="upload-title">Upload Vehicle CSV</div>
-                <div className="upload-desc">Accepted columns: brand, model, year, fuel, transmission, odometer_reading, fuel_efficiency, city, owner_count, engine_cc, condition</div>
-                <div className="upload-cta">Browse CSV</div>
-              </div>
-            </div>
-            <a
-              className="vin-sample-chip"
-              style={{ display:'inline-flex', marginTop: 12, textDecoration:'none' }}
-              href={`data:text/csv;charset=utf-8,${encodeURIComponent(TEMPLATE_CSV)}`}
-              download="pricerpoint_bulk_template.csv"
-            >
-              Download sample CSV template
-            </a>
-            {bulkError && (
-              <div className="vin-error" style={{ marginTop: 10 }}>
-                <Icon name="warning" size={14} color="#e02020" strokeWidth={2} /> {bulkError}
-              </div>
-            )}
-          </div>
-
-          {bulkRows.length > 0 && (
-            <>
-              <div className="kpi-grid">
-                <div className="kpi-card"><div className="kpi-label">Cars Processed</div><div className="kpi-value">{bulkRows.length}</div></div>
-                <div className="kpi-card"><div className="kpi-label">BUY Recommendations</div><div className="kpi-value">{buyCount}</div></div>
-                <div className="kpi-card"><div className="kpi-label">NEGOTIATE</div><div className="kpi-value">{negotiateCount}</div></div>
-                <div className="kpi-card"><div className="kpi-label">Projected Profit</div><div className="kpi-value">{formatINR(totalProfit)}</div></div>
-              </div>
-
-              <div className="cd-card">
-                <div className="cd-section-label">Bulk Valuation Results</div>
-                <div className="bulk-table-wrap">
-                  <table className="bulk-table">
-                    <thead>
-                      <tr>
-                        <th>Vehicle</th>
-                        <th>City</th>
-                        <th>Odometer</th>
-                        <th>Market Value</th>
-                        <th>Buy Price</th>
-                        <th>Sell Price</th>
-                        <th>Profit</th>
-                        <th>Risk</th>
-                        <th>Deal Quality</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {bulkRows.map(r => (
-                        <tr key={r.rowNumber}>
-                          <td>{r.vehicle}</td>
-                          <td>{r.city}</td>
-                          <td>{Number.isFinite(r.odometer) ? `${(r.odometer/1000).toFixed(0)}k km` : '—'}</td>
-                          <td>{formatINR(r.marketValue)}</td>
-                          <td>{formatINR(r.buyPrice)}</td>
-                          <td>{formatINR(r.sellPrice)}</td>
-                          <td>{formatINR(r.expectedProfit)}</td>
-                          <td>{r.riskScore}/100</td>
-                          <td>{r.dealQualityScore}/100</td>
-                          <td><span className={`action-pill action-${String(r.action).toLowerCase().replace(' ', '-')}`}>{r.action}</span></td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <div className="cd-card">
-                <div className="cd-section-label">Vehicle-wise ML Analysis</div>
-                <div className="bulk-analysis-list">
-                  {bulkRows.map(r => (
-                    <div className="bulk-analysis-card" key={`analysis-${r.rowNumber}`}>
-                      <div className="bulk-analysis-top">
-                        <strong>{r.vehicle}</strong>
-                        <span className={`action-pill action-${String(r.action).toLowerCase().replace(' ', '-')}`}>{r.action}</span>
-                      </div>
-                      <div className="bulk-analysis-grid">
-                        <div><span>Market</span><b>{formatINR(r.marketValue)}</b></div>
-                        <div><span>Buy</span><b>{formatINR(r.buyPrice)}</b></div>
-                        <div><span>Sell</span><b>{formatINR(r.sellPrice)}</b></div>
-                        <div><span>Profit</span><b>{formatINR(r.expectedProfit)}</b></div>
-                        <div><span>Risk</span><b>{r.riskScore}/100</b></div>
-                        <div><span>Deal Quality</span><b>{r.dealQualityScore}/100</b></div>
-                      </div>
-                      <p className="bulk-analysis-note">
-                        {r.positiveFactors?.[0] || 'CatBoost ML market value prediction used.'}
-                        {r.negativeFactors?.[0] ? ` Risk note: ${r.negativeFactors[0]}` : ''}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </>
-          )}
-        </>
-      )}
-
-      {step === 2 && (
-        <>
-          <div className="cd-card">
-            <div className="cd-card-head">
-              <div className="card-icon-circle orange">
-                <Icon name="camera" size={16} color="#f75d34" strokeWidth={2} />
-              </div>
-              <div>
-                <div className="cd-card-title">Vehicle Photos</div>
-                <div className="cd-card-sub">Optional photo upload for future CV inspection; current evaluation uses manual condition</div>
-              </div>
+      <div className="valuation-desktop-layout">
+        <div className="valuation-col-left">
+          <div className="cd-card valuation-picker-card">
+            <div className="cd-section-label">
+              <Icon name="search" size={13} color="#f75d34" strokeWidth={2} />
+              Select Vehicle
             </div>
 
-            <div
-              className={`upload-zone ${isDragOver ? 'dragover' : ''} ${uploadedImage ? 'uploaded' : ''}`}
-              onDragOver={e => { e.preventDefault(); setIsDragOver(true); }}
-              onDragLeave={() => setIsDragOver(false)}
-              onDrop={handleDrop}
-              onClick={() => document.getElementById('photo-input').click()}
-            >
-              <input id="photo-input" type="file" accept="image/*" style={{ display:'none' }} onChange={handleFileInput} />
-              {uploadedImage ? (
-                <div className="upload-preview">
-                  <img src={uploadedImage.url} alt="Uploaded vehicle" className="preview-img" />
-                  <div className="preview-meta">
-                    <div className="preview-name">{uploadedImage.name}</div>
-                    <div className="preview-change">Tap to replace</div>
-                  </div>
+            <div className="vehicle-select-stack">
+              {/* ── Brand ───────────────────────────────────── */}
+              <SearchableSelect
+                label="Brand"
+                icon={brandIcon}
+                sublabel={brandOptions.length > 0 ? `${brandOptions.length} brands` : ''}
+                value={inputs.brand}
+                options={brandOptions}
+                placeholder={brandsLoading ? 'Loading brands…' : 'Search brand…'}
+                disabled={brandsLoading || brandOptions.length === 0}
+                onChange={handleBrandChange}
+              />
+
+              {/* ── Model ───────────────────────────────────── */}
+              <SearchableSelect
+                label="Model"
+                sublabel={modelOptions.length > 0 ? `${modelOptions.length} models` : ''}
+                value={inputs.model}
+                options={modelOptions}
+                placeholder={inputs.brand ? 'Search model…' : 'Select brand first'}
+                disabled={!inputs.brand || modelOptions.length === 0}
+                onChange={(model) => updateInput('model', model)}
+              />
+
+              {/* ── Variant ─────────────────────────────────── */}
+              <SearchableSelect
+                label="Variant"
+                sublabel="Optional — improves accuracy"
+                value={inputs.variant || ''}
+                options={variantOptions}
+                placeholder={inputs.model ? (variantOptions.length > 0 ? 'Search variant…' : 'Type variant manually') : 'Select model first'}
+                disabled={!inputs.model}
+                onChange={(v) => updateInput('variant', v)}
+              />
+
+              {/* Manual variant input when no catalog entries exist */}
+              {inputs.model && variantOptions.length === 0 && (
+                <div className="spec-field" style={{ marginTop: 4 }}>
+                  <label className="spec-label">Variant (manual entry)</label>
+                  <input
+                    className="cd-input"
+                    placeholder="e.g. VXi, ZXi+, Titanium"
+                    value={inputs.variant || ''}
+                    onChange={e => updateInput('variant', e.target.value)}
+                  />
                 </div>
-              ) : (
-                <div className="upload-empty">
-                  <div className="upload-icon-circle">
-                    <Icon name="upload" size={28} color="#f75d34" strokeWidth={1.8} />
-                  </div>
-                  <div className="upload-title">Add Vehicle Photos</div>
-                  <div className="upload-desc">Front, side, rear views · JPG/PNG up to 10MB</div>
-                  <div className="upload-cta">Browse Photos</div>
+              )}
+
+              {/* Variant accuracy badge */}
+              {inputs.variant && (
+                <div className="variant-badge">
+                  <Icon name="sparkle" size={11} color="#007be5" strokeWidth={2} />
+                  Variant-specific pricing enabled
                 </div>
               )}
             </div>
+          </div>
+        </div>
 
-            <div className="upload-tips">
-              <div className="upload-tip">
-                <Icon name="check" size={13} color="#00a651" strokeWidth={2.2} />
-                Computer vision condition analysis is on hold for this final prototype
+        <div className="valuation-col-right">
+          <div className="valuation-form-scroll">
+            <div className="cd-card">
+              <div className="cd-card-head">
+                <div className="card-icon-circle blue">
+                  <Icon name="clipboard" size={16} color="#007be5" strokeWidth={2} />
+                </div>
+                <div>
+                  <div className="cd-card-title">Registration Number</div>
+                  <div className="cd-card-sub">Enter reg number for reference — fill vehicle details manually below</div>
+                </div>
               </div>
-              <div className="upload-tip">
-                <Icon name="check" size={13} color="#00a651" strokeWidth={2.2} />
-                Manual condition field is currently used for CatBoost valuation and risk scoring
+              <input
+                className="cd-input"
+                placeholder="e.g. MH02AB1234"
+                value={inputs.vin || ''}
+                onChange={e => handleRegistrationChange(e.target.value)}
+                maxLength={11}
+                autoCapitalize="characters"
+                spellCheck={false}
+              />
+            </div>
+
+            <div className="cd-card">
+              <div className="cd-section-label">Vehicle Specifications</div>
+              <div className="spec-grid">
+                <div className="spec-field">
+                  <label className="spec-label">Year of Manufacture</label>
+                  <select className="cd-input" value={inputs.year} onChange={e => updateInput('year', e.target.value)}>
+                    {YEARS.map(y => <option key={y}>{y}</option>)}
+                  </select>
+                </div>
+                <div className="spec-field">
+                  <label className="spec-label">City</label>
+                  <select className="cd-input" value={inputs.city} onChange={e => updateInput('city', e.target.value)}>
+                    {CITIES.map(c => <option key={c}>{c}</option>)}
+                  </select>
+                </div>
+                <div className="spec-field">
+                  <label className="spec-label">Odometer Reading (km)</label>
+                  <input
+                    type="number"
+                    className="cd-input"
+                    placeholder="e.g. 28000"
+                    value={inputs.mileage}
+                    onChange={e => updateInput('mileage', e.target.value)}
+                  />
+                </div>
+                <div className="spec-field">
+                  <label className="spec-label">Fuel Efficiency (km/l)</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    className="cd-input"
+                    placeholder="e.g. 17.5"
+                    value={inputs.fuelEfficiency}
+                    onChange={e => updateInput('fuelEfficiency', e.target.value)}
+                  />
+                </div>
+                <div className="spec-field">
+                  <label className="spec-label">Transmission</label>
+                  <select className="cd-input" value={inputs.transmission} onChange={e => updateInput('transmission', e.target.value)}>
+                    {TRANSMISSIONS.map(t => <option key={t}>{t}</option>)}
+                  </select>
+                </div>
+                <div className="spec-field">
+                  <label className="spec-label">Ownership Count</label>
+                  <select className="cd-input" value={inputs.ownerCount} onChange={e => updateInput('ownerCount', e.target.value)}>
+                    {OWNER_COUNTS.map(o => (
+                      <option key={o} value={o}>
+                        {o}{o === '1' ? 'st' : o === '2' ? 'nd' : o === '3' ? 'rd' : 'th'} Owner
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="spec-field">
+                  <label className="spec-label">Engine Capacity (cc)</label>
+                  <input
+                    type="number"
+                    className="cd-input"
+                    placeholder="e.g. 1497"
+                    value={inputs.engineCc}
+                    onChange={e => updateInput('engineCc', e.target.value)}
+                  />
+                </div>
+                <div className="spec-field">
+                  <label className="spec-label">Condition</label>
+                  <select className="cd-input" value={inputs.condition} onChange={e => updateInput('condition', e.target.value)}>
+                    {CONDITIONS.map(c => <option key={c}>{c}</option>)}
+                  </select>
+                </div>
               </div>
+
+              <div className="spec-label" style={{ marginTop: 12 }}>Fuel Type</div>
+              <div className="fuel-pills">
+                {FUELS.filter(f => validFuels.includes(f)).map(f => {
+                  const fi = FUEL_ICONS[f];
+                  const isActive = inputs.fuel === f;
+                  return (
+                    <button
+                      key={f}
+                      className={`fuel-pill ${isActive ? 'active' : ''}`}
+                      onClick={() => updateInput('fuel', f)}
+                    >
+                      <Icon name={fi.icon} size={15} color={isActive ? '#f75d34' : fi.color} strokeWidth={1.8} />
+                      <span>{f}</span>
+                    </button>
+                  );
+                })}
+              </div>
+              {inputs.model && !validFuels.includes(inputs.fuel) && (
+                <div className="vin-error" style={{ marginTop: 8 }}>
+                  ⚠ {inputs.model} was not available in {inputs.fuel} variant. Please verify before proceeding.
+                </div>
+              )}
             </div>
           </div>
 
-          <div className="step-back-row">
-            <button className="cd-btn-outline" onClick={() => setStep(1)}>
-              <Icon name="arrowLeft" size={16} color="#f75d34" strokeWidth={2} />
-              Back
-            </button>
-            <button className="cd-btn-orange" onClick={handleSubmit} disabled={!isFormValid}>
+          <div className="valuation-sticky-footer">
+            <button
+              className={`cd-btn-orange cd-btn-full ${!isFormValid ? 'disabled' : ''}`}
+              onClick={handleSubmit}
+              disabled={!isFormValid}
+            >
               <Icon name="sparkle" size={16} color="white" strokeWidth={1.8} />
               Get AI Valuation
             </button>
           </div>
-        </>
-      )}
+        </div>
+      </div>
     </div>
   );
 }

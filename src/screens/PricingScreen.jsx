@@ -31,7 +31,7 @@ export default function PricingScreen() {
     <div className="screen">
       <div className="section-page-head">
         <h1 className="page-head-title">Pricing Intelligence</h1>
-        <p className="page-head-sub">Dealer acquisition view · {inputs.year} {inputs.brand} {inputs.model}</p>
+        <p className="page-head-sub">Dealer acquisition view · {inputs.year} {inputs.model}</p>
       </div>
 
       <div className="role-notice">
@@ -141,7 +141,7 @@ export default function PricingScreen() {
           Similar Vehicles Sold
         </div>
         <div className="comp-list">
-          {comparables.length === 0 && <div className="empty-sub">No similar evaluated vehicles yet. Run more valuations or upload a bulk CSV to build live comparables.</div>}
+          {comparables.length === 0 && <div className="empty-sub">No similar evaluated vehicles yet. Run more valuations to build live comparables.</div>}
           {comparables.map(tx => (
             <div key={tx.id} className="comp-item">
               <img src={carImage} alt={tx.model} className="comp-item-img" />

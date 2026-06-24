@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext, useState, useCallback } from 'react';
 
 const AuthContext = createContext(null);
 
@@ -27,15 +28,8 @@ function loadSession() {
 }
 
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading]         = useState(true);
-
-  // Restore session on mount
-  useEffect(() => {
-    const session = loadSession();
-    if (session) setCurrentUser(session);
-    setLoading(false);
-  }, []);
+  const [currentUser, setCurrentUser] = useState(() => loadSession());
+  const [loading]                     = useState(false);
 
   const login = useCallback(({ email, password }) => {
     const em = email.trim().toLowerCase();

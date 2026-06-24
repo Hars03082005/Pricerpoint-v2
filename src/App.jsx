@@ -103,7 +103,7 @@ function UserMenu() {
 // ── Main App Shell (authenticated) ────────────────────────
 function AppShell() {
   const { activeScreen, setActiveScreen } = useApp();
-  const { currentUser } = useAuth();
+  useAuth();
 
   const SCREENS = {
     home:      <HomeScreen />,

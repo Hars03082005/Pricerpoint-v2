@@ -1,9 +1,10 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { BRANDS } from '../utils/mockData.js';
 import { useAuth } from './AuthContext.jsx';
 
 const DEFAULT_INPUTS = {
-  brand: 'Honda', model: 'City', year: '2021',
+  brand: 'Honda', model: 'City', variant: '', year: '2021',
   fuel: 'Petrol', transmission: 'Manual', mileage: '28000', fuelEfficiency: '17.5',
   city: 'Mumbai', vin: '',
   ownerCount: '1', engineCc: '1497', condition: 'Good',
@@ -103,7 +104,6 @@ export function AppProvider({ children }) {
   const [activeScreen, setActiveScreen] = useState('home');
   const [role] = useState(currentUser?.role || 'Dealer');
   const [inputs, setInputs] = useState(DEFAULT_INPUTS);
-  const [uploadedImage, setUploadedImage] = useState(null);
   const [conditionScore, setConditionScore] = useState(78);
   const [valuationResult, setValuationResult] = useState(null);
   const [enhancedResult, setEnhancedResult] = useState(null);
@@ -120,7 +120,8 @@ export function AppProvider({ children }) {
   const updateInput = useCallback((field, value) => {
     setInputs(prev => {
       const next = { ...prev, [field]: value };
-      if (field === 'brand') next.model = BRANDS[value]?.[0] || '';
+      if (field === 'brand') { next.model = BRANDS[value]?.[0] || ''; next.variant = ''; }
+      if (field === 'model') next.variant = '';
       return next;
     });
   }, []);
@@ -142,24 +143,10 @@ export function AppProvider({ children }) {
     }));
   }, []);
 
-  const handleImageUpload = useCallback((file) => {
-    if (!file) return;
-    const url = URL.createObjectURL(file);
-    setUploadedImage({ url, name: file.name, file });
-    // Computer vision is intentionally on hold for the final dealership prototype.
-    // Photos are accepted for future inspection workflow, but manual condition drives evaluation.
-  }, []);
-
   const addEvaluation = useCallback((vehicleInputs, result, source = 'Single Vehicle') => {
     const record = recordFromResult(vehicleInputs, result, source);
     setEvaluations(prev => [record, ...prev].slice(0, 500));
     return record;
-  }, []);
-
-  const addBulkEvaluations = useCallback((results) => {
-    const records = (results || []).map((r) => recordFromResult(r.input || r, r, 'Bulk CSV'));
-    setEvaluations(prev => [...records, ...prev].slice(0, 500));
-    return records;
   }, []);
 
   const clearEvaluations = useCallback(() => {
@@ -183,12 +170,12 @@ export function AppProvider({ children }) {
       activeScreen, setActiveScreen,
       role,
       inputs, updateInput, fillFromVIN,
-      uploadedImage, handleImageUpload, conditionScore, setConditionScore,
+      conditionScore, setConditionScore,
       valuationResult, setValuationResult,
       enhancedResult, setEnhancedResult,
       enhancedInspection, setEnhancedInspection, updateEnhancedInspection, updateVendorType,
       reverseResult, setReverseResult,
-      evaluations, addEvaluation, addBulkEvaluations, clearEvaluations,
+      evaluations, addEvaluation, clearEvaluations,
       isLoading, setIsLoading,
       dashFilters, setDashFilters,
     }}>

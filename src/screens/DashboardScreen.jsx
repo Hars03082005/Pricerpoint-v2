@@ -97,7 +97,7 @@ export default function DashboardScreen() {
     <div className="screen">
       <div className="section-page-head">
         <h1 className="page-head-title">Live Evaluation Analytics</h1>
-        <p className="page-head-sub">Charts are generated from your single and bulk ML evaluations only.</p>
+        <p className="page-head-sub">Charts are generated from your ML evaluations only.</p>
       </div>
 
       {evaluations.length === 0 ? <EmptyAnalytics setActiveScreen={setActiveScreen} /> : (

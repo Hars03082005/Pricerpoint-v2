@@ -1,151 +1,463 @@
-# PricerPoint — Final Dealership ML Prototype
+# PricerPoint v2.3 — Dealership ML Valuation System
 
-PricerPoint is a dealership/manager-side used-car acquisition and quotation system. It helps a used-car dealership evaluate vehicles quickly and generate a competitive, profitable, risk-aware acquisition quote before competitors.
+> **Scope:** Dealership / manager internal portal only.  
+> Seller portal · Buyer portal · Computer vision — all on hold.
 
-## Problem Statement
+PricerPoint automates used-car acquisition decisions for dealerships. A dealer enters vehicle details, the system predicts the market value using an ML ensemble, applies a condition calibration, runs a rule-based dealer decision engine, and returns a complete acquisition recommendation — buy price, sell price, profit, risk score, and BUY / NEGOTIATE / REJECT action — in under a second.
 
-Used-car dealerships need to quote the best acquisition price quickly when a seller brings a vehicle or when multiple vehicles are being evaluated. The current manual process depends on human judgement, market checking, negotiation experience, and rough estimation. This makes quoting slow, inconsistent, and risky. PricerPoint automates the workflow using ML market-value prediction plus a dealer decision engine for quote, risk, profit, and action recommendation.
+---
 
-## Current Prototype Scope
+## Table of Contents
 
-This final prototype focuses on the dealership/manager internal portal only.
+1. [Problem Statement](#1-problem-statement)
+2. [How It Works](#2-how-it-works)
+3. [Tech Stack](#3-tech-stack)
+4. [Project Structure](#4-project-structure)
+5. [ML Pipeline — v2.3](#5-ml-pipeline--v23)
+6. [Model Performance](#6-model-performance)
+7. [Segmented Models](#7-segmented-models)
+8. [Backend API](#8-backend-api)
+9. [Decision Engine Formula](#9-decision-engine-formula)
+10. [Frontend Screens](#10-frontend-screens)
+11. [Setup & Run](#11-setup--run)
+12. [Demo Login](#12-demo-login)
+13. [Known Issues & Next Improvements](#13-known-issues--next-improvements)
+14. [Version History](#14-version-history)
 
-- Seller portal: on hold
-- Buyer portal: on hold
-- Separate admin portal: on hold/removed because it duplicated dealer functionality
-- Computer vision/photo condition analysis: on hold; manual condition input is used
+---
 
-## Technologies
+## 1. Problem Statement
 
-Frontend:
-- React + Vite
-- JavaScript/JSX
-- CSS3
-- React Context API
-- Recharts
+Used-car dealerships must quote a competitive acquisition price the moment a seller walks in. The manual process — market lookup, negotiation experience, rough estimation — is slow, inconsistent, and risky. A competing dealership can win the deal simply by quoting faster.
 
-Backend:
-- Python
-- FastAPI
-- Uvicorn
-- Pydantic
-- CORS middleware
+PricerPoint solves this by:
+- Predicting market value from vehicle features using a trained ML ensemble
+- Routing predictions to price-bracket-specific models for accuracy
+- Generating a complete dealer decision (price, profit, risk, action) instantly
 
-Machine Learning:
-- CatBoost Regressor
-- Pandas
-- NumPy
-- Scikit-learn metrics
+---
 
-## ML Training Improvements Included
+## 2. How It Works
 
-- Uses the uploaded CarDekho-style dataset ZIP: `ml_training/data/cardekho_vehicle_dataset.zip`
-- Uses `cars_details_merges.csv` for training
-- Uses 70/15/15 split:
-  - 70% train
-  - 15% validation
-  - 15% test
-- Uses validation-based hyperparameter selection
-- Includes train/validation/test metrics to check overfitting and underfitting
-- Uses median imputation for numeric missing values because used-car data is skewed and outlier-heavy
-- Uses log transformation: `log1p(selling_price)` during training and `expm1()` during prediction
-- Reached test R² > 0.90 in the selected prototype model
+```
+Dealer enters vehicle details
+        ↓
+FastAPI backend receives request
+        ↓
+get_segment() routes to correct price bracket model
+    Budget (≤₹5L)   → Global ensemble  (MAPE 11.93%)
+    Mid    (₹5–15L) → Mid segment model (MAPE  8.64%)
+    Premium (₹15L+) → Premium segment model (MAPE 9.18%)
+        ↓
+Base market value predicted (log1p → expm1)
+        ↓
+Condition multiplier applied (Excellent/Good/Average/Poor)
+        ↓
+Dealer decision engine calculates:
+    - Recommended buy price
+    - Recommended sell price
+    - Expected profit
+    - Risk score / Confidence score / Deal quality
+    - Negotiation trio (opening / target / walk-away)
+    - BUY / NEGOTIATE / REJECT action
+        ↓
+Response returned to React frontend
+```
 
-## Final Model Metrics
+---
 
-Current selected model:
+## 3. Tech Stack
 
-- Model: CatBoost Regressor
-- Train R²: 0.9137
-- Validation R²: 0.9060
-- Test R²: 0.9136
-- Test MAE: ₹106,364.45
-- Test RMSE: ₹216,502.34
-- Test MAPE: 14.07%
+### Frontend
+| Technology | Purpose |
+|---|---|
+| React 18 + Vite | UI framework and build tool |
+| JavaScript / JSX | Component logic |
+| CSS3 | Styling (no Tailwind) |
+| React Context API | Global app state |
+| Recharts | Analytics charts |
 
-Overfitting check:
+### Mobile
+| Technology | Purpose |
+|---|---|
+| Flutter | Android / iOS shell |
+| WebView | Wraps the React frontend |
+| `npm run build:mobile` | Builds the bundle for Flutter |
 
-- Train-validation R² gap: 0.0077
-- Status: healthy generalization
+### Backend
+| Technology | Purpose |
+|---|---|
+| Python 3.13 | Runtime |
+| FastAPI | REST API framework |
+| Uvicorn | ASGI server |
+| Pydantic | Request / response validation |
+| Joblib | Segment model loading |
 
-## Condition Handling Fix
+### Machine Learning
+| Technology | Purpose |
+|---|---|
+| CatBoost | Base learner (handles categoricals natively) |
+| LightGBM | Base learner (dominant ensemble weight) |
+| XGBoost | Base learner |
+| Scikit-learn | Metrics, train/val/test split |
+| SciPy | Ensemble weight optimisation (SLSQP) |
+| Pandas / NumPy | Data cleaning and feature engineering |
 
-The dataset does not contain a verified real inspection-condition label. Earlier, using engineered condition directly as an ML categorical feature could cause non-monotonic results, for example Poor condition sometimes producing a higher price than Average for the same vehicle.
+---
 
-Final fix:
+## 4. Project Structure
 
-1. CatBoost predicts a base market value using dataset-backed vehicle features.
-2. A monotonic condition calibration is applied after prediction:
-   - Excellent: 1.035
-   - Good: 1.000
-   - Average: 0.940
-   - Poor: 0.860
-3. This guarantees that for the same car:
-   - Excellent >= Good >= Average >= Poor
+```
+pricerpoint-v2/
+├── backend/
+│   ├── main.py                  # FastAPI app, segment routing, prediction
+│   ├── decision_engine.py       # Rule-based dealer logic
+│   ├── ensemble_predictor.py    # Global ensemble loader
+│   ├── brand_catalog.py         # Brand/model lookup
+│   └── requirements.txt
+│
+├── ml_training/
+│   ├── train_ml_model.py        # Full training pipeline (v2.3)
+│   ├── clean_data.py            # Standalone data cleaning script
+│   ├── requirements.txt
+│   └── data/
+│       ├── cars.csv             # Raw dataset (36,956 rows, 46 OEMs)
+│       ├── cleaned.csv          # Output of clean_data.py
+│       └── brand_stats.csv      # Per-brand depreciation stats
+│
+├── model_artifacts/
+│   ├── vehicle_price_catboost.cbm     # Global CatBoost (fallback)
+│   ├── vehicle_price_lightgbm.txt     # Global LightGBM (fallback)
+│   ├── vehicle_price_xgboost.json     # Global XGBoost (fallback)
+│   ├── ensemble_budget.pkl            # Budget segment ensemble
+│   ├── ensemble_mid.pkl               # Mid segment ensemble
+│   ├── ensemble_premium.pkl           # Premium segment ensemble
+│   ├── model_metadata.json            # Training metadata + metrics
+│   ├── training_report.json           # Full training report
+│   └── cleaned_training_sample.csv    # 500-row sample for inspection
+│
+├── src/
+│   ├── screens/
+│   │   ├── AuthScreen.jsx             # Login
+│   │   ├── HomeScreen.jsx             # Dashboard overview
+│   │   ├── InputScreen.jsx            # Vehicle input form
+│   │   ├── ResultScreen.jsx           # ML result + decision
+│   │   ├── EnhancedResultScreen.jsx   # Wheelr enrichment result
+│   │   ├── EnhancedValuationScreen.jsx
+│   │   ├── DashboardScreen.jsx        # Analytics
+│   │   ├── ExplainScreen.jsx          # SHAP-style explanation
+│   │   ├── PricingScreen.jsx          # Pricing breakdown
+│   │   ├── ReverseCalculatorScreen.jsx # Reverse price calculator
+│   │   └── AssistantScreen.jsx        # AI assistant
+│   ├── components/
+│   │   ├── SearchableSelect.jsx
+│   │   └── WheelrPanels.jsx
+│   ├── context/
+│   │   └── AppContext.jsx
+│   ├── utils/
+│   │   └── apiValuation.js
+│   ├── App.jsx
+│   └── App.css
+│
+├── mobile/                       # Flutter shell
+├── public/
+├── dist/                         # Production build output
+├── index.html
+├── vite.config.js
+├── package.json
+└── README.md
+```
 
-## Run Backend
+---
 
+## 5. ML Pipeline — v2.3
+
+### Dataset
+| Metric | Value |
+|---|---|
+| Source | `ml_training/data/cars.csv` |
+| Raw rows | 36,956 |
+| Clean rows | 36,439 |
+| OEM brands | 46 |
+| Price range (clean) | ₹50,343 – ₹9.55 Cr |
+
+### Features Used (14)
+| Feature | Type | Notes |
+|---|---|---|
+| `brand` | Categorical | OEM name |
+| `model` | Categorical | Model name |
+| `variant` | Categorical | Trim/variant level |
+| `vehicle_age` | Numeric | `2026 - year` |
+| `fuel_type` | Categorical | Petrol/Diesel/CNG/Electric |
+| `transmission` | Categorical | Manual/Automatic |
+| `odometer_reading` | Numeric | km driven |
+| `fuel_efficiency` | Numeric | km/L (median-imputed) |
+| `owner_count` | Numeric | Number of previous owners |
+| `engine_cc` | Numeric | Engine displacement |
+| `city` | Categorical | Listing city |
+| `km_per_year` | Numeric | `odometer / max(age, 1)` |
+| `ownership_trust_score` | Numeric | 100→25 by owner count |
+| `vehicle_health_score` | Numeric | `100 - age×3 - km/10000 - (owners-1)×8` |
+
+### Training Split
+```
+Total: 36,439 rows
+  ├── Train:      70%  (~25,507 rows)
+  ├── Validation: 15%  (~5,466 rows)  ← ensemble weight optimisation
+  └── Test:       15%  (~5,466 rows)  ← final unbiased metrics
+```
+
+### Ensemble Strategy
+- Three base learners trained independently: CatBoost, LightGBM, XGBoost
+- Ensemble weights optimised on the validation set using SLSQP (maximise R²)
+- Final prediction: `w_cb × pred_cb + w_lgb × pred_lgb + w_xgb × pred_xgb`
+- Target transform: `log1p(selling_price)` → `expm1()` at inference
+
+### Condition Calibration (post-ML)
+Applied after ensemble prediction to enforce monotonicity:
+| Condition | Multiplier |
+|---|---|
+| Excellent | 1.035 |
+| Good | 1.000 |
+| Average | 0.940 |
+| Poor | 0.860 |
+
+---
+
+## 6. Model Performance
+
+### Global Ensemble (all price ranges, legacy fallback)
+| Split | R² | MAE | RMSE | MAPE |
+|---|---|---|---|---|
+| Train | 0.9504 | ₹73,429 | ₹1,62,674 | 10.37% |
+| Validation | 0.9364 | ₹86,145 | ₹1,93,193 | 11.84% |
+| **Test** | **0.9312** | **₹84,531** | **₹1,94,993** | **11.93%** |
+
+**Overfitting gap:** 0.014 → `healthy_generalization` ✅
+
+### Ensemble Weights (Global)
+| Model | Weight |
+|---|---|
+| LightGBM | 85.5% |
+| CatBoost | 9.5% |
+| XGBoost | 5.1% |
+
+---
+
+## 7. Segmented Models
+
+Three separate ensembles trained per price bracket (v2.3):
+
+| Segment | Price Range | Rows | MAPE | MAE | R² | Active? |
+|---|---|---|---|---|---|---|
+| **Budget** | ₹0 – ₹5L | 17,340 | 13.39% | ₹35,699 | 0.8385 | ❌ bypassed (global is better) |
+| **Mid** | ₹5L – ₹15L | 15,356 | **8.64%** | ₹72,364 | 0.8275 | ✅ |
+| **Premium** | ₹15L+ | 3,664 | **9.18%** | ₹2,50,013 | 0.8503 | ✅ |
+
+### Routing Logic
+```python
+seller_asking_price == 0      → mid  (default)
+seller_asking_price <= 500k   → budget → routed to GLOBAL (more accurate)
+seller_asking_price <= 1.5M   → mid segment model
+seller_asking_price >  1.5M   → premium segment model
+```
+
+API response includes:
+```json
+{
+  "price_segment": "mid",
+  "segment_model_used": true,
+  "routing_note": "mid segment model used"
+}
+```
+
+---
+
+## 8. Backend API
+
+### Base URL
+```
+http://localhost:8000
+```
+
+### Endpoints
+
+| Method | Path | Description |
+|---|---|---|
+| GET | `/health` | Server + model status |
+| GET | `/metadata` | Full model metadata + metrics |
+| GET | `/api/brands` | Brand catalog for frontend dropdowns |
+| POST | `/predict` | Market value prediction |
+| POST | `/evaluate` | Full dealer evaluation (value + decision) |
+| POST | `/evaluate-enhanced` | Wheelr enrichment (recon, risk, negotiation) |
+| POST | `/reverse-calculate` | Given sell price → max buy price |
+| POST | `/bulk-evaluate` | Array of vehicles, one evaluation each |
+
+### Sample Request — `/evaluate`
+```json
+{
+  "brand": "Honda",
+  "model": "City",
+  "year": 2021,
+  "fuel_type": "Petrol",
+  "transmission": "Manual",
+  "odometer_reading": 28000,
+  "fuel_efficiency": 17.5,
+  "owner_count": 1,
+  "engine_cc": 1497,
+  "city": "Mumbai",
+  "condition": "Good",
+  "seller_asking_price": 750000,
+  "target_margin_pct": 15,
+  "repair_buffer": 25000
+}
+```
+
+### Sample Response — `/evaluate`
+```json
+{
+  "base_market_value": 735000,
+  "market_value": 735000,
+  "condition_multiplier": 1.0,
+  "condition_adjustment": 0,
+  "condition_score": 75,
+  "price_segment": "mid",
+  "segment_model_used": true,
+  "routing_note": "mid segment model used",
+  "recommended_buy_price": 580000,
+  "recommended_sell_price": 771750,
+  "expected_profit": 91500,
+  "risk_score": 22,
+  "confidence_score": 78,
+  "deal_quality_score": 81,
+  "urgency_score": 65,
+  "action": "BUY",
+  "shap": [...],
+  "warnings": []
+}
+```
+
+---
+
+## 9. Decision Engine Formula
+
+```
+Final Market Value   = Base ML Value × Condition Multiplier
+Target Profit        = Market Value × target_margin_pct %
+Holding Cost         = Market Value × 2.5%
+Risk Buffer          = Market Value × (risk_score / 100) × 8%
+Recommended Buy      = Market Value − Target Profit − Repair Buffer − Holding Cost − Risk Buffer
+Recommended Sell     = Market Value × 1.05
+Expected Profit      = Recommended Sell − Recommended Buy − Repair Buffer − Holding Cost
+
+Action thresholds:
+  BUY        → confidence ≥ 65 AND risk < 55
+  NEGOTIATE  → confidence 50–64 OR risk 55–74
+  REJECT     → confidence < 50 OR risk ≥ 75
+```
+
+---
+
+## 10. Frontend Screens
+
+| Screen | Purpose |
+|---|---|
+| `AuthScreen` | Demo login (`dealer@pricerpoint.ai / dealer123`) |
+| `HomeScreen` | Live dashboard with recent evaluations |
+| `InputScreen` | Vehicle details form (brand, model, specs, condition) |
+| `ResultScreen` | Market value + BUY/NEGOTIATE/REJECT result |
+| `EnhancedResultScreen` | Wheelr enrichment: recon cost, risk deductions, negotiation trio |
+| `EnhancedValuationScreen` | Combined valuation with enrichment panel |
+| `DashboardScreen` | Analytics: volume, MAPE trends, brand breakdown |
+| `ExplainScreen` | SHAP-style feature contribution breakdown |
+| `PricingScreen` | Price waterfall breakdown |
+| `ReverseCalculatorScreen` | Enter desired sell price → calculate max buy |
+| `AssistantScreen` | AI assistant (Q&A about the evaluation) |
+
+---
+
+## 11. Setup & Run
+
+### Prerequisites
+- Python 3.10+
+- Node.js 18+
+- pip, npm
+
+### 1. Install ML dependencies & train models
 ```bash
-cd pricerpoint
+pip install -r ml_training/requirements.txt
+
+# Clean the dataset
+python ml_training/clean_data.py
+
+# Train all models (global + 3 segments, ~3 minutes)
+python ml_training/train_ml_model.py
+```
+
+### 2. Run backend
+```bash
 pip install -r backend/requirements.txt
 uvicorn backend.main:app --reload
 ```
+API docs: [http://localhost:8000/docs](http://localhost:8000/docs)
 
-Backend docs:
-
-```text
-http://localhost:8000/docs
-```
-
-## Run Frontend
-
+### 3. Run frontend
 ```bash
-cd pricerpoint
 npm install
 npm run dev
 ```
+App: [http://localhost:5173](http://localhost:5173)
 
-Frontend:
+### 4. Mobile (Flutter)
+```bash
+npm run build:mobile
+cd mobile
+flutter pub get
+flutter run
+```
+See `mobile/README.md` for device-specific instructions.
 
-```text
-http://localhost:5173
+---
+
+## 12. Demo Login
+
+```
+Email:    dealer@pricerpoint.ai
+Password: dealer123
 ```
 
-## Demo Login
+---
 
-```text
-dealer@pricerpoint.ai / dealer123
-```
+## 13. Known Issues & Next Improvements
 
-## CSV Bulk Upload Format
+### ✅ Resolved (v2.4)
+- **`variant` sent from frontend** — Wired the variant field end-to-end so that variant-specific pricing operates dynamically.
+- **`fuel_efficiency` distribution sync** — Documented that the backend correctly sets fuel efficiency to 0.0 to match the training distribution of `cars.csv`.
+- **Budget segment fallback** — Programmed a fallback check that defaults to the more accurate global model if the budget segment model has a higher MAPE.
+- **`category_levels` saved in segment pkls** — Included category levels in the segment pickles to normalise unseen brands to "unknown" and prevent lightgbm/xgboost out-of-vocab inference crashes.
+- **Two-pass segment routing for seller_asking_price = 0** — Uses a cheap global ensemble pass to estimate the price bracket, then routes to the correct segment model.
 
-```csv
-brand,model,year,fuel,transmission,odometer_reading,fuel_efficiency,city,owner_count,engine_cc,condition,seller_asking_price
-Honda,City,2021,Petrol,Manual,28000,17.5,Mumbai,1,1497,Good,850000
-Hyundai,Creta,2020,Diesel,Automatic,45000,18.0,Delhi,2,1493,Average,1050000
-Toyota,Fortuner,2021,Diesel,Automatic,22000,14.2,Bangalore,1,2755,Excellent,3050000
-```
+### 🟡 Medium
+- Physical features (`Seats`, `No of Cylinder`, `power_to_weight_ratio`) exist in `cleaned.csv` but are not in `FEATURES` — adding them would improve budget MAPE
+- `km_per_year` uncapped — `car_age = 0` inflates this feature to raw `km` value
+- `training_report.json` and `model_metadata.json` are identical writes — redundant
 
-## API Endpoints
+### 🟢 Low
+- Add `sys.stdout.reconfigure(encoding='utf-8')` so training works on Windows without `PYTHONUTF8=1`
+- Add model versioning (timestamp suffix on artifacts) so retrains don't silently overwrite metrics
 
-- `GET /health`
-- `GET /metadata`
-- `POST /predict`
-- `POST /evaluate`
-- `POST /bulk-evaluate`
+---
 
-## Evaluation Flow
+## 14. Version History
 
-```text
-Vehicle details
-→ FastAPI backend
-→ CatBoost base market value prediction
-→ Condition calibration
-→ Dealer decision engine
-→ Recommended buy price / sell price / profit / risk / action
-→ Home and Analytics update from live evaluation history
-```
+| Version | Change | Test MAPE |
+|---|---|---|
+| v2.0 | Baseline: CatBoost + LightGBM + XGBoost ensemble | 12.31% |
+| v2.1 | Added `variant` as categorical feature | **11.93%** |
+| v2.2 | `ex_showroom_price` + `depreciation_ratio` — **reverted** (target leakage) | 11.93% |
+| v2.3 | Price-bracket segmented models (budget / mid / premium) | Mid: **8.64%** · Premium: **9.18%** |
+| v2.4 | Fixed variant wiring, saved category levels in segment pkls, & added two-pass routing fallback | Global: **11.93%** · Mid: **8.64%** · Premium: **9.18%** |
 
-## Important Explanation
+---
 
-The ML model predicts base market value. The dealer decision engine calculates recommended buy price, sell price, expected profit, risk score, confidence score, deal quality score, urgency score, and BUY/NEGOTIATE/REJECT recommendation.
+*PricerPoint is a dealership-internal prototype. All predictions are ML estimates and should be reviewed by an experienced dealer before finalising any acquisition.*

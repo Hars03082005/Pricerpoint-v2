@@ -29,7 +29,7 @@ export default function ExplainScreen() {
     <div className="screen">
       <div className="section-page-head">
         <h1 className="page-head-title">Why this price?</h1>
-        <p className="page-head-sub">AI-powered factor analysis for your {inputs.brand} {inputs.model}</p>
+        <p className="page-head-sub">AI-powered factor analysis for your {inputs.model}</p>
       </div>
 
       {/* SHAP chart */}
@@ -106,7 +106,7 @@ export default function ExplainScreen() {
         </div>
         <div className="summary-text">
           Our <strong>CatBoost ML price model + dealer quote engine</strong> priced your{' '}
-          <strong>{inputs.year} {inputs.brand} {inputs.model}</strong> at{' '}
+          <strong>{inputs.year} {inputs.model}</strong> at{' '}
           <strong>{formatINR(predictedPrice)}</strong>. The primary factors are{' '}
           <strong>{shap[0]?.feature}</strong> and <strong>{shap[1]?.feature}</strong>.
         </div>

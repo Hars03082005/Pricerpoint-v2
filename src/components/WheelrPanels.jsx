@@ -1,27 +1,58 @@
 import { formatINR } from '../utils/format.js';
 
-export function NegotiationPlaybook({ negotiation, variant = 'enhanced' }) {
-  const opening = variant === 'reverse' ? negotiation?.opening : negotiation?.opening_offer;
-  const target = variant === 'reverse' ? negotiation?.target : negotiation?.target_offer;
+export function NegotiationPlaybook({ negotiation, variant = 'enhanced', confidenceScore }) {
+  const opening  = variant === 'reverse' ? negotiation?.opening  : negotiation?.opening_offer;
+  const target   = variant === 'reverse' ? negotiation?.target   : negotiation?.target_offer;
   const walkAway = variant === 'reverse' ? negotiation?.walk_away : negotiation?.walk_away_price;
+
+  const confScore = confidenceScore ?? null;
+  const confCls   = confScore >= 75 ? 'good'   : confScore >= 55 ? 'medium'  : 'bad';
 
   return (
     <div className="negotiation-playbook">
-      <div className="cd-section-label">Negotiation Playbook</div>
+      {/* Section title + confidence badge */}
+      <div className="neg-playbook-header">
+        <div className="cd-section-label" style={{ marginBottom: 0 }}>
+          Price Range &amp; Negotiation Guide
+        </div>
+        {confScore != null && (
+          <span className={`confidence-pill ${confCls}`} style={{ fontSize: 10, padding: '3px 8px' }}>
+            🛡 {confScore}% confidence
+          </span>
+        )}
+      </div>
+
+      {/* Intro description */}
+      <div className="neg-playbook-intro">
+        Predicted acquisition price range based on ML valuation + rule engine adjustments
+      </div>
+
+      {/* Three range cards */}
       <div className="negotiation-trio">
         <div className="negotiation-card opening">
-          <div className="trio-label">Open at</div>
+          <div className="trio-label">RANGE FLOOR</div>
+          <div className="trio-sublabel">(Open at)</div>
           <div className="trio-price">{formatINR(opening)}</div>
         </div>
         <div className="negotiation-card target">
-          <div className="trio-label">Target close</div>
+          <div className="trio-label">FAIR VALUE</div>
+          <div className="trio-sublabel">(Target)</div>
           <div className="trio-price">{formatINR(target)}</div>
         </div>
         <div className="negotiation-card walk-away">
-          <div className="trio-label">Walk away</div>
+          <div className="trio-label">RANGE CEILING</div>
+          <div className="trio-sublabel">(Max pay)</div>
           <div className="trio-price">{formatINR(walkAway)}</div>
         </div>
       </div>
+
+      {/* One-line confidence summary (Change 3) */}
+      {confScore != null && opening != null && walkAway != null && (
+        <div className="neg-playbook-summary">
+          Model is <strong>{confScore}% confident</strong> the fair buy price falls between{' '}
+          <strong>{formatINR(opening)}</strong> and <strong>{formatINR(walkAway)}</strong>
+        </div>
+      )}
     </div>
   );
 }

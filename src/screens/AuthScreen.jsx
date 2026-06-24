@@ -135,7 +135,7 @@ export default function AuthScreen() {
           <div className="auth-hero-pills">
             <span className="auth-hero-pill"><Icon name="robot" size={12} color="#f75d34" strokeWidth={2} /> CatBoost ML</span>
             <span className="auth-hero-pill"><Icon name="shield" size={12} color="#f75d34" strokeWidth={2} /> Risk Aware</span>
-            <span className="auth-hero-pill"><Icon name="trendUp" size={12} color="#f75d34" strokeWidth={2} /> Bulk Evaluation</span>
+            <span className="auth-hero-pill"><Icon name="trendUp" size={12} color="#f75d34" strokeWidth={2} /> Smart Quotes</span>
           </div>
         </div>
         <div className="auth-hero-car-strip">

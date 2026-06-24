@@ -1,501 +1,501 @@
-brand,model,vehicle_age,fuel_type,transmission,odometer_reading,fuel_efficiency,owner_count,engine_cc,city,km_per_year,ownership_trust_score,vehicle_health_score,selling_price
-maruti,maruti ertiga,11,petrol,manual,72053.0,19.01,2,1462.0,chennai,6550.272727272727,75,51.7947,650000
-hyundai,hyundai alcazar,5,diesel,automatic,18000.0,18.1,2,1493.0,noida,3600.0,75,75.2,2150000
-honda,honda city,10,petrol,manual,71840.0,17.8,1,1497.0,gurgaon,7184.0,100,62.816,680000
-honda,honda brio,11,petrol,manual,99398.0,19.4,1,1198.0,ahmedabad,9036.181818181818,100,57.0602,346000
-renault,renault triber,6,petrol,manual,3000.0,20.0,1,999.0,bhubaneswar,500.0,100,81.7,550000
-hyundai,hyundai eon,13,petrol,manual,42536.0,21.1,1,814.0,gurgaon,3272.0,100,56.7464,150000
-hyundai,hyundai i20,16,petrol,manual,66768.0,17.0,1,1197.0,pune,4173.0,100,45.3232,225000
-hyundai,hyundai i20,10,diesel,manual,31202.0,22.54,3,1396.0,dehradun,3120.2,55,50.8798,460996
-maruti,maruti swift dzire,12,diesel,manual,119662.0,23.4,2,1248.0,new delhi,9971.833333333334,75,44.0338,300000
-bmw,bmw 3 series gt,9,diesel,automatic,31000.0,21.76,2,1995.0,new delhi,3444.4444444444443,75,61.900000000000006,2575000
-hyundai,hyundai i20,6,petrol,automatic,14756.0,20.28,1,998.0,bangalore,2459.3333333333335,100,80.5244,1250000
-hyundai,hyundai i10,16,petrol,manual,88596.0,20.36,2,1197.0,bangalore,5537.25,75,35.1404,200000
-mercedes-benz,mercedes-benz glc,9,petrol,automatic,49585.0,11.5,1,1991.0,new delhi,5509.444444444444,100,68.0415,3850000
-maruti,maruti alto k10,15,petrol,manual,21220.0,20.92,2,998.0,mumbai,1414.6666666666667,75,44.878,175000
-mahindra,mahindra xuv500,12,diesel,manual,140845.0,15.1,1,2179.0,noida,11737.083333333334,100,49.9155,600000
-maruti,maruti swift,13,diesel,manual,167443.0,22.9,3,1248.0,chandigarh,12880.23076923077,55,28.255700000000004,290000
-maruti,maruti wagon r,12,petrol,manual,54896.0,20.51,1,998.0,chennai,4574.666666666667,100,58.5104,395000
-mercedes-benz,mercedes-benz c-class,14,diesel,automatic,82000.0,19.71,2,2143.0,pune,5857.142857142857,75,41.8,1025000
-hyundai,hyundai verna,15,petrol,manual,37125.0,17.01,1,1591.0,pune,2475.0,100,51.2875,375133
-hyundai,hyundai i10,15,petrol,manual,83631.0,20.36,3,1197.0,gurgaon,5575.4,55,30.636899999999997,184000
-mahindra,mahindra tuv 300,11,diesel,manual,69483.0,18.49,2,1493.0,gurgaon,6316.636363636364,75,52.0517,400000
-honda,honda city,8,diesel,manual,55000.0,25.6,1,1498.0,indore,6875.0,100,70.5,880000
-hyundai,hyundai i20,12,diesel,manual,93000.0,21.9,1,1396.0,mumbai,7750.0,100,54.7,435000
-hyundai,hyundai verna,12,diesel,manual,112484.0,22.32,1,1582.0,kolkata,9373.666666666666,100,52.751599999999996,394428
-hyundai,hyundai grand i10,11,petrol,manual,31800.0,18.9,1,1197.0,bangalore,2890.909090909091,100,63.82,450000
-volkswagen,volkswagen polo,10,petrol,automatic,28708.0,17.21,1,1197.0,hyderabad,2870.8,100,67.1292,731000
-chevrolet,chevrolet beat,12,diesel,manual,70000.0,25.44,1,936.0,pune,5833.333333333333,100,57.0,275000
-honda,honda city,4,petrol,manual,4864.0,17.4,1,1497.0,new delhi,1216.0,100,87.5136,1000000
-volkswagen,volkswagen polo,14,petrol,manual,72000.0,16.47,2,1198.0,mumbai,5142.857142857143,75,42.8,325000
-tata,tata altroz,6,petrol,manual,43112.0,19.33,1,1199.0,new delhi,7185.333333333333,100,77.6888,650000
-chevrolet,chevrolet spark,18,petrol,manual,115777.0,18.0,2,995.0,chandigarh,6432.055555555556,75,26.4223,80000
-hyundai,hyundai creta,6,petrol,automatic,13000.0,18.9,1,1353.0,new delhi,2166.6666666666665,100,80.7,1790000
-maruti,maruti swift dzire,13,petrol,manual,107856.0,19.1,1,1197.0,pune,8296.615384615385,100,50.2144,358571
-mahindra,mahindra thar,12,diesel,manual,58000.0,16.55,2,2498.0,new delhi,4833.333333333333,75,50.2,495000
-jeep,jeep compass,7,diesel,manual,56077.0,17.1,1,1956.0,jaipur,8011.0,100,73.3923,1800000
-maruti,maruti swift,7,diesel,manual,52000.0,28.4,1,1248.0,bangalore,7428.571428571428,100,73.8,756000
-tata,tata hexa,9,diesel,automatic,64000.0,17.6,1,2179.0,mumbai,7111.111111111111,100,66.6,1350000
-bmw,bmw x1,15,diesel,automatic,118083.0,17.05,5,1995.0,pune,7872.2,25,11.191699999999997,800000
-honda,honda city,14,petrol,manual,45909.0,16.8,3,1497.0,bangalore,3279.214285714286,55,37.4091,442167
-hyundai,hyundai i20,13,petrol,manual,59685.0,18.5,1,1197.0,bangalore,4591.153846153846,100,55.0315,410000
-ford,ford ecosport,8,diesel,manual,90000.0,23.0,2,1498.0,nashik,11250.0,75,59.0,700000
-maruti,maruti swift,9,diesel,manual,32884.0,28.4,2,1248.0,gurgaon,3653.777777777778,75,61.711600000000004,800000
-hyundai,hyundai creta,8,petrol,manual,84742.0,15.8,1,1591.0,dehradun,10592.75,100,67.5258,1000000
-kia,kia seltos,7,petrol,automatic,39680.0,16.5,1,1353.0,gurgaon,5668.571428571428,100,75.032,1543599
-tata,tata indigo,17,petrol,manual,58568.0,15.2,1,1193.0,gurgaon,3445.176470588235,100,43.1432,70000
-tata,tata nexon,7,diesel,manual,49685.0,21.5,1,1497.0,gurgaon,7097.857142857143,100,74.0315,648340
-jeep,jeep compass,5,petrol,automatic,14589.0,14.1,1,1368.0,mumbai,2917.8,100,83.5411,2525000
-jeep,jeep compass,7,petrol,automatic,30000.0,16.0,1,1368.0,new delhi,4285.714285714285,100,76.0,1675000
-mg,mg hector,7,diesel,manual,82475.0,17.41,1,1956.0,gurgaon,11782.142857142857,100,70.7525,1400000
-toyota,toyota etios cross,12,diesel,manual,51260.0,23.59,1,1364.0,dehradun,4271.666666666667,100,58.874,390000
-maruti,maruti celerio,9,petrol,automatic,38369.0,23.1,2,998.0,gurgaon,4263.222222222223,75,61.1631,370000
-hyundai,hyundai i20 active,11,diesel,manual,179419.0,21.19,1,1396.0,bangalore,16310.818181818182,100,49.058099999999996,540609
-volkswagen,volkswagen polo,7,petrol,manual,53000.0,17.74,1,999.0,bangalore,7571.428571428572,100,73.7,690000
-toyota,toyota etios liva,13,diesel,manual,90000.0,23.59,1,1364.0,sirsa,6923.076923076923,100,52.0,350000
-maruti,maruti sx4 s cross,9,diesel,manual,158796.0,25.1,1,1248.0,noida,17644.0,100,57.120400000000004,550000
-volkswagen,volkswagen polo,5,petrol,manual,16822.0,18.24,1,999.0,hyderabad,3364.4,100,83.3178,800000
-renault,renault triber,6,petrol,manual,14430.0,20.0,2,999.0,new delhi,2405.0,75,72.557,475000
-mahindra,mahindra xuv500,14,diesel,manual,115000.0,15.1,3,1997.0,rajkot,8214.285714285714,55,30.5,400000
-kia,kia seltos,6,petrol,automatic,15014.0,16.8,1,1497.0,hyderabad,2502.3333333333335,100,80.4986,1450000
-hyundai,hyundai i20,6,petrol,manual,2997.0,18.6,1,1197.0,bangalore,499.5,100,81.7003,750997
-maruti,maruti s-presso,6,petrol,manual,9018.0,21.7,1,998.0,coimbatore,1503.0,100,81.0982,472000
-hyundai,hyundai verna,9,diesel,manual,63000.0,23.9,1,1582.0,new delhi,7000.0,100,66.7,950001
-hyundai,hyundai creta,6,diesel,manual,31607.0,18.9,1,1493.0,bangalore,5267.833333333333,100,78.8393,1800000
-honda,honda city,8,petrol,automatic,28000.0,18.0,1,1497.0,mumbai,3500.0,100,73.2,1045000
-audi,audi a3,12,diesel,automatic,74320.0,20.38,2,1968.0,coimbatore,6193.333333333333,75,48.568,1650000
-hyundai,hyundai i10,14,petrol,manual,15424.0,19.81,2,1086.0,pune,1101.7142857142858,75,48.4576,225000
-maruti,maruti ciaz,7,petrol,manual,54607.0,21.56,1,1462.0,lucknow,7801.0,100,73.5393,750000
-maruti,maruti alto 800,5,petrol,manual,14453.0,22.05,1,796.0,vadodara,2890.6,100,83.5547,375000
-hyundai,hyundai i20,10,petrol,manual,62600.0,18.6,1,1197.0,noida,6260.0,100,63.74,608000
-maruti,maruti alto 800,10,petrol,manual,40074.0,22.74,1,796.0,kochi,4007.4,100,65.9926,273000
-bmw,bmw 3 series,13,diesel,automatic,54864.0,18.88,2,1995.0,hyderabad,4220.307692307692,75,47.5136,1331519
-honda,honda city,11,petrol,manual,58037.0,17.4,1,1497.0,gurgaon,5276.090909090909,100,61.1963,515000
-honda,honda civic,18,petrol,manual,70206.0,13.5,4,1799.0,bangalore,3900.3333333333335,35,14.979399999999998,245984
-maruti,maruti eeco,7,petrol,manual,25000.0,15.37,1,1196.0,kolkata,3571.4285714285716,100,76.5,411000
-maruti,maruti xl6,5,petrol,automatic,12000.0,17.99,1,1462.0,mumbai,2400.0,100,83.8,1225000
-maruti,maruti sx4,13,diesel,manual,155641.0,21.79,3,1248.0,ghaziabad,11972.384615384615,55,29.435900000000004,150000
-mahindra,mahindra xuv300,6,diesel,manual,21000.0,20.0,1,1497.0,new delhi,3500.0,100,79.9,825000
-tata,tata aria,14,diesel,manual,120000.0,13.7,1,2197.0,anuppur,8571.42857142857,100,46.0,290000
-honda,honda jazz,9,petrol,manual,67560.0,18.7,1,1199.0,bangalore,7506.666666666667,100,66.244,673659
-renault,renault kwid,7,petrol,manual,16459.0,25.17,1,799.0,new delhi,2351.285714285714,100,77.3541,412000
-jaguar,jaguar xf,11,diesel,automatic,50000.0,16.36,1,2179.0,mumbai,4545.454545454545,100,62.0,2400000
-maruti,maruti ciaz,9,petrol,manual,65280.0,20.73,1,1373.0,new delhi,7253.333333333333,100,66.472,580000
-maruti,maruti baleno,9,petrol,manual,35419.0,21.01,1,1197.0,chennai,3935.4444444444443,100,69.4581,678000
-renault,renault duster,6,petrol,automatic,15565.0,16.42,1,1330.0,coimbatore,2594.1666666666665,100,80.4435,1225000
-maruti,maruti alto 800,10,petrol,manual,25769.0,22.74,2,796.0,kolkata,2576.9,75,59.423100000000005,269000
-maruti,maruti alto 800,6,petrol,manual,31705.0,22.05,1,796.0,ahmedabad,5284.166666666667,100,78.8295,370000
-tata,tata indigo,14,diesel,manual,63433.0,25.0,1,1396.0,lucknow,4530.928571428572,100,51.6567,150000
-mahindra,mahindra xuv500,14,diesel,manual,90000.0,15.1,2,2179.0,patna,6428.571428571428,75,41.0,650000
-skoda,skoda rapid,6,petrol,automatic,13677.0,16.24,1,999.0,kolkata,2279.5,100,80.6323,995000
-skoda,skoda rapid,13,diesel,manual,141100.0,20.5,1,1598.0,gwalior,10853.846153846154,100,46.89,285000
-audi,audi a3,12,diesel,automatic,35391.0,20.38,2,1968.0,gurgaon,2949.25,75,52.4609,1247061
-hyundai,hyundai santro,8,petrol,automatic,20712.0,20.3,2,1086.0,pune,2589.0,75,65.9288,400000
-maruti,maruti swift,9,petrol,manual,92391.0,20.4,1,1197.0,ghaziabad,10265.666666666666,100,63.7609,360344
-tata,tata nano,12,cng,manual,60421.0,36.0,2,624.0,pune,5035.083333333333,75,49.9579,80000
-kia,kia carens,4,petrol,manual,3512.0,16.2,1,1353.0,chennai,878.0,100,87.6488,1425000
-maruti,maruti baleno,10,diesel,manual,45983.0,27.39,1,1248.0,hazaribagh,4598.3,100,65.4017,538938
-hyundai,hyundai grand i10,9,petrol,automatic,35271.0,18.9,1,1197.0,new delhi,3919.0,100,69.4729,594000
-maruti,maruti baleno,6,petrol,manual,41243.0,21.01,1,1197.0,new delhi,6873.833333333333,100,77.8757,508016
-mitsubishi,mitsubishi pajero,14,diesel,manual,130539.0,13.5,1,2477.0,gurgaon,9324.214285714286,100,44.9461,700000
-maruti,maruti swift,16,petrol,manual,94124.0,16.1,1,1197.0,new delhi,5882.75,100,42.5876,140000
-mahindra,mahindra thar,6,diesel,automatic,9000.0,18.9,1,2184.0,bangalore,1500.0,100,81.1,1825000
-kia,kia seltos,7,petrol,manual,22431.0,16.5,1,1353.0,bangalore,3204.4285714285716,100,76.7569,1500000
-mahindra,mahindra scorpio,12,diesel,automatic,51328.0,11.79,2,2179.0,pune,4277.333333333333,75,50.8672,550000
-honda,honda amaze,9,petrol,manual,25086.0,17.8,1,1198.0,ahmedabad,2787.3333333333335,100,70.4914,568000
-maruti,maruti swift,11,diesel,manual,113072.0,25.2,1,1248.0,dehradun,10279.272727272728,100,55.6928,428333
-hyundai,hyundai creta,8,petrol,manual,60857.0,15.29,1,1591.0,bangalore,7607.125,100,69.9143,1182000
-mahindra,mahindra xuv300,6,petrol,manual,24843.0,17.0,1,1197.0,lucknow,4140.5,100,79.5157,850000
-kia,kia sonet,6,petrol,automatic,17406.0,18.3,1,998.0,gurgaon,2901.0,100,80.2594,1250000
-maruti,maruti swift dzire,7,petrol,manual,73968.0,21.21,1,1197.0,jaipur,10566.857142857143,100,71.6032,659000
-hyundai,hyundai grand i10,11,petrol,manual,57511.0,18.9,1,1197.0,new delhi,5228.272727272727,100,61.2489,401000
-tata,tata indigo,14,diesel,manual,116996.0,25.0,1,1396.0,lucknow,8356.857142857143,100,46.300399999999996,106394
-tata,tata nexon,4,petrol,automatic,8258.0,16.35,1,1199.0,bangalore,2064.5,100,87.1742,1141074
-maruti,maruti sx4,18,petrol,manual,127162.0,15.0,3,1586.0,pune,7064.555555555556,55,17.2838,165000
-honda,honda amaze,11,petrol,manual,79772.0,18.0,1,1198.0,pune,7252.0,100,59.022800000000004,438000
-maruti,maruti baleno,5,petrol,manual,21847.0,21.01,1,1197.0,lucknow,4369.4,100,82.8153,690000
-honda,honda amaze,5,petrol,automatic,8378.0,18.3,1,1199.0,bangalore,1675.6,100,84.1622,900000
-honda,honda city,10,diesel,manual,50000.0,26.0,1,1498.0,new delhi,5000.0,100,65.0,790000
-hyundai,hyundai grand i10 nios,6,petrol,manual,19543.0,20.7,1,1197.0,new delhi,3257.1666666666665,100,80.0457,577000
-ford,ford ecosport,10,petrol,manual,24557.0,15.85,2,1499.0,pune,2455.7,75,59.54429999999999,400000
-audi,audi a4,10,diesel,automatic,70000.0,18.25,2,1968.0,bangalore,7000.0,75,55.0,2475000
-maruti,maruti ritz,17,petrol,manual,42510.0,21.1,2,1197.0,bangalore,2500.5882352941176,75,36.749,179069
-hyundai,hyundai venue,3,petrol,manual,1576.0,18.9,1,1197.0,new delhi,525.3333333333334,100,90.8424,1050000
-jeep,jeep compass,7,diesel,manual,25700.0,17.1,1,1956.0,kolkata,3671.4285714285716,100,76.43,1297000
-toyota,toyota innova,15,diesel,manual,145000.0,12.8,1,2494.0,kolkata,9666.666666666666,100,40.5,474999
-tata,tata safari storme,13,diesel,manual,164500.0,14.0,1,2179.0,ludhiana,12653.846153846154,100,44.55,450000
-mahindra,mahindra alturas g4,4,diesel,automatic,21000.0,12.35,1,2157.0,new delhi,5250.0,100,85.9,3344000
-audi,audi a4,10,diesel,automatic,39000.0,18.25,1,1968.0,new delhi,3900.0,100,66.1,1600000
-honda,honda wr-v,9,diesel,manual,110711.0,25.5,2,1498.0,noida,12301.222222222223,75,53.9289,618448
-tata,tata hexa,8,diesel,manual,56006.0,17.6,1,2179.0,gurgaon,7000.75,100,70.3994,1200000
-audi,audi a3,8,diesel,automatic,142000.0,20.38,1,1968.0,davangere,17750.0,100,61.8,1800000
-jaguar,jaguar xf,13,diesel,automatic,81475.0,16.36,2,2179.0,pune,6267.307692307692,75,44.8525,1750000
-hyundai,hyundai eon,9,petrol,manual,14501.0,21.1,1,814.0,mumbai,1611.2222222222222,100,71.5499,361000
-datsun,datsun redigo,7,petrol,manual,18698.0,22.5,1,999.0,new delhi,2671.1428571428573,100,77.1302,354000
-hyundai,hyundai grand i10,9,diesel,manual,60479.0,24.0,2,1186.0,noida,6719.888888888889,75,58.9521,350000
-mini,mini 5 door,11,diesel,automatic,20000.0,20.7,2,1496.0,coimbatore,1818.1818181818182,75,57.0,2700000
-tata,tata tiago,7,petrol,manual,35000.0,23.84,1,1199.0,new delhi,5000.0,100,75.5,515000
-kia,kia sonet,5,diesel,automatic,13896.0,18.9,1,1493.0,bangalore,2779.2,100,83.6104,1450000
-hyundai,hyundai i20,12,petrol,manual,84924.0,18.6,1,1197.0,pune,7077.0,100,55.5076,536000
-renault,renault captur,7,diesel,manual,48788.0,20.37,1,1461.0,bangalore,6969.714285714285,100,74.1212,922000
-maruti,maruti baleno,7,petrol,manual,74659.0,21.01,1,1197.0,pune,10665.57142857143,100,71.5341,600000
-mahindra,mahindra xuv500,12,diesel,manual,95000.0,15.1,1,2179.0,mumbai,7916.666666666667,100,54.5,665000
-hyundai,hyundai venue,7,petrol,manual,23346.0,18.27,2,998.0,new delhi,3335.1428571428573,75,68.6654,1082000
-nissan,nissan sunny,10,diesel,manual,79276.0,22.71,2,1461.0,surat,7927.6,75,54.0724,400000
-hyundai,hyundai creta,5,petrol,automatic,13724.0,18.9,1,1497.0,gurgaon,2744.8,100,83.6276,1654126
-audi,audi q3,10,diesel,automatic,92043.0,15.17,1,1968.0,pune,9204.3,100,60.7957,1450000
-hyundai,hyundai i20,16,petrol,manual,99853.0,17.0,1,1197.0,kolkata,6240.8125,100,42.0147,198000
-honda,honda cr-v,7,petrol,automatic,56000.0,13.7,1,1997.0,new delhi,8000.0,100,73.4,2150000
-renault,renault duster,10,diesel,manual,64491.0,19.87,2,1461.0,bangalore,6449.1,75,55.5509,754000
-honda,honda brio,14,petrol,manual,70000.0,19.4,2,1198.0,chennai,5000.0,75,43.0,290000
-maruti,maruti celerio,9,petrol,automatic,41000.0,23.1,1,998.0,mumbai,4555.555555555556,100,68.9,495000
-kia,kia seltos,7,diesel,automatic,43000.0,17.8,1,1493.0,mumbai,6142.857142857143,100,74.7,1750000
-maruti,maruti swift,6,petrol,manual,23976.0,21.21,1,1197.0,agra,3996.0,100,79.6024,591819
-honda,honda wr-v,5,diesel,manual,33629.0,23.7,1,1498.0,new delhi,6725.8,100,81.6371,1249000
-hyundai,hyundai i20,8,diesel,manual,58011.0,22.54,1,1396.0,new delhi,7251.375,100,70.1989,600000
-hyundai,hyundai grand i10,8,petrol,manual,18896.0,18.9,1,1197.0,kolkata,2362.0,100,74.1104,459000
-hyundai,hyundai i20,11,diesel,manual,94385.0,22.54,2,1396.0,new delhi,8580.454545454546,75,49.5615,400000
-maruti,maruti vitara brezza,7,diesel,manual,31587.0,24.3,1,1248.0,bangalore,4512.428571428572,100,75.8413,970000
-mahindra,mahindra xuv500,11,diesel,manual,76376.0,15.1,1,2179.0,new delhi,6943.272727272727,100,59.3624,685000
-hyundai,hyundai santro xing,14,lpg,manual,110000.0,13.45,2,1086.0,lakhimpur kheri,7857.142857142857,75,39.0,290000
-maruti,maruti swift dzire,8,petrol,automatic,67261.0,21.21,2,1197.0,agra,8407.625,75,61.2739,603942
-chevrolet,chevrolet sail,13,petrol,manual,57778.0,18.2,2,1199.0,new delhi,4444.461538461538,75,47.2222,260000
-land rover,land rover discovery sport,8,diesel,automatic,23245.0,12.81,1,1999.0,new delhi,2905.625,100,73.6755,3790000
-nissan,nissan kicks,7,diesel,manual,26016.0,19.39,1,1461.0,ahmedabad,3716.5714285714284,100,76.3984,970000
-audi,audi q7,11,diesel,automatic,65000.0,12.07,1,2967.0,gurgaon,5909.090909090909,100,60.5,2125000
-toyota,toyota fortuner,16,diesel,manual,166000.0,11.5,3,2982.0,bhiwani,10375.0,55,19.4,700000
-skoda,skoda new laura,13,diesel,manual,75000.0,20.0,1,1968.0,kolkata,5769.2307692307695,100,53.5,325000
-toyota,toyota innova crysta,8,diesel,automatic,54000.0,11.36,1,2755.0,new delhi,6750.0,100,70.6,2000000
-hyundai,hyundai creta,7,diesel,manual,27032.0,22.1,1,1396.0,hyderabad,3861.714285714286,100,76.2968,950000
-honda,honda city,11,petrol,manual,84550.0,17.8,1,1497.0,pune,7686.363636363636,100,58.545,585000
-maruti,maruti celerio,12,petrol,automatic,85000.0,23.1,2,998.0,bangalore,7083.333333333333,75,47.5,385000
-honda,honda amaze,10,petrol,manual,34644.0,18.0,1,1198.0,new delhi,3464.4,100,66.5356,450000
-honda,honda amaze,12,diesel,manual,65850.0,25.8,1,1498.0,ghaziabad,5487.5,100,57.415,350000
-maruti,maruti baleno,10,petrol,manual,43984.0,21.4,1,1197.0,new delhi,4398.4,100,65.6016,550000
-hyundai,hyundai i20,16,petrol,manual,49804.0,17.0,2,1197.0,pune,3112.75,75,39.0196,200000
-maruti,maruti ciaz,7,petrol,manual,38954.0,21.56,1,1462.0,bangalore,5564.857142857143,100,75.1046,770000
-bmw,bmw 5 series,9,diesel,automatic,60755.0,20.37,1,1995.0,noida,6750.555555555556,100,66.9245,3250000
-citroen,citroen c5 aircross,5,diesel,automatic,34356.0,18.6,1,1997.0,bangalore,6871.2,100,81.5644,3095041
-honda,honda city,8,petrol,manual,10036.0,17.4,1,1497.0,bangalore,1254.5,100,74.9964,815000
-maruti,maruti alto 800,11,petrol,manual,45080.0,22.74,3,796.0,bangalore,4098.181818181818,55,46.492,204136
-mahindra renault,mahindra renault logan,19,diesel,manual,110000.0,19.2,3,1461.0,nashik,5789.473684210527,55,16.0,98000
-maruti,maruti swift dzire,14,petrol,manual,69811.0,19.1,1,1197.0,new delhi,4986.5,100,51.0189,250000
-honda,honda civic,17,petrol,automatic,34000.0,12.9,1,1799.0,mumbai,2000.0,100,45.6,300000
-land rover,land rover discovery sport,6,diesel,automatic,19000.0,18.9,1,1999.0,new delhi,3166.6666666666665,100,80.1,5900000
-hyundai,hyundai creta,11,diesel,manual,36949.0,21.38,2,1396.0,lucknow,3359.0,75,55.3051,800000
-maruti,maruti swift,11,diesel,manual,35000.0,25.2,1,1248.0,ghaziabad,3181.818181818182,100,63.5,450000
-fiat,fiat linea,11,petrol,manual,91657.0,15.7,2,1368.0,pune,8332.454545454546,75,49.8343,480000
-maruti,maruti sx4,16,petrol,manual,115576.0,15.5,1,1586.0,gurgaon,7223.5,100,40.4424,167602
-maruti,maruti vitara brezza,7,diesel,manual,82836.0,24.3,1,1248.0,noida,11833.714285714286,100,70.7164,759000
-chevrolet,chevrolet spark,16,petrol,manual,48616.0,18.0,1,995.0,vadodara,3038.5,100,47.1384,100000
-mahindra,mahindra xuv300,7,diesel,manual,30000.0,20.0,1,1497.0,new delhi,4285.714285714285,100,76.0,1065000
-skoda,skoda rapid,14,petrol,manual,80693.0,15.0,2,1598.0,pune,5763.785714285715,75,41.9307,280000
-hyundai,hyundai verna,12,petrol,manual,39753.0,17.1,2,1591.0,pune,3312.75,75,52.0247,457360
-volkswagen,volkswagen polo,11,diesel,manual,41470.0,20.14,1,1498.0,noida,3770.0,100,62.853,383406
-kia,kia sonet,5,petrol,manual,16000.0,18.2,1,998.0,kolkata,3200.0,100,83.4,999000
-maruti,maruti swift dzire,16,petrol,manual,85472.0,17.5,1,1197.0,chandigarh,5342.0,100,43.452799999999996,250000
-skoda,skoda superb,15,diesel,automatic,104893.0,17.2,2,1968.0,dehradun,6992.866666666667,75,36.5107,260000
-tata,tata indigo,17,petrol,manual,58066.0,15.2,2,1193.0,pune,3415.6470588235293,75,35.1934,110000
-audi,audi a6,11,diesel,automatic,50000.0,18.53,1,1968.0,mumbai,4545.454545454545,100,62.0,2411111
-toyota,toyota innova crysta,7,diesel,manual,120934.0,13.68,1,2393.0,pune,17276.285714285714,100,66.9066,1765737
-maruti,maruti alto k10,10,petrol,manual,24330.0,23.95,1,998.0,ludhiana,2433.0,100,67.56700000000001,349999
-mercedes-benz,mercedes-benz c-class,16,petrol,automatic,39932.0,11.74,4,1796.0,kolkata,2495.75,35,24.0068,500000
-ford,ford ecosport,10,diesel,manual,110000.0,22.77,2,1498.0,kurukshetra,11000.0,75,51.0,550000
-tata,tata safari storme,10,diesel,manual,148413.0,14.1,1,2179.0,gurgaon,14841.3,100,55.158699999999996,637950
-honda,honda accord,17,petrol,automatic,64953.0,10.7,3,3471.0,pune,3820.764705882353,55,26.5047,392713
-honda,honda jazz,11,diesel,manual,55000.0,27.3,2,1498.0,new delhi,5000.0,75,53.5,475001
-toyota,toyota innova crysta,6,petrol,manual,25600.0,8.0,1,2694.0,new delhi,4266.666666666667,100,79.44,1890000
-hyundai,hyundai creta,9,diesel,automatic,86519.0,17.01,1,1582.0,mumbai,9613.222222222223,100,64.3481,1074000
-hyundai,hyundai xcent,10,petrol,manual,120000.0,19.1,1,1197.0,navi mumbai,12000.0,100,58.0,385000
-hyundai,hyundai grand i10,9,petrol,manual,39607.0,18.9,1,1197.0,ahmedabad,4400.777777777777,100,69.0393,502000
-volvo,volvo xc60,8,diesel,automatic,47000.0,11.2,1,2400.0,mumbai,5875.0,100,71.3,4899000
-maruti,maruti eeco,11,cng,manual,135000.0,21.94,3,1196.0,porbandar,12272.727272727272,55,37.5,315000
-hyundai,hyundai i20,11,petrol,manual,78104.0,18.6,2,1197.0,pune,7100.363636363636,75,51.1896,420000
-volkswagen,volkswagen polo,11,petrol,automatic,35000.0,17.21,2,1197.0,thane,3181.818181818182,75,55.5,550000
-toyota,toyota fortuner,9,diesel,automatic,64650.0,12.9,1,2755.0,gurgaon,7183.333333333333,100,66.535,2600000
-mahindra,mahindra verito vibe,8,diesel,manual,40000.0,20.8,1,1461.0,kolkata,5000.0,100,72.0,340000
-hyundai,hyundai i10,17,petrol,manual,45718.0,20.36,1,1197.0,bangalore,2689.294117647059,100,44.428200000000004,150000
-maruti,maruti ciaz,9,diesel,manual,37824.0,28.09,1,1248.0,gurgaon,4202.666666666667,100,69.2176,600000
-mg,mg hector plus,5,petrol,manual,11000.0,14.025,1,1451.0,indore,2200.0,100,83.9,1750000
-chevrolet,chevrolet enjoy,13,diesel,manual,100000.0,18.2,2,1248.0,ahmedabad,7692.307692307692,75,43.0,215000
-maruti,maruti wagon r,5,cng,manual,22195.0,32.52,1,998.0,pune,4439.0,100,82.7805,550000
-honda,honda jazz,10,petrol,automatic,41086.0,19.0,1,1199.0,pune,4108.6,100,65.8914,475000
-maruti,maruti swift dzire,7,petrol,automatic,20161.0,21.21,1,1197.0,gurgaon,2880.1428571428573,100,76.9839,650000
-mahindra,mahindra xuv500,9,diesel,automatic,65963.0,16.0,1,2179.0,bangalore,7329.222222222223,100,66.4037,1571000
-maruti,maruti celerio,8,cng,manual,76007.0,31.79,2,998.0,pune,9500.875,75,60.3993,425000
-maruti,maruti ignis,9,diesel,automatic,86837.0,26.8,1,1248.0,jaipur,9648.555555555555,100,64.3163,550000
-hyundai,hyundai grand i10,10,petrol,manual,20150.0,25.0,1,1197.0,mumbai,2015.0,100,67.985,449999
-skoda,skoda rapid,11,diesel,automatic,217920.0,21.66,2,1498.0,lucknow,19810.909090909092,75,37.208,400000
-renault,renault duster,9,diesel,manual,291000.0,19.87,1,1461.0,perambalur,32333.333333333332,100,43.9,500000
-maruti,maruti vitara brezza,9,diesel,manual,26075.0,24.3,1,1248.0,pune,2897.222222222222,100,70.3925,900000
-hyundai,hyundai grand i10,9,petrol,manual,68000.0,18.9,1,1197.0,new delhi,7555.555555555556,100,66.2,460000
-maruti,maruti swift,17,petrol,manual,26276.0,16.1,2,1298.0,new delhi,1545.6470588235295,75,38.3724,144808
-mg,mg hector,6,diesel,manual,68965.0,17.41,1,1956.0,hyderabad,11494.166666666666,100,75.1035,1611000
-hyundai,hyundai grand i10,8,petrol,manual,68146.0,18.9,1,1197.0,mumbai,8518.25,100,69.1854,457000
-honda,honda city,5,petrol,manual,6731.0,18.6,1,1498.0,new delhi,1346.2,100,84.3269,1290000
-volkswagen,volkswagen polo,13,diesel,manual,78858.0,20.14,1,1498.0,chennai,6066.0,100,53.1142,470000
-hyundai,hyundai i10,16,petrol,manual,49000.0,20.36,1,1197.0,kolkata,3062.5,100,47.1,144999
-tata,tata new safari,5,diesel,manual,12321.0,16.14,1,1956.0,gurgaon,2464.2,100,83.7679,1613000
-honda,honda city,7,petrol,automatic,33500.0,18.0,1,1497.0,thane,4785.714285714285,100,75.65,1000000
-jeep,jeep compass,6,diesel,automatic,42000.0,17.1,1,1956.0,panvel,7000.0,100,77.8,2050000
-maruti,maruti swift,12,diesel,manual,124764.0,25.2,1,1248.0,gurgaon,10397.0,100,51.5236,340000
-maruti,maruti ciaz,8,petrol,manual,46466.0,20.73,2,1373.0,surat,5808.25,75,63.35339999999999,790000
-hyundai,hyundai i20,15,petrol,manual,53727.0,18.5,2,1197.0,ahmedabad,3581.8,75,41.6273,229532
-hyundai,hyundai i10,15,petrol,manual,94289.0,20.36,1,1197.0,vadodara,6285.933333333333,100,45.5711,200000
-maruti,maruti s-presso,7,petrol,manual,9036.0,21.7,1,998.0,bangalore,1290.857142857143,100,78.0964,480000
-toyota,toyota fortuner,16,diesel,manual,205324.0,11.5,2,2982.0,ghaziabad,12832.75,75,23.4676,600000
-bmw,bmw x5,14,diesel,automatic,63175.0,11.7,2,2993.0,mumbai,4512.5,75,43.6825,1175000
-hyundai,hyundai creta,7,diesel,manual,25900.0,20.5,1,1582.0,new delhi,3700.0,100,76.41,1290000
-renault,renault kwid,8,petrol,manual,32875.0,23.01,1,999.0,surat,4109.375,100,72.7125,295000
-hyundai,hyundai i10,13,petrol,manual,67481.0,20.36,2,1197.0,new delhi,5190.846153846154,75,46.2519,217665
-maruti,maruti swift,12,diesel,manual,34095.0,25.2,1,1248.0,pune,2841.25,100,60.5905,500000
-skoda,skoda superb,12,diesel,automatic,36349.0,17.2,1,1968.0,bangalore,3029.0833333333335,100,60.3651,1650000
-maruti,maruti wagon r,9,petrol,manual,30000.0,20.51,1,998.0,kolkata,3333.3333333333335,100,70.0,315000
-renault,renault duster,14,diesel,manual,153500.0,19.01,2,1461.0,jaipur,10964.285714285714,75,34.65,356290
-volkswagen,volkswagen polo,8,petrol,manual,46762.0,18.78,1,999.0,new delhi,5845.25,100,71.3238,387000
-maruti,maruti alto 800,5,petrol,manual,4585.0,22.05,1,796.0,pune,917.0,100,84.5415,410000
-mahindra,mahindra xuv500,5,diesel,automatic,21283.0,15.1,1,2179.0,new delhi,4256.6,100,82.8717,1850000
-skoda,skoda rapid,10,petrol,automatic,54000.0,14.84,1,1598.0,mira road,5400.0,100,64.6,545000
-tata,tata nexon,9,diesel,manual,50233.0,21.5,1,1497.0,new delhi,5581.444444444444,100,67.9767,700000
-ford,ford aspire,11,petrol,manual,35000.0,18.16,1,1196.0,angul,3181.818181818182,100,63.5,370000
-hyundai,hyundai i10,12,petrol,manual,79394.0,19.81,2,1086.0,ghaziabad,6616.166666666667,75,48.0606,240000
-tata,tata tiago,8,diesel,manual,51000.0,27.28,1,1047.0,hosur,6375.0,100,70.9,490000
-hyundai,hyundai eon,11,petrol,manual,20921.0,21.1,1,814.0,new delhi,1901.909090909091,100,64.9079,200000
-hyundai,hyundai creta,10,petrol,manual,87892.0,13.0,1,1591.0,new delhi,8789.2,100,61.2108,900000
-ford,ford figo,13,diesel,manual,100000.0,20.0,2,1399.0,pune,7692.307692307692,75,43.0,245000
-audi,audi q5,10,diesel,automatic,90000.0,14.16,1,1968.0,mumbai,9000.0,100,61.0,1800000
-maruti,maruti ciaz,10,petrol,automatic,79614.0,19.12,2,1373.0,bangalore,7961.4,75,54.0386,700000
-mahindra,mahindra tuv 300,11,diesel,manual,51332.0,18.49,2,1493.0,gurgaon,4666.545454545455,75,53.8668,360000
-maruti,maruti vitara brezza,9,diesel,manual,76535.0,24.3,2,1248.0,dehradun,8503.888888888889,75,57.346500000000006,550000
-kia,kia sonet,5,petrol,manual,16969.0,18.2,1,998.0,new delhi,3393.8,100,83.3031,950000
-hyundai,hyundai xcent,11,diesel,manual,62000.0,24.4,1,1120.0,mumbai,5636.363636363636,100,60.8,340000
-hyundai,hyundai verna,15,petrol,manual,67537.0,17.1,2,1591.0,pune,4502.466666666666,75,40.2463,300000
-mercedes-benz,mercedes-benz e-class,15,diesel,automatic,134385.0,14.21,3,2143.0,ahmedabad,8959.0,55,25.561500000000002,800000
-ford,ford ecosport,8,diesel,manual,22000.0,21.7,1,1498.0,indore,2750.0,100,73.8,850000
-honda,honda city,12,petrol,manual,39725.0,17.4,1,1497.0,dehradun,3310.4166666666665,100,60.0275,525000
-kia,kia sonet,6,diesel,automatic,24912.0,18.9,1,1493.0,chennai,4152.0,100,79.5088,1273000
-tata,tata new safari,15,diesel,manual,153332.0,11.57,5,2179.0,kanpur,10222.133333333333,25,7.666800000000002,230999
-hyundai,hyundai venue,5,diesel,manual,3756.0,23.7,1,1493.0,noida,751.2,100,84.6244,1063000
-honda,honda city,10,petrol,manual,80000.0,17.8,1,1497.0,bhubaneswar,8000.0,100,62.0,550000
-hyundai,hyundai grand i10 nios,5,petrol,automatic,7000.0,20.7,1,1197.0,pune,1400.0,100,84.3,740000
-tata,tata tiago,9,petrol,manual,78179.0,23.84,1,1199.0,new delhi,8686.555555555555,100,65.1821,325000
-audi,audi q5,13,diesel,automatic,70000.0,14.16,1,1968.0,new delhi,5384.615384615385,100,54.0,850000
-maruti,maruti alto 800,5,cng,manual,27795.0,31.59,1,796.0,mumbai,5559.0,100,82.2205,487000
-hyundai,hyundai grand i10,11,petrol,manual,36187.0,18.9,1,1197.0,bangalore,3289.7272727272725,100,63.3813,475000
-maruti,maruti celerio x,6,petrol,automatic,16995.0,21.63,1,998.0,bangalore,2832.5,100,80.3005,600000
-renault,renault kwid,8,petrol,manual,18084.0,23.01,1,999.0,kolkata,2260.5,100,74.1916,315765
-hyundai,hyundai i20,16,petrol,manual,82355.0,17.0,1,1197.0,bangalore,5147.1875,100,43.7645,200000
-mercedes-benz,mercedes-benz e-class,9,diesel,automatic,59000.0,15.0,1,2143.0,new delhi,6555.555555555556,100,67.1,2790000
-maruti,maruti baleno,6,petrol,manual,10214.0,21.01,1,1197.0,new delhi,1702.3333333333333,100,80.9786,777000
-fiat,fiat linea,13,petrol,manual,50589.0,15.7,1,1368.0,ahmedabad,3891.4615384615386,100,55.9411,200000
-hyundai,hyundai grand i10,10,petrol,manual,102815.0,18.9,1,1197.0,gurgaon,10281.5,100,59.7185,356169
-datsun,datsun go,9,petrol,manual,103753.0,20.63,2,1198.0,ahmedabad,11528.111111111111,75,54.624700000000004,170000
-renault,renault kwid,10,petrol,manual,59125.0,25.17,1,799.0,pune,5912.5,100,64.0875,318000
-volkswagen,volkswagen taigun,5,petrol,manual,8122.0,20.08,1,999.0,bangalore,1624.4,100,84.1878,1536000
-ford,ford figo,16,diesel,manual,116689.0,20.0,2,1399.0,ahmedabad,7293.0625,75,32.3311,150000
-honda,honda city,15,petrol,manual,69801.0,17.0,1,1497.0,new delhi,4653.4,100,48.0199,284882
-hyundai,hyundai creta,11,diesel,manual,74604.0,21.38,1,1396.0,noida,6782.181818181818,100,59.5396,700000
-mahindra,mahindra xuv500,12,diesel,manual,82000.0,15.1,1,2179.0,kolkata,6833.333333333333,100,55.8,650000
-mahindra,mahindra scorpio,7,diesel,manual,31649.0,16.36,1,2179.0,pune,4521.285714285715,100,75.8351,1400000
-datsun,datsun redigo,8,petrol,manual,33453.0,22.7,1,799.0,gurgaon,4181.625,100,72.6547,195000
-citroen,citroen c5 aircross,4,diesel,automatic,5000.0,17.5,1,1997.0,pondicherry,1250.0,100,87.5,3667000
-mercedes-benz,mercedes-benz c-class,10,petrol,automatic,95000.0,14.74,4,1991.0,new delhi,9500.0,35,36.5,2100000
-nissan,nissan micra,16,petrol,manual,56000.0,18.06,1,1198.0,mumbai,3500.0,100,46.4,225000
-hyundai,hyundai i20 n line,4,petrol,automatic,14902.0,20.25,1,998.0,gurgaon,3725.5,100,86.5098,1155700
-renault,renault duster,8,petrol,automatic,36547.0,14.99,1,1498.0,bangalore,4568.375,100,72.3453,939000
-skoda,skoda rapid,9,petrol,manual,30027.0,14.3,2,1598.0,bangalore,3336.3333333333335,75,61.997299999999996,734000
-audi,audi a3,11,petrol,automatic,80683.0,16.6,3,1798.0,gurgaon,7334.818181818182,55,42.9317,1700000
-chevrolet,chevrolet spark,16,petrol,manual,70000.0,16.0,2,995.0,chennai,4375.0,75,37.0,99000
-honda,honda city,13,petrol,manual,80078.0,16.8,1,1497.0,mumbai,6159.846153846154,100,52.9922,385000
-hyundai,hyundai i10,17,petrol,manual,60169.0,20.36,1,1197.0,gurgaon,3539.3529411764707,100,42.9831,158023
-honda,honda jazz,10,petrol,manual,52697.0,18.7,1,1199.0,bangalore,5269.7,100,64.7303,636000
-maruti,maruti alto 800,9,petrol,manual,61887.0,24.7,1,796.0,bangalore,6876.333333333333,100,66.8113,350000
-maruti,maruti vitara brezza,6,petrol,manual,38425.0,17.03,1,1462.0,ahmedabad,6404.166666666667,100,78.1575,807000
-mahindra,mahindra tuv 300,10,diesel,manual,49706.0,18.49,1,1493.0,new delhi,4970.6,100,65.0294,560000
-mercedes-benz,mercedes-benz gla class,9,petrol,automatic,53000.0,13.7,1,1991.0,mumbai,5888.888888888889,100,67.7,2175000
-maruti,maruti vitara brezza,9,diesel,manual,123980.0,24.3,2,1248.0,noida,13775.555555555555,75,52.602000000000004,606155
-jeep,jeep compass,7,diesel,manual,60000.0,17.1,1,1956.0,saharanpur (up),8571.42857142857,100,73.0,1500000
-mahindra,mahindra xuv500,12,diesel,manual,72000.0,15.1,1,2179.0,new delhi,6000.0,100,56.8,600000
-maruti,maruti alto 800,8,petrol,manual,21796.0,24.7,2,796.0,pune,2724.5,75,65.8204,317000
-chevrolet,chevrolet sail,11,diesel,manual,50000.0,22.1,1,1248.0,pilibhit,4545.454545454545,100,62.0,250000
-hyundai,hyundai santro xing,18,petrol,manual,25163.0,18.9,1,1086.0,bangalore,1397.9444444444443,100,43.4837,104564
-mercedes-benz,mercedes-benz glc,8,diesel,automatic,40000.0,17.9,1,2143.0,coimbatore,5000.0,100,72.0,4850000
-maruti,maruti alto 800,5,cng,manual,45027.0,31.59,1,796.0,gurgaon,9005.4,100,80.4973,445000
-mahindra,mahindra bolero,14,diesel,manual,56000.0,15.96,1,2523.0,indore,4000.0,100,52.4,445000
-volkswagen,volkswagen vento,10,petrol,manual,99755.0,16.09,2,1598.0,pune,9975.5,75,52.0245,430000
-audi,audi q3,12,diesel,automatic,60000.0,15.73,3,1968.0,mumbai,5000.0,55,42.0,1335111
-hyundai,hyundai verna,9,diesel,automatic,63000.0,22.0,1,1582.0,new delhi,7000.0,100,66.7,975000
-tata,tata harrier,6,diesel,manual,27223.0,16.35,1,1956.0,new delhi,4537.166666666667,100,79.2777,1450000
-honda,honda jazz,9,petrol,manual,45774.0,18.7,1,1199.0,bangalore,5086.0,100,68.4226,702000
-maruti,maruti celerio,7,petrol,automatic,51697.0,23.1,1,998.0,bangalore,7385.285714285715,100,73.8303,495000
-maruti,maruti swift dzire,11,diesel,manual,81759.0,26.59,1,1248.0,surat,7432.636363636364,100,58.8241,600000
-bmw,bmw 5 series,17,diesel,automatic,125617.0,11.5,2,2993.0,hyderabad,7389.235294117647,75,28.438299999999998,650000
-maruti,maruti sx4 s cross,8,diesel,manual,73258.0,25.1,1,1248.0,pune,9157.25,100,68.6742,875000
-maruti,maruti swift dzire,13,petrol,manual,90000.0,19.1,1,1197.0,thane,6923.076923076923,100,52.0,425000
-hyundai,hyundai i20,9,petrol,manual,58293.0,18.6,3,1197.0,lucknow,6477.0,55,51.1707,490000
-maruti,maruti wagon r,14,petrol,manual,41252.0,18.9,2,998.0,kolkata,2946.5714285714284,75,45.8748,200000
-mg,mg hector,4,diesel,manual,7199.0,18.9,1,1956.0,chennai,1799.75,100,87.2801,1900000
-mg,mg gloster,6,diesel,automatic,81928.0,12.4,1,1996.0,pune,13654.666666666666,100,73.8072,3125951
-bmw,bmw 5 series,9,diesel,automatic,26129.0,20.37,1,1995.0,gurgaon,2903.222222222222,100,70.3871,2600000
-jaguar,jaguar xf,9,diesel,automatic,54000.0,19.33,1,1999.0,mumbai,6000.0,100,67.6,2799000
-mercedes-benz,mercedes-benz e-class,14,diesel,automatic,166918.0,10.0,1,2143.0,pune,11922.714285714286,100,41.3082,1107000
-maruti,maruti swift dzire,17,petrol,manual,99500.0,17.5,1,1298.0,chandigarh,5852.941176470588,100,39.05,170000
-maruti,maruti alto k10,11,petrol,automatic,49000.0,23.95,1,998.0,new delhi,4454.545454545455,100,62.1,340000
-skoda,skoda rapid,8,petrol,automatic,29000.0,16.24,1,999.0,chennai,3625.0,100,73.1,925000
-maruti,maruti ciaz,8,petrol,manual,30000.0,20.73,1,1373.0,jaipur,3750.0,100,73.0,600000
-toyota,toyota innova crysta,8,diesel,manual,86950.0,13.68,1,2393.0,rohtak,10868.75,100,67.305,1590000
-bmw,bmw 1 series,12,diesel,automatic,79569.0,20.58,1,1995.0,hyderabad,6630.75,100,56.0431,1200000
-fiat,fiat punto evo,11,diesel,manual,110000.0,20.5,4,1248.0,davangere,10000.0,35,32.0,345000
-honda,honda city,15,petrol,manual,72045.0,16.8,1,1497.0,pune,4803.0,100,47.7955,375000
-kia,kia sonet,6,diesel,manual,52820.0,18.9,1,1493.0,hyderabad,8803.333333333334,100,76.718,1280000
-maruti,maruti swift,11,petrol,manual,54931.0,20.4,1,1197.0,ghaziabad,4993.727272727273,100,61.5069,380000
-maruti,maruti sx4,15,petrol,manual,110000.0,15.5,2,1586.0,noida,7333.333333333333,75,36.0,150000
-maruti,maruti swift dzire,13,petrol,manual,75447.0,19.1,2,1197.0,bangalore,5803.615384615385,75,45.4553,450000
-skoda,skoda kushaq,4,petrol,automatic,944.0,17.2,1,999.0,chennai,236.0,100,87.9056,1900000
-maruti,maruti ignis,9,petrol,manual,30984.0,20.89,1,1197.0,mumbai,3442.6666666666665,100,69.9016,501000
-chevrolet,chevrolet beat,13,diesel,manual,60000.0,25.44,3,936.0,shimla,4615.384615384615,55,39.0,200000
-maruti,maruti s-presso,6,petrol,manual,15000.0,21.7,1,998.0,indore,2500.0,100,80.5,450000
-audi,audi a6,13,diesel,automatic,65000.0,17.68,1,1968.0,new delhi,5000.0,100,54.5,995000
-maruti,maruti wagon r,15,lpg,manual,63263.0,26.2,1,998.0,kolkata,4217.533333333334,100,48.6737,158002
-honda,honda wr-v,5,diesel,manual,7738.0,23.7,1,1498.0,gurgaon,1547.6,100,84.2262,1094000
-audi,audi q7,14,diesel,automatic,90000.0,12.07,1,2967.0,indore,6428.571428571428,100,49.0,1900000
-honda,honda amaze,13,petrol,manual,52618.0,18.0,1,1198.0,pune,4047.5384615384614,100,55.7382,260000
-hyundai,hyundai i20,9,petrol,manual,43594.0,18.6,2,1197.0,bangalore,4843.777777777777,75,60.640600000000006,682000
-mahindra,mahindra e2o,11,electric,automatic,63479.0,120.0,3,0.0,bangalore,5770.818181818182,55,44.6521,330000
-mahindra,mahindra scorpio,12,diesel,manual,134459.0,12.05,2,2179.0,gurgaon,11204.916666666666,75,42.5541,457089
-mercedes-benz,mercedes-benz glc,10,diesel,automatic,120036.0,17.9,1,2143.0,new delhi,12003.6,100,57.9964,3300000
-hyundai,hyundai grand i10,12,petrol,manual,120000.0,18.9,1,1197.0,kanpur,10000.0,100,52.0,230000
-honda,honda city,11,petrol,manual,78000.0,17.4,1,1497.0,bangalore,7090.909090909091,100,59.2,775000
-renault,renault kwid,8,petrol,manual,17157.0,25.17,2,799.0,rajkot,2144.625,75,66.2843,323000
-mahindra,mahindra xuv500,10,diesel,manual,70000.0,16.0,2,2179.0,indore,7000.0,75,55.0,950000
-ford,ford figo,14,diesel,manual,180000.0,20.0,2,1399.0,hyderabad,12857.142857142857,75,32.0,210000
-hyundai,hyundai i20,11,diesel,manual,97000.0,22.54,2,1396.0,chandigarh,8818.181818181818,75,49.3,540000
-datsun,datsun go,12,petrol,manual,61000.0,20.63,1,1198.0,hyderabad,5083.333333333333,100,57.9,299000
-honda,honda jazz,10,petrol,manual,33385.0,18.7,1,1199.0,bangalore,3338.5,100,66.6615,625000
-maruti,maruti ertiga,13,petrol,manual,34914.0,16.02,2,1373.0,mumbai,2685.6923076923076,75,49.5086,550000
-hyundai,hyundai grand i10,7,cng,manual,46318.0,18.9,1,1197.0,mumbai,6616.857142857143,100,74.3682,567000
-mahindra,mahindra thar,4,diesel,automatic,18000.0,18.9,1,2184.0,new delhi,4500.0,100,86.2,1725000
-mercedes-benz,mercedes-benz c-class,16,diesel,automatic,74542.0,15.8,2,2143.0,pune,4658.875,75,36.5458,698021
-honda,honda wr-v,8,petrol,manual,27000.0,17.5,1,1199.0,new delhi,3375.0,100,73.3,775000
-ford,ford ecosport,10,diesel,manual,120000.0,22.77,1,1498.0,pune,12000.0,100,58.0,600000
-ford,ford endeavour,15,diesel,manual,106742.0,13.1,2,2499.0,mumbai,7116.133333333333,75,36.3258,395000
-mahindra,mahindra xuv500,9,diesel,manual,64138.0,16.0,1,2179.0,chandigarh,7126.444444444444,100,66.5862,840218
-hyundai,hyundai i10,12,petrol,manual,64066.0,19.81,1,1086.0,ahmedabad,5338.833333333333,100,57.5934,325000
-mahindra,mahindra xuv300,4,petrol,manual,10000.0,17.0,1,1197.0,agra,2500.0,100,87.0,993830
-nissan,nissan magnite,5,petrol,manual,16387.0,18.75,1,999.0,gurgaon,3277.4,100,83.3613,600000
-tata,tata hexa,8,diesel,manual,25000.0,17.6,1,2179.0,kolkata,3125.0,100,73.5,1100000
-audi,audi q3,9,diesel,automatic,65381.0,15.73,2,1968.0,jaipur,7264.555555555556,75,58.4619,2300000
-honda,honda amaze,12,diesel,manual,129366.0,25.8,1,1498.0,new delhi,10780.5,100,51.0634,250000
-maruti,maruti swift dzire,8,diesel,manual,57204.0,28.4,1,1248.0,kolkata,7150.5,100,70.2796,615001
-hyundai,hyundai creta,9,petrol,manual,30866.0,15.29,1,1591.0,kolkata,3429.5555555555557,100,69.9134,700000
-ford,ford ecosport,11,petrol,manual,52773.0,15.85,1,1499.0,thane,4797.545454545455,100,61.7227,439000
-hyundai,hyundai elantra,13,diesel,manual,52861.0,22.7,1,1582.0,new delhi,4066.230769230769,100,55.7139,390000
-maruti,maruti swift,7,petrol,manual,29000.0,21.21,1,1197.0,chennai,4142.857142857143,100,76.1,650000
-maruti,maruti swift dzire,12,diesel,manual,106095.0,23.4,1,1248.0,new delhi,8841.25,100,53.3905,290000
-chevrolet,chevrolet beat,16,petrol,manual,90000.0,18.6,1,1199.0,kapurthala,5625.0,100,43.0,155000
-maruti,maruti swift dzire,15,diesel,manual,120000.0,19.3,3,1248.0,mumbai,8000.0,55,27.0,250000
-hyundai,hyundai i20,16,petrol,manual,37876.0,18.5,1,1197.0,bangalore,2367.25,100,48.2124,350000
-mercedes-benz,mercedes-benz glc,10,diesel,automatic,82306.0,17.9,2,2143.0,ahmedabad,8230.6,75,53.7694,2800000
-hyundai,hyundai i10,15,petrol,manual,62205.0,20.36,2,1197.0,vadodara,4147.0,75,40.7795,280000
-mahindra,mahindra tuv 300,9,diesel,manual,45000.0,18.49,1,1493.0,kolkata,5000.0,100,68.5,489999
-volkswagen,volkswagen polo,9,diesel,manual,70000.0,20.14,2,1498.0,bangalore,7777.777777777777,75,58.0,700000
-maruti,maruti alto k10,15,petrol,manual,55812.0,20.92,2,998.0,bangalore,3720.8,75,41.4188,175399
-hyundai,hyundai grand i10,11,petrol,manual,80000.0,18.9,2,1197.0,chandigarh,7272.727272727273,75,51.0,350000
-honda,honda city,12,petrol,manual,46817.0,17.4,2,1497.0,pune,3901.4166666666665,75,51.3183,550000
-volkswagen,volkswagen vento,13,petrol,manual,68769.0,16.09,1,1598.0,thane,5289.923076923077,100,54.1231,435000
-hyundai,hyundai creta,9,petrol,automatic,52702.0,13.0,1,1591.0,pune,5855.777777777777,100,67.7298,1059689
-honda,honda city,16,petrol,manual,66268.0,16.8,1,1497.0,mumbai,4141.75,100,45.3732,295000
-hyundai,hyundai santro xing,15,petrol,manual,65578.0,17.92,2,1086.0,pune,4371.866666666667,75,40.4422,198000
-kia,kia sonet,6,petrol,manual,15000.0,18.4,1,1197.0,saharanpur (up),2500.0,100,80.5,750000
-hyundai,hyundai eon,11,petrol,manual,58608.0,21.1,1,814.0,pune,5328.0,100,61.1392,275000
-maruti,maruti eeco,8,cng,manual,120000.0,21.94,3,1196.0,junagadh,15000.0,55,48.0,400000
-tata,tata harrier,5,diesel,manual,54069.0,17.0,1,1956.0,vadodara,10813.8,100,79.59309999999999,1800000
-renault,renault kwid,4,petrol,manual,15000.0,21.74,1,999.0,korba,3750.0,100,86.5,460000
-tata,tata altroz,5,petrol,manual,7701.0,19.33,1,1199.0,kochi,1540.2,100,84.2299,719000
-maruti,maruti ertiga,10,diesel,manual,104646.0,24.52,1,1248.0,gurgaon,10464.6,100,59.535399999999996,550000
-audi,audi q5,11,diesel,automatic,69000.0,14.16,1,1968.0,chennai,6272.727272727273,100,60.1,2190000
-hyundai,hyundai i20,12,petrol,manual,87431.0,18.6,1,1197.0,chennai,7285.916666666667,100,55.2569,495000
-hyundai,hyundai verna,13,diesel,manual,55578.0,22.32,1,1582.0,new delhi,4275.2307692307695,100,55.4422,250000
-hyundai,hyundai creta,10,diesel,manual,69337.0,19.67,1,1582.0,ghaziabad,6933.7,100,63.0663,850000
-mahindra,mahindra xuv500,12,diesel,manual,65120.0,15.1,1,2179.0,kolkata,5426.666666666667,100,57.488,615000
-jeep,jeep compass,9,diesel,manual,84537.0,17.1,1,1956.0,ghaziabad,9393.0,100,64.5463,1200000
-skoda,skoda new laura,14,diesel,automatic,75000.0,17.0,1,1896.0,new delhi,5357.142857142857,100,50.5,250000
-chevrolet,chevrolet spark,16,petrol,manual,55627.0,18.0,1,995.0,bangalore,3476.6875,100,46.4373,90130
-mercedes-benz,mercedes-benz e-class,11,diesel,automatic,113343.0,13.0,1,2143.0,pune,10303.90909090909,100,55.6657,1700000
-renault,renault kwid,10,petrol,manual,35000.0,23.01,1,999.0,mumbai,3500.0,100,66.5,275000
-hyundai,hyundai grand i10 nios,5,cng,manual,95688.0,18.9,1,1197.0,new delhi,19137.6,100,75.4312,695000
-honda,honda cr-v,11,petrol,automatic,44246.0,13.7,3,1997.0,gurgaon,4022.3636363636365,55,46.5754,1200000
-tata,tata harrier,7,diesel,manual,66773.0,17.0,1,1956.0,dehradun,9539.0,100,72.3227,1600000
-fiat,fiat grande punto,15,petrol,manual,77302.0,15.6,2,1368.0,pune,5153.466666666666,75,39.269800000000004,140000
-hyundai,hyundai santro,4,cng,manual,13479.0,30.48,1,1086.0,gurgaon,3369.75,100,86.6521,627000
-mg,mg hector,5,petrol,manual,5172.0,18.9,1,1451.0,gurgaon,1034.4,100,84.4828,1300000
-honda,honda city,17,petrol,manual,188683.0,17.0,1,1497.0,gurgaon,11099.0,100,30.1317,180103
-honda,honda wr-v,8,petrol,manual,200000.0,17.5,1,1199.0,dehradun,25000.0,100,56.0,800000
-honda,honda brio,14,petrol,manual,119013.0,19.4,2,1198.0,new delhi,8500.92857142857,75,38.0987,250000
-honda,honda city,14,petrol,automatic,72903.0,16.8,2,1497.0,pune,5207.357142857143,75,42.7097,500000
-hyundai,hyundai i20,11,petrol,manual,31781.0,18.6,2,1197.0,bangalore,2889.181818181818,75,55.8219,550000
-maruti,maruti celerio,4,petrol,manual,12000.0,25.24,1,998.0,pune,3000.0,100,86.8,625000
-hyundai,hyundai eon,14,lpg,manual,85766.0,21.1,3,814.0,jaipur,6126.142857142857,55,33.4234,160000
-maruti,maruti alto,18,petrol,manual,92619.0,19.7,1,796.0,bangalore,5145.5,100,36.7381,200000
-maruti,maruti swift dzire,14,petrol,manual,50785.0,19.1,1,1197.0,vadodara,3627.5,100,52.9215,400000
-maruti,maruti wagon r,14,petrol,manual,107629.0,18.9,2,998.0,gurgaon,7687.785714285715,75,39.2371,200000
-maruti,maruti swift,10,diesel,manual,58775.0,25.2,2,1248.0,gurgaon,5877.5,75,56.1225,413016
-hyundai,hyundai i20,11,petrol,manual,68940.0,18.6,2,1197.0,pune,6267.272727272727,75,52.106,475000
-mahindra,mahindra scorpio,10,diesel,manual,88391.0,15.4,1,1997.0,new delhi,8839.1,100,61.1609,750000
-skoda,skoda rapid,6,petrol,manual,28346.0,18.97,1,999.0,bangalore,4724.333333333333,100,79.1654,1000000
-maruti,maruti wagon r,8,cng,manual,29572.0,26.6,1,998.0,pune,3696.5,100,73.0428,517000
-skoda,skoda slavia,4,petrol,manual,10000.0,19.47,1,999.0,chandigarh,2500.0,100,87.0,1350000
-hyundai,hyundai grand i10 nios,5,petrol,automatic,4483.0,20.7,1,1197.0,ahmedabad,896.6,100,84.5517,700000
-maruti,maruti vitara brezza,9,diesel,manual,41000.0,24.3,1,1248.0,new delhi,4555.555555555556,100,68.9,775000
-renault,renault triber,5,petrol,manual,33423.0,20.0,1,999.0,hyderabad,6684.6,100,81.6577,726000
-chevrolet,chevrolet spark,16,lpg,manual,47282.0,16.0,1,995.0,hyderabad,2955.125,100,47.2718,98835
-audi,audi a3,8,petrol,automatic,43300.0,19.2,1,1395.0,pune,5412.5,100,71.67,2650000
-hyundai,hyundai creta,9,diesel,automatic,60000.0,17.01,1,1582.0,chennai,6666.666666666667,100,67.0,1150000
-hyundai,hyundai creta,6,petrol,manual,14247.0,18.9,2,1497.0,bangalore,2374.5,75,72.5753,1565000
-mg,mg hector,7,petrol,automatic,22000.0,13.96,1,1451.0,bangalore,3142.8571428571427,100,76.8,1795000
-maruti,maruti swift,7,petrol,manual,17000.0,21.21,1,1197.0,gurgaon,2428.5714285714284,100,77.3,605000
-toyota,toyota innova,16,diesel,manual,176292.0,12.8,1,2494.0,hyderabad,11018.25,100,34.3708,775000
-volkswagen,volkswagen vento,11,diesel,automatic,60000.0,21.21,1,1498.0,new delhi,5454.545454545455,100,61.0,515000
-hyundai,hyundai i20,10,petrol,manual,106292.0,18.6,1,1197.0,pune,10629.2,100,59.3708,500000
-hyundai,hyundai verna,13,petrol,manual,129580.0,17.01,1,1591.0,new delhi,9967.692307692309,100,48.042,311227
-tata,tata tiago,5,petrol,manual,5131.0,19.01,1,1199.0,jaipur,1026.2,100,84.4869,600000
-datsun,datsun go plus,9,petrol,manual,32960.0,19.44,2,1198.0,vadodara,3662.222222222222,75,61.70399999999999,350000
-volkswagen,volkswagen vento,10,diesel,automatic,83935.0,21.5,1,1498.0,pune,8393.5,100,61.6065,700000
-chevrolet,chevrolet sail,12,diesel,manual,54515.0,22.1,1,1248.0,jaipur,4542.916666666667,100,58.5485,250000
-hyundai,hyundai i20,5,petrol,manual,14005.0,21.0,1,1197.0,kolkata,2801.0,100,83.5995,625000
-toyota,toyota fortuner,12,diesel,manual,104989.0,13.0,1,2982.0,ghaziabad,8749.083333333334,100,53.5011,1400000
-maruti,maruti baleno,9,petrol,manual,36058.0,21.01,1,1197.0,mumbai,4006.4444444444443,100,69.3942,585000
-toyota,toyota fortuner legender,5,diesel,automatic,21300.0,18.9,1,2755.0,mumbai,4260.0,100,82.87,4500000
-mahindra,mahindra bolero,7,diesel,manual,57081.0,15.96,1,2523.0,mumbai,8154.428571428572,100,73.2919,735000
-toyota,toyota etios liva,12,diesel,manual,100000.0,23.59,3,1364.0,sirsa,8333.333333333334,55,38.0,400000
-honda,honda city,15,petrol,manual,20870.0,17.0,1,1497.0,gurgaon,1391.3333333333333,100,52.913,315180
-toyota,toyota innova crysta,9,diesel,automatic,107663.0,11.36,3,2755.0,bangalore,11962.555555555555,55,46.2337,1600000
-maruti,maruti swift,4,petrol,manual,14571.0,23.2,1,1197.0,bangalore,3642.75,100,86.5429,711257
-maruti,maruti alto,15,petrol,manual,65729.0,19.7,1,796.0,new delhi,4381.933333333333,100,48.4271,117084
-hyundai,hyundai i20,11,diesel,manual,73613.0,22.54,1,1396.0,new delhi,6692.090909090909,100,59.6387,425000
-volkswagen,volkswagen ameo,10,petrol,manual,48294.0,17.0,1,1198.0,bangalore,4829.4,100,65.17060000000001,485749
-hyundai,hyundai santa fe,11,diesel,automatic,133144.0,13.01,2,2199.0,bangalore,12104.0,75,45.6856,1300000
-tata,tata hexa,9,diesel,manual,73154.0,17.6,1,2179.0,new delhi,8128.222222222223,100,65.6846,800000
-mahindra,mahindra bolero power plus,8,diesel,manual,110000.0,16.5,2,1493.0,new delhi,13750.0,75,57.0,530000
-hyundai,hyundai i10,12,petrol,manual,60000.0,19.81,2,1086.0,new delhi,5000.0,75,50.0,250000
-maruti,maruti celerio,8,petrol,automatic,63269.0,23.1,1,998.0,ahmedabad,7908.625,100,69.6731,500000
-mg,mg hector plus,6,petrol,automatic,29890.0,11.67,1,1451.0,pune,4981.666666666667,100,79.011,1800000
-renault,renault kwid,7,petrol,manual,60000.0,25.17,1,799.0,aurangabad,8571.42857142857,100,73.0,330000
-hyundai,hyundai i20 active,11,petrol,manual,49640.0,17.19,1,1197.0,bangalore,4512.727272727273,100,62.036,629000
-audi,audi a4,9,diesel,automatic,43741.0,18.25,1,1968.0,new delhi,4860.111111111111,100,68.6259,2461769
-mahindra,mahindra xuv500,9,diesel,manual,63306.0,16.0,2,2179.0,surat,7034.0,75,58.669399999999996,961000
-maruti,maruti wagon r,5,cng,manual,35000.0,32.52,1,998.0,allahabad,7000.0,100,81.5,545000
-hyundai,hyundai i10,14,petrol,manual,88197.0,20.36,1,1197.0,gurgaon,6299.785714285715,100,49.1803,227789
-tata,tata altroz,6,petrol,manual,62359.0,19.33,2,1199.0,gurgaon,10393.166666666666,75,67.7641,730000
-mahindra,mahindra xylo,16,diesel,manual,45000.0,14.0,1,2498.0,indore,2812.5,100,47.5,300000
-hyundai,hyundai grand i10 nios,6,petrol,automatic,22539.0,20.7,1,1197.0,gurgaon,3756.5,100,79.7461,600000
-maruti,maruti wagon r,14,petrol,manual,17502.0,18.9,1,998.0,pune,1250.142857142857,100,56.2498,235875
-hyundai,hyundai i10,16,petrol,automatic,128152.0,19.2,2,1197.0,pune,8009.5,75,31.184799999999996,225000
-maruti,maruti baleno,8,petrol,manual,44356.0,21.4,1,1197.0,pune,5544.5,100,71.5644,596327
-kia,kia seltos,6,diesel,manual,44268.0,20.8,2,1493.0,hyderabad,7378.0,75,69.5732,1150000
-hyundai,hyundai i20,12,diesel,manual,88124.0,22.54,1,1396.0,chandigarh,7343.666666666667,100,55.1876,405152
-maruti,maruti swift,8,diesel,automatic,64000.0,28.4,1,1248.0,new delhi,8000.0,100,69.6,625000
-maruti,maruti swift dzire,13,diesel,manual,120000.0,23.4,2,1248.0,kolkata,9230.76923076923,75,41.0,350000
-volkswagen,volkswagen vento,5,petrol,manual,16049.0,15.04,1,1598.0,hyderabad,3209.8,100,83.3951,1520000
-hyundai,hyundai santro xing,17,petrol,manual,71665.0,17.92,2,1086.0,new delhi,4215.588235294118,75,33.8335,80000
-honda,honda city,9,petrol,automatic,58245.0,18.0,1,1497.0,pune,6471.666666666667,100,67.1755,900000
+brand,model,variant,vehicle_age,fuel_type,transmission,odometer_reading,fuel_efficiency,owner_count,engine_cc,city,km_per_year,ownership_trust_score,vehicle_health_score,selling_price,price_segment
+mahindra,mahindra scorpio,s10 7 seater,12,diesel,manual,94375.0,0.0,1,0.0,noida,7864.583333333333,100,54.5625,710000,mid
+hyundai,hyundai santro xing,gl plus,15,petrol,manual,33003.0,0.0,1,0.0,pune,2200.2,100,51.6997,185047,budget
+maruti,maruti swift,vxi,11,petrol,manual,96344.0,0.0,1,0.0,jaipur,8758.545454545454,100,57.3656,465000,budget
+renault,renault duster,85ps diesel rxe adventure,11,diesel,manual,70000.0,0.0,2,0.0,indore,6363.636363636364,75,52.0,475000,budget
+mercedes-benz,mercedes-benz e-class,expression e 220 d bsiv,9,diesel,automatic,24000.0,0.0,1,0.0,new delhi,2666.6666666666665,100,70.6,3975000,premium
+mahindra,mahindra scorpio,1.99 s4,10,diesel,manual,44647.0,0.0,1,0.0,gurgaon,4464.7,100,65.5353,800000,mid
+mahindra,mahindra thar,di 4x4 ps,10,diesel,manual,49000.0,0.0,1,0.0,vadodara,4900.0,100,65.1,750000,mid
+mercedes-benz,mercedes-benz cla,200 cdi sport,9,diesel,automatic,51090.0,0.0,1,0.0,kolkata,5676.666666666667,100,67.891,1600000,premium
+tata,tata manza,club class quadrajet90 lx,14,diesel,manual,120000.0,0.0,3,0.0,bhopal,8571.42857142857,55,30.0,175000,budget
+maruti,maruti swift,lxi,10,petrol,manual,83532.0,0.0,1,0.0,chennai,8353.2,100,61.6468,530000,mid
+datsun,datsun redigo,t option,8,petrol,manual,33412.0,0.0,1,0.0,noida,4176.5,100,72.6588,237870,budget
+tata,tata manza,aura (abs) safire bs iv,15,petrol,manual,125046.0,0.0,1,0.0,pune,8336.4,100,42.495400000000004,160000,budget
+maruti,maruti wagon r,lxi cng,9,cng,manual,60767.0,0.0,2,0.0,pune,6751.888888888889,75,58.9233,455000,budget
+mercedes-benz,mercedes-benz c-class,c300 cabriolet,7,petrol,automatic,34000.0,0.0,1,0.0,gurgaon,4857.142857142857,100,75.6,5980000,premium
+maruti,maruti ciaz,1.3 zeta,9,diesel,manual,37824.0,0.0,1,0.0,gurgaon,4202.666666666667,100,69.2176,600000,mid
+hyundai,hyundai grand i10,1.2 kappa magna bsiv,9,petrol,manual,65646.0,0.0,2,0.0,surat,7294.0,75,58.4354,450000,budget
+maruti,maruti wagon r,vxi minor,17,petrol,manual,32351.0,0.0,1,0.0,pune,1903.0,100,45.7649,140000,budget
+maruti,maruti baleno,delta,4,petrol,manual,14544.0,0.0,1,0.0,pune,3636.0,100,86.5456,850000,mid
+nissan,nissan micra,xl optional,11,petrol,manual,42615.0,0.0,1,0.0,chennai,3874.090909090909,100,62.7385,425000,budget
+hyundai,hyundai grand i10,sportz,11,petrol,manual,21919.0,0.0,1,0.0,bangalore,1992.6363636363637,100,64.8081,500000,budget
+volkswagen,volkswagen vento,diesel comfortline,13,diesel,manual,108032.0,0.0,1,0.0,pune,8310.153846153846,100,50.196799999999996,300000,budget
+maruti,maruti swift dzire,amt vxi,9,petrol,automatic,67534.0,0.0,3,0.0,pune,7503.777777777777,55,50.2466,500000,budget
+hyundai,hyundai grand i10,1.2 crdi magna,9,diesel,manual,68159.0,0.0,2,0.0,gurgaon,7573.222222222223,75,58.1841,384587,budget
+maruti,maruti celerio,zxi mt bsiv,7,petrol,manual,13780.0,0.0,2,0.0,rajkot,1968.5714285714287,75,69.622,478000,budget
+honda,honda jazz,basic,17,petrol,manual,88920.0,0.0,1,0.0,chandigarh,5230.588235294118,100,40.108000000000004,206883,budget
+renault,renault triber,rxz bsiv,7,petrol,manual,13976.0,0.0,1,0.0,bangalore,1996.5714285714287,100,77.6024,600000,mid
+maruti,maruti celerio,zxi,12,petrol,manual,120000.0,0.0,2,0.0,agra,10000.0,75,44.0,350000,budget
+fiat,fiat avventura,multijet emotion,11,diesel,manual,51490.0,0.0,1,0.0,kanpur,4680.909090909091,100,61.851,300000,budget
+mahindra,mahindra bolero,slx,13,diesel,manual,70000.0,0.0,2,0.0,lucknow,5384.615384615385,75,46.0,450000,budget
+honda,honda br-v,i-vtec v mt,9,petrol,manual,79193.0,0.0,1,0.0,bangalore,8799.222222222223,100,65.08070000000001,900000,mid
+bmw,bmw x1,sdrive20d,13,diesel,automatic,78601.0,0.0,3,0.0,bangalore,6046.2307692307695,55,37.1399,805936,mid
+kia,kia seltos,htk plus at d,6,diesel,automatic,18781.0,0.0,1,0.0,gurgaon,3130.1666666666665,100,80.1219,1430000,mid
+renault,renault triber,rxz bsiv,7,petrol,manual,5000.0,0.0,1,0.0,madurai,714.2857142857143,100,78.5,650000,mid
+maruti,maruti vitara brezza,zxi plus at,6,petrol,automatic,14344.0,0.0,1,0.0,pune,2390.6666666666665,100,80.5656,998000,mid
+mahindra,mahindra xuv500,w11 option at,6,diesel,automatic,15063.0,0.0,1,0.0,bangalore,2510.5,100,80.4937,1990000,premium
+tata,tata nexon,1.2 revotron xza plus,7,petrol,automatic,23833.0,0.0,1,0.0,bangalore,3404.714285714286,100,76.6167,950000,mid
+ford,ford ecosport,1.5 ti vct at titanium be bsiv,10,petrol,automatic,71132.0,0.0,1,0.0,jaipur,7113.2,100,62.8868,650000,mid
+maruti,maruti wagon r,lxi minor,17,petrol,manual,60926.0,0.0,1,0.0,vadodara,3583.8823529411766,100,42.9074,120000,budget
+renault,renault duster,85ps diesel rxe,12,diesel,manual,117668.0,0.0,1,0.0,surat,9805.666666666666,100,52.2332,350000,budget
+skoda,skoda kushaq,1.0 tsi style at,5,petrol,automatic,1186.0,0.0,1,0.0,bangalore,237.2,100,84.8814,1800000,premium
+honda,honda city,gxi,18,petrol,manual,80363.0,0.0,1,0.0,noida,4464.611111111111,100,37.9637,130000,budget
+audi,audi a6,35 tdi,11,diesel,automatic,64000.0,0.0,2,0.0,pune,5818.181818181818,75,52.6,2100000,premium
+chevrolet,chevrolet cruze,ltz at,8,diesel,automatic,80000.0,0.0,3,0.0,chandigarh,10000.0,55,52.0,680000,mid
+skoda,skoda yeti,ambition 4x2,13,diesel,manual,92560.0,0.0,2,0.0,indore,7120.0,75,43.744,850000,mid
+hyundai,hyundai i10,era,18,petrol,manual,60250.0,0.0,1,0.0,chennai,3347.222222222222,100,39.975,145000,budget
+maruti,maruti eeco,cng htr 5-str,10,cng,manual,76630.0,0.0,1,0.0,morbi,7663.0,100,62.337,412000,budget
+tata,tata sumo victa,di ex bsiii,15,diesel,manual,17645.0,0.0,1,0.0,mumbai,1176.3333333333333,100,53.2355,350000,budget
+tata,tata new safari,xz plus 6 str adventure edition,4,diesel,manual,4925.0,0.0,1,0.0,bangalore,1231.25,100,87.5075,2600000,premium
+maruti,maruti swift,1.3 vxi,16,petrol,manual,18961.0,0.0,2,0.0,lucknow,1185.0625,75,42.1039,220000,budget
+honda,honda civic,1.8 s mt,19,petrol,manual,80116.0,0.0,2,0.0,pune,4216.631578947368,75,26.9884,90000,budget
+toyota,toyota etios,g,13,petrol,manual,43517.0,0.0,1,0.0,kolkata,3347.4615384615386,100,56.6483,290000,budget
+maruti,maruti swift dzire,1.2 vxi bsiv,15,petrol,manual,158674.0,0.0,1,0.0,gurgaon,10578.266666666666,100,39.1326,159108,budget
+hyundai,hyundai i20,sportz 1.4 crdi,13,diesel,manual,80390.0,0.0,1,0.0,gurgaon,6183.846153846154,100,52.961,302947,budget
+maruti,maruti wagon r,lxi cng,13,cng,manual,63954.0,0.0,1,0.0,pune,4919.538461538462,100,54.6046,300000,budget
+hyundai,hyundai santro xing,xg,22,petrol,manual,89000.0,0.0,1,0.0,pune,4045.4545454545455,100,25.1,98000,budget
+tata,tata nexon,xz 2020-2022,6,petrol,manual,28807.0,0.0,1,0.0,new delhi,4801.166666666667,100,79.1193,750000,mid
+honda,honda amaze,s petrol,6,petrol,manual,21795.0,0.0,1,0.0,ghaziabad,3632.5,100,79.8205,630000,mid
+maruti,maruti swift dzire,zxi cng,4,cng,manual,6453.0,0.0,1,0.0,gurgaon,1613.25,100,87.3547,948000,mid
+hyundai,hyundai i20,1.4 crdi magna,15,diesel,manual,127493.0,0.0,2,0.0,gurgaon,8499.533333333333,75,34.2507,212079,budget
+honda,honda city,i-vtec v,9,petrol,manual,57709.0,0.0,2,0.0,new delhi,6412.111111111111,75,59.2291,610000,mid
+fiat,fiat punto,1.2 active,16,petrol,manual,78981.0,0.0,3,0.0,lucknow,4936.3125,55,28.1019,230000,budget
+honda,honda jazz,1.2 sv i vtec,11,petrol,manual,106620.0,0.0,1,0.0,gurgaon,9692.727272727272,100,56.338,380894,budget
+tata,tata punch,creative amt ira dt,4,petrol,automatic,3332.0,0.0,1,0.0,ahmedabad,833.0,100,87.6668,955000,mid
+hyundai,hyundai creta,1.6 sx automatic diesel,9,diesel,automatic,79000.0,0.0,1,0.0,bangalore,8777.777777777777,100,65.1,1295000,mid
+maruti,maruti alto 800,cng lxi,12,cng,manual,60000.0,0.0,1,0.0,satara,5000.0,100,58.0,280000,budget
+nissan,nissan micra,xv cvt,12,petrol,automatic,20888.0,0.0,1,0.0,mumbai,1740.6666666666667,100,61.9112,400000,budget
+toyota,toyota fortuner,4x2 at,10,diesel,automatic,59000.0,0.0,1,0.0,mumbai,5900.0,100,64.1,2295000,premium
+toyota,toyota fortuner,4x2 at,13,diesel,automatic,80000.0,0.0,1,0.0,bharatpur,6153.846153846154,100,53.0,1521000,premium
+maruti,maruti swift dzire,vdi,12,diesel,manual,120000.0,0.0,2,0.0,new delhi,10000.0,75,44.0,400000,budget
+maruti,maruti eeco,5 seater ac bsiv,6,petrol,manual,29528.0,0.0,1,0.0,jaipur,4921.333333333333,100,79.0472,450400,budget
+honda,honda brio,v at,13,petrol,automatic,61176.0,0.0,1,0.0,noida,4705.846153846154,100,54.8824,300000,budget
+hyundai,hyundai i10,magna,15,petrol,manual,65200.0,0.0,1,0.0,noida,4346.666666666667,100,48.480000000000004,168115,budget
+hyundai,hyundai i20,petrol cvt asta,8,petrol,automatic,64550.0,0.0,1,0.0,bangalore,8068.75,100,69.545,730000,mid
+volkswagen,volkswagen vento,1.5 tdi highline plus,9,diesel,manual,83870.0,0.0,1,0.0,bangalore,9318.888888888889,100,64.613,786000,mid
+hyundai,hyundai i20,asta 1.4 crdi,11,diesel,manual,59613.0,0.0,1,0.0,bangalore,5419.363636363636,100,61.0387,645000,mid
+audi,audi q5,35tdi technology,8,diesel,automatic,36000.0,0.0,1,0.0,new delhi,4500.0,100,72.4,4500000,premium
+mercedes-benz,mercedes-benz c-class,c 200 avantgarde,12,petrol,automatic,29000.0,0.0,3,0.0,new delhi,2416.6666666666665,55,45.1,1350000,mid
+maruti,maruti swift dzire,vxi,4,petrol,manual,1101.0,0.0,1,0.0,new delhi,275.25,100,87.8899,700000,mid
+mahindra,mahindra xuv300,w8 option,5,petrol,manual,16329.0,0.0,1,0.0,new delhi,3265.8,100,83.3671,1200000,mid
+audi,audi a4,new 2.0 tdi multitronic,13,diesel,automatic,61509.0,0.0,2,0.0,bangalore,4731.461538461538,75,46.8491,800000,mid
+maruti,maruti wagon r,vxi bs iv,14,petrol,manual,28037.0,0.0,1,0.0,surat,2002.642857142857,100,55.1963,310000,budget
+kia,kia seltos,htx g,5,petrol,manual,22058.0,0.0,1,0.0,dehradun,4411.6,100,82.7942,1301730,mid
+hyundai,hyundai grand i10,at asta,11,petrol,automatic,15615.0,0.0,2,0.0,pune,1419.5454545454545,75,57.438500000000005,400000,budget
+tata,tata tiago,1.2 revotron xz,8,petrol,manual,28808.0,0.0,1,0.0,bangalore,3601.0,100,73.1192,552000,mid
+maruti,maruti sx4,vdi,13,diesel,manual,99201.0,0.0,1,0.0,noida,7630.846153846154,100,51.0799,300000,budget
+maruti,maruti sx4 s cross,sigma ddis 200 sh,9,diesel,manual,56762.0,0.0,2,0.0,gurgaon,6306.888888888889,75,59.323800000000006,700000,mid
+maruti,maruti ciaz,1.4 delta,8,petrol,manual,37713.0,0.0,1,0.0,kolkata,4714.125,100,72.2287,705000,mid
+honda,honda city,zx cvt,6,petrol,automatic,9849.0,0.0,1,0.0,bangalore,1641.5,100,81.0151,1450000,mid
+maruti,maruti alto 800,lxi,5,petrol,manual,15000.0,0.0,1,0.0,chandigarh,3000.0,100,83.5,320000,budget
+honda,honda city,1.5 v mt,17,petrol,manual,77265.0,0.0,1,0.0,ghaziabad,4545.0,100,41.2735,312336,budget
+maruti,maruti wagon r,vxi 1.2,15,petrol,manual,42000.0,0.0,3,0.0,mumbai,2800.0,55,34.8,215000,budget
+mahindra ssangyong,mahindra ssangyong rexton,rx6,10,diesel,manual,100000.0,0.0,1,0.0,chandigarh,10000.0,100,60.0,900000,mid
+tata,tata nexon ev prime,xz plus,5,electric,automatic,49244.0,0.0,1,0.0,new delhi,9848.8,100,80.0756,1400000,mid
+mahindra,mahindra xuv500,w6 2wd,13,diesel,manual,90928.0,0.0,1,0.0,gurgaon,6994.461538461538,100,51.9072,430752,budget
+renault,renault kwid,1.0 rxl,5,petrol,manual,13000.0,0.0,1,0.0,surat,2600.0,100,83.7,425000,budget
+tata,tata nexon,1.5 revotorq xz plus,8,diesel,manual,49882.0,0.0,2,0.0,pune,6235.25,75,63.011799999999994,881000,mid
+maruti,maruti sx4,zdi,14,diesel,manual,80000.0,0.0,1,0.0,bangalore,5714.285714285715,100,50.0,465000,budget
+hyundai,hyundai i20,asta 1.2,12,petrol,manual,33678.0,0.0,1,0.0,kolkata,2806.5,100,60.6322,454000,budget
+hyundai,hyundai i20,sportz 1.2,9,petrol,manual,87000.0,0.0,1,0.0,mumbai,9666.666666666666,100,64.3,525000,mid
+hyundai,hyundai aura,sx,6,petrol,manual,36767.0,0.0,1,0.0,bangalore,6127.833333333333,100,78.3233,800000,mid
+hyundai,hyundai i10,sportz 1.2,16,petrol,manual,78070.0,0.0,3,0.0,ahmedabad,4879.375,55,28.192999999999998,185000,budget
+mahindra,mahindra xylo,e8,17,diesel,manual,90000.0,0.0,2,0.0,chennai,5294.117647058823,75,32.0,350000,budget
+skoda,skoda octavia,1.8 tsi at l k,9,petrol,automatic,82928.0,0.0,1,0.0,pune,9214.222222222223,100,64.7072,1300000,mid
+skoda,skoda rapid,1.6 mpi active plus,13,petrol,manual,25500.0,0.0,1,0.0,mumbai,1961.5384615384614,100,58.45,375000,budget
+honda,honda amaze,vx cvt petrol,5,petrol,automatic,12313.0,0.0,1,0.0,ghaziabad,2462.6,100,83.7687,931596,mid
+hyundai,hyundai creta,1.6 crdi sx,10,diesel,manual,85849.0,0.0,1,0.0,new delhi,8584.9,100,61.4151,788000,mid
+hyundai,hyundai creta,1.6 sx,10,petrol,manual,85000.0,0.0,1,0.0,new delhi,8500.0,100,61.5,825000,mid
+jeep,jeep compass,2.0 limited option 4x4 black,8,diesel,manual,86513.0,0.0,2,0.0,surat,10814.125,75,59.348699999999994,1400000,mid
+honda,honda jazz,1.2 sv i vtec,11,petrol,manual,74000.0,0.0,2,0.0,pune,6727.272727272727,75,51.6,495000,budget
+tata,tata new safari,xm,5,diesel,manual,12321.0,0.0,1,0.0,gurgaon,2464.2,100,83.7679,1613000,premium
+mercedes-benz,mercedes-benz c-class,c 220 cdi avantgarde,10,diesel,automatic,40281.0,0.0,2,0.0,jaipur,4028.1,75,57.971900000000005,2200233,premium
+honda,honda wr-v,i-dtec vx,7,diesel,manual,39844.0,0.0,1,0.0,new delhi,5692.0,100,75.0156,800000,mid
+honda,honda city,i vtec v,9,petrol,manual,20413.0,0.0,1,0.0,pune,2268.1111111111113,100,70.9587,800000,mid
+datsun,datsun redigo,amt 1.0 t option,8,petrol,automatic,20270.0,0.0,2,0.0,kochi,2533.75,75,65.973,314000,budget
+jeep,jeep compass,2.0 limited opt diesel,5,diesel,manual,23703.0,0.0,1,0.0,lucknow,4740.6,100,82.6297,2000000,premium
+bmw,bmw x1,sdrive20d,14,diesel,automatic,67730.0,0.0,1,0.0,ahmedabad,4837.857142857143,100,51.227000000000004,871372,mid
+renault,renault kwid,1.0 rxt optional,8,petrol,manual,81318.0,0.0,1,0.0,new delhi,10164.75,100,67.8682,323000,budget
+honda,honda brio,v mt,14,petrol,manual,64000.0,0.0,3,0.0,indore,4571.428571428572,55,35.6,290000,budget
+hyundai,hyundai i10,magna 1.1,17,petrol,manual,142670.0,0.0,1,0.0,new delhi,8392.35294117647,100,34.733000000000004,107855,budget
+honda,honda accord,2.4 at,16,petrol,automatic,94418.0,0.0,2,0.0,noida,5901.125,75,34.5582,220000,budget
+datsun,datsun redigo,s,9,petrol,manual,43823.0,0.0,1,0.0,bangalore,4869.222222222223,100,68.6177,304164,budget
+mercedes-benz,mercedes-benz gla class,200 sport edition,10,petrol,automatic,70961.0,0.0,2,0.0,pune,7096.1,75,54.9039,1600000,premium
+ford,ford endeavour,4x2 xlt,21,diesel,manual,115226.0,0.0,2,0.0,hyderabad,5486.952380952381,75,17.4774,200000,budget
+mg,mg hector,sharp diesel mt bsiv,5,diesel,manual,40492.0,0.0,1,0.0,jaipur,8098.4,100,80.9508,1790000,premium
+maruti,maruti vitara brezza,zdi,10,diesel,manual,78969.0,0.0,1,0.0,new delhi,7896.9,100,62.1031,650000,mid
+maruti,maruti swift,vdi,15,diesel,manual,150922.0,0.0,1,0.0,jaipur,10061.466666666667,100,39.9078,260000,budget
+tata,tata tiago,1.2 revotron xz,8,petrol,manual,64149.0,0.0,1,0.0,chandigarh,8018.625,100,69.5851,418000,budget
+ford,ford figo,diesel zxi,14,diesel,manual,90000.0,0.0,1,0.0,ludhiana,6428.571428571428,100,49.0,199999,budget
+chevrolet,chevrolet sail,1.3 ls,12,diesel,manual,54515.0,0.0,1,0.0,jaipur,4542.916666666667,100,58.5485,250000,budget
+hyundai,hyundai xcent,1.1 crdi s,12,diesel,manual,140060.0,0.0,2,0.0,surat,11671.666666666666,75,41.994,350000,budget
+honda,honda amaze,vx petrol bsiv,7,petrol,manual,52328.0,0.0,1,0.0,bangalore,7475.428571428572,100,73.7672,730000,mid
+honda,honda city,i vtec v,10,petrol,manual,37056.0,0.0,1,0.0,pune,3705.6,100,66.2944,650000,mid
+hyundai,hyundai santro,asta bsiv,7,petrol,manual,4077.0,0.0,1,0.0,mumbai,582.4285714285714,100,78.5923,544000,mid
+hyundai,hyundai i20 active,1.2 sx,10,petrol,manual,16523.0,0.0,1,0.0,pune,1652.3,100,68.3477,602676,mid
+mini,mini 5 door,cooper d,11,diesel,automatic,20000.0,0.0,2,0.0,coimbatore,1818.1818181818182,75,57.0,2700000,premium
+hyundai,hyundai grand i10,1.2 kappa sportz bsiv,8,petrol,manual,16355.0,0.0,1,0.0,bangalore,2044.375,100,74.3645,550000,mid
+mg,mg hector,sharp diesel mt,5,diesel,manual,16327.0,0.0,1,0.0,bangalore,3265.4,100,83.3673,1904000,premium
+ford,ford aspire,1.5 tdci titanium,11,diesel,manual,87846.0,0.0,1,0.0,chennai,7986.0,100,58.2154,500000,budget
+maruti,maruti vitara brezza,vdi option,8,diesel,manual,56359.0,0.0,1,0.0,new delhi,7044.875,100,70.3641,660000,mid
+mahindra,mahindra kuv 100 nxt,g80 k8,8,petrol,manual,78820.0,0.0,1,0.0,ujjain,9852.5,100,68.118,450000,budget
+hyundai,hyundai i20,1.2 sportz,15,petrol,manual,122546.0,0.0,2,0.0,gurgaon,8169.733333333334,75,34.745400000000004,230000,budget
+bmw,bmw 5 series,520d sedan,14,diesel,automatic,138722.0,0.0,2,0.0,ahmedabad,9908.714285714286,75,36.1278,800000,mid
+maruti,maruti swift,vdi bsiv,12,diesel,manual,117781.0,0.0,2,0.0,new delhi,9815.083333333334,75,44.2219,290000,budget
+renault,renault kiger,rxz turbo,5,petrol,manual,9615.0,0.0,1,0.0,new delhi,1923.0,100,84.0385,1051000,mid
+hyundai,hyundai verna,1.6 sx crdi (o),14,diesel,manual,84180.0,0.0,2,0.0,bangalore,6012.857142857143,75,41.582,500000,budget
+renault,renault kwid,rxt optional,11,petrol,manual,15000.0,0.0,1,0.0,thane,1363.6363636363637,100,65.5,305000,budget
+volkswagen,volkswagen polo,petrol comfortline 1.2l,15,petrol,manual,19953.0,0.0,1,0.0,pune,1330.2,100,53.0047,300000,budget
+maruti,maruti swift,vxi,14,petrol,manual,156792.0,0.0,2,0.0,ghaziabad,11199.42857142857,75,34.3208,182119,budget
+maruti,maruti wagon r,lxi cng,12,cng,manual,34889.0,0.0,1,0.0,pune,2907.4166666666665,100,60.5111,350000,budget
+skoda,skoda superb,elegance 1.8 tsi at,17,petrol,automatic,60000.0,0.0,2,0.0,mumbai,3529.4117647058824,75,35.0,300000,budget
+datsun,datsun go,t petrol,7,petrol,manual,27025.0,0.0,1,0.0,dehradun,3860.714285714286,100,76.2975,337999,budget
+hyundai,hyundai creta,1.6 vtvt e plus,10,petrol,manual,50000.0,0.0,1,0.0,thane,5000.0,100,65.0,900000,mid
+toyota,toyota fortuner,2.8 4wd at,6,diesel,automatic,38364.0,0.0,1,0.0,surat,6394.0,100,78.1636,3500000,premium
+mahindra,mahindra xuv500,w6 2wd,12,diesel,manual,77605.0,0.0,2,0.0,new delhi,6467.083333333333,75,48.2395,525000,mid
+volkswagen,volkswagen polo,petrol comfortline 1.2l,15,petrol,manual,39393.0,0.0,1,0.0,vadodara,2626.2,100,51.0607,272635,budget
+maruti,maruti ciaz,at zxi plus,10,petrol,automatic,43659.0,0.0,2,0.0,pune,4365.9,75,57.634100000000004,657341,mid
+maruti,maruti celerio,zxi plus,4,petrol,manual,2248.0,0.0,1,0.0,dehradun,562.0,100,87.7752,620009,mid
+volvo,volvo s90,d4 inscription bsiv,8,diesel,automatic,16000.0,0.0,1,0.0,mumbai,2000.0,100,74.4,4490000,premium
+maruti,maruti vitara brezza,zdi plus,10,diesel,manual,75000.0,0.0,1,0.0,gurgaon,7500.0,100,62.5,650000,mid
+renault,renault triber,rxz easy-r amt,6,petrol,automatic,10619.0,0.0,1,0.0,bangalore,1769.8333333333333,100,80.9381,842000,mid
+toyota,toyota etios 2014-2016,gd,11,diesel,manual,160089.0,0.0,2,0.0,rajahmundry,14553.545454545454,75,42.9911,480000,budget
+fiat,fiat linea,dynamic,16,petrol,manual,96880.0,0.0,2,0.0,hyderabad,6055.0,75,34.312,110000,budget
+maruti,maruti sx4,zxi bsiii,18,petrol,manual,122446.0,0.0,2,0.0,gurgaon,6802.555555555556,75,25.7554,116568,budget
+maruti,maruti ertiga,shvs vdi,10,diesel,manual,120000.0,0.0,1,0.0,kapurthala,12000.0,100,58.0,600000,mid
+hyundai,hyundai verna,vtvt 1.6 sx,7,petrol,manual,50720.0,0.0,1,0.0,surat,7245.714285714285,100,73.928,771133,mid
+hyundai,hyundai creta,s,5,petrol,manual,12748.0,0.0,2,0.0,kanpur,2549.6,75,75.7252,1150000,mid
+maruti,maruti baleno,1.2 delta,8,petrol,manual,39679.0,0.0,2,0.0,noida,4959.875,75,64.0321,532500,mid
+renault,renault kwid,1.0 rxt,8,petrol,manual,45377.0,0.0,1,0.0,jaipur,5672.125,100,71.4623,450000,budget
+hyundai,hyundai i10,magna 1.1l,14,petrol,manual,111393.0,0.0,3,0.0,pune,7956.642857142857,55,30.8607,220000,budget
+maruti,maruti vitara brezza,vdi,9,diesel,manual,68000.0,0.0,1,0.0,ludhiana,7555.555555555556,100,66.2,780000,mid
+tata,tata altroz,xz plus dark edition diesel,4,diesel,manual,13400.0,0.0,1,0.0,dehradun,3350.0,100,86.66,1000000,mid
+honda,honda city,i vtec sv,12,petrol,manual,86000.0,0.0,1,0.0,pune,7166.666666666667,100,55.4,580000,mid
+maruti,maruti wagon r,vxi bs iv,16,petrol,manual,29005.0,0.0,2,0.0,pune,1812.8125,75,41.0995,200000,budget
+maruti,maruti wagon r,lxi bs iv,12,petrol,manual,32782.0,0.0,2,0.0,new delhi,2731.8333333333335,75,52.7218,303000,budget
+maruti,maruti swift,ldi bsiii,17,diesel,manual,139171.0,0.0,2,0.0,kolkata,8186.529411764706,75,27.082900000000002,150000,budget
+maruti,maruti alto k10,vxi,9,petrol,manual,22248.0,0.0,1,0.0,bangalore,2472.0,100,70.7752,425000,budget
+hyundai,hyundai grand i10,sportz,10,petrol,manual,110000.0,0.0,2,0.0,rajkot,11000.0,75,51.0,388000,budget
+mahindra,mahindra xuv500,r w10 fwd,10,diesel,manual,42898.0,0.0,1,0.0,bangalore,4289.8,100,65.7102,899678,mid
+maruti,maruti swift,zdi plus,7,diesel,manual,29291.0,0.0,2,0.0,pune,4184.428571428572,75,68.0709,787000,mid
+chevrolet,chevrolet spark,1.0 lt,16,petrol,manual,105000.0,0.0,2,0.0,thrissur,6562.5,75,33.5,80000,budget
+honda,honda city,v mt,7,petrol,manual,37264.0,0.0,2,0.0,noida,5323.428571428572,75,67.2736,850000,mid
+maruti,maruti zen estilo,lxi bs iv,15,petrol,manual,38025.0,0.0,1,0.0,hyderabad,2535.0,100,51.1975,200000,budget
+honda,honda wr-v,i-dtec vx,8,diesel,manual,70074.0,0.0,1,0.0,bangalore,8759.25,100,68.9926,869423,mid
+honda,honda city,i vtec vx,11,petrol,manual,133298.0,0.0,2,0.0,pune,12118.0,75,45.6702,630000,mid
+skoda,skoda rapid,1.5 tdi at style plus,11,diesel,automatic,84436.0,0.0,2,0.0,bangalore,7676.0,75,50.5564,738000,mid
+maruti,maruti baleno,1.2 alpha,9,petrol,manual,32800.0,0.0,1,0.0,bhubaneswar,3644.4444444444443,100,69.72,620000,mid
+honda,honda city,i vtec v,11,petrol,manual,34144.0,0.0,1,0.0,bangalore,3104.0,100,63.5856,620000,mid
+tata,tata tiago,1.2 revotron xt,7,petrol,manual,28000.0,0.0,1,0.0,faridabad,4000.0,100,76.2,486000,budget
+maruti,maruti celerio,zxi at optional,10,petrol,automatic,34950.0,0.0,1,0.0,pune,3495.0,100,66.505,500000,budget
+toyota,toyota innova,2.5 g4 diesel 7-seater,15,diesel,manual,76135.0,0.0,1,0.0,pune,5075.666666666667,100,47.3865,450000,budget
+honda,honda jazz,1.2 vx i vtec,11,petrol,manual,123219.0,0.0,2,0.0,noida,11201.727272727272,75,46.6781,330000,budget
+maruti,maruti swift,vxi amt,4,petrol,automatic,1509.0,0.0,1,0.0,new delhi,377.25,100,87.8491,746000,mid
+volkswagen,volkswagen vento,petrol highline,15,petrol,manual,44851.0,0.0,1,0.0,new delhi,2990.0666666666666,100,50.5149,265317,budget
+toyota,toyota urban cruiser,premium,5,petrol,manual,25795.0,0.0,1,0.0,dehradun,5159.0,100,82.4205,926268,mid
+hyundai,hyundai eon,magna plus,8,petrol,manual,18636.0,0.0,2,0.0,bangalore,2329.5,75,66.1364,394000,budget
+maruti,maruti wagon r,cng lxi,6,cng,manual,63684.0,0.0,1,0.0,new delhi,10614.0,100,75.6316,569000,mid
+mahindra,mahindra scorpio,sle 7s bsiv,13,diesel,manual,106583.0,0.0,2,0.0,gurgaon,8198.692307692309,75,42.3417,360000,budget
+maruti,maruti swift dzire,1.2 vxi bsiv,16,petrol,manual,98473.0,0.0,2,0.0,new delhi,6154.5625,75,34.152699999999996,157737,budget
+tata,tata altroz,xe,5,petrol,manual,40000.0,0.0,1,0.0,patna,8000.0,100,81.0,600000,mid
+hyundai,hyundai i20,sportz plus,6,petrol,manual,34000.0,0.0,1,0.0,mumbai,5666.666666666667,100,78.6,675000,mid
+skoda,skoda rapid,1.6 mpi style plus,10,petrol,manual,45888.0,0.0,1,0.0,pune,4588.8,100,65.4112,603000,mid
+skoda,skoda rapid,1.0 tsi rider plus at,5,petrol,automatic,68622.0,0.0,1,0.0,pune,13724.4,100,78.1378,900000,mid
+maruti,maruti baleno,1.2 delta,9,petrol,manual,33817.0,0.0,2,0.0,noida,3757.4444444444443,75,61.618300000000005,526600,mid
+maruti,maruti swift,vxi,6,petrol,manual,25002.0,0.0,1,0.0,kolkata,4167.0,100,79.4998,585000,mid
+hyundai,hyundai verna,s plus diesel,4,diesel,manual,7622.0,0.0,1,0.0,dehradun,1905.5,100,87.2378,1130000,mid
+maruti,maruti vitara brezza,zdi amt,8,diesel,automatic,17193.0,0.0,1,0.0,bangalore,2149.125,100,74.2807,1099000,mid
+tata,tata new safari,xe,5,diesel,manual,11541.0,0.0,2,0.0,new delhi,2308.2,75,75.8459,1400000,mid
+maruti,maruti vitara brezza,vdi amt,8,diesel,automatic,27541.0,0.0,1,0.0,bangalore,3442.625,100,73.2459,880000,mid
+mahindra,mahindra thar,ax opt 4-str convert top diesel,6,diesel,manual,7000.0,0.0,1,0.0,new delhi,1166.6666666666667,100,81.3,1456000,mid
+chevrolet,chevrolet beat,ps,13,petrol,manual,49627.0,0.0,3,0.0,new delhi,3817.4615384615386,55,40.0373,235000,budget
+bmw,bmw x1,sdrive 20d sportline,10,diesel,automatic,100811.0,0.0,2,0.0,new delhi,10081.1,75,51.9189,1690000,premium
+fiat,fiat grande punto,active (diesel),14,diesel,manual,96975.0,0.0,3,0.0,hyderabad,6926.785714285715,55,32.3025,270000,budget
+renault,renault duster,rxs option cvt bsiv,7,petrol,automatic,22018.0,0.0,1,0.0,bangalore,3145.4285714285716,100,76.7982,900000,mid
+bmw,bmw x1,sdrive 20d xline,6,diesel,automatic,47500.0,0.0,2,0.0,chennai,7916.666666666667,75,69.25,3300000,premium
+hyundai,hyundai i10,sportz,16,petrol,manual,23417.0,0.0,1,0.0,bangalore,1463.5625,100,49.6583,190040,budget
+maruti,maruti swift,zdi,6,diesel,manual,50000.0,0.0,1,0.0,chennai,8333.333333333334,100,77.0,750000,mid
+honda,honda city,i-vtec cvt vx,9,petrol,automatic,16665.0,0.0,1,0.0,ghaziabad,1851.6666666666667,100,71.3335,1150000,mid
+kia,kia sonet,1.2 htk plus,4,petrol,manual,18179.0,0.0,1,0.0,jaipur,4544.75,100,86.1821,900000,mid
+honda,honda city,1.5 v mt,17,petrol,manual,83002.0,0.0,1,0.0,new delhi,4882.470588235294,100,40.699799999999996,245000,budget
+maruti,maruti vitara brezza,vxi,6,petrol,manual,16458.0,0.0,1,0.0,ghaziabad,2743.0,100,80.3542,900000,mid
+maruti,maruti wagon r,lxi cng,12,cng,manual,102649.0,0.0,2,0.0,pune,8554.083333333334,75,45.7351,300000,budget
+toyota,toyota corolla altis,1.8 vl cvt,8,petrol,automatic,26000.0,0.0,1,0.0,pune,3250.0,100,73.4,1650000,premium
+honda,honda city,v mt,5,petrol,manual,3157.0,0.0,1,0.0,mumbai,631.4,100,84.6843,1020000,mid
+hyundai,hyundai i10,magna,16,petrol,manual,67121.0,0.0,1,0.0,bangalore,4195.0625,100,45.2879,250000,budget
+audi,audi q2,standard,5,petrol,automatic,15755.0,0.0,1,0.0,kolkata,3151.0,100,83.4245,3699000,premium
+honda,honda city,i vtec cvt vx,10,petrol,automatic,24571.0,0.0,1,0.0,lucknow,2457.1,100,67.5429,700000,mid
+hyundai,hyundai grand i10,at sportz,12,petrol,automatic,60000.0,0.0,1,0.0,kanpur,5000.0,100,58.0,310000,budget
+mercedes-benz,mercedes-benz glc,220d 4matic,7,diesel,automatic,50000.0,0.0,1,0.0,bangalore,7142.857142857143,100,74.0,4550000,premium
+tata,tata nexon,xz 2020-2022,5,petrol,manual,14922.0,0.0,1,0.0,bangalore,2984.4,100,83.5078,1000000,mid
+maruti,maruti swift dzire,vxi,13,petrol,manual,80000.0,0.0,2,0.0,bangalore,6153.846153846154,75,45.0,475000,budget
+mahindra,mahindra thar,lx 4-str convert top diesel at,5,diesel,automatic,21000.0,0.0,1,0.0,indore,4200.0,100,82.9,1675000,premium
+toyota,toyota fortuner,4x2 manual,12,diesel,manual,133000.0,0.0,2,0.0,rajkot,11083.333333333334,75,42.7,1475000,mid
+skoda,skoda rapid,1.5 tdi ambition bsiv,7,diesel,manual,33000.0,0.0,1,0.0,chennai,4714.285714285715,100,75.7,950000,mid
+maruti,maruti swift,vxi bsiv,16,petrol,manual,48902.0,0.0,1,0.0,new delhi,3056.375,100,47.1098,239000,budget
+mahindra,mahindra tuv 300,t4 plus,10,diesel,manual,64910.0,0.0,2,0.0,jaipur,6491.0,75,55.509,600000,mid
+maruti,maruti celerio,vxi,11,petrol,manual,66000.0,0.0,1,0.0,noida,6000.0,100,60.4,395000,budget
+hyundai,hyundai i20,sportz 1.2,12,petrol,manual,112153.0,0.0,1,0.0,pune,9346.083333333334,100,52.7847,350000,budget
+honda,honda city,i vtec v,9,petrol,manual,108000.0,0.0,2,0.0,bangalore,12000.0,75,54.2,785000,mid
+honda,honda mobilio,v i-vtec,9,petrol,manual,15711.0,0.0,1,0.0,mumbai,1745.6666666666667,100,71.4289,625000,mid
+hyundai,hyundai i20,asta option bsiv,8,petrol,manual,18131.0,0.0,1,0.0,bangalore,2266.375,100,74.1869,750000,mid
+fiat,fiat punto,1.3 emotion,15,diesel,manual,120000.0,0.0,2,0.0,new delhi,8000.0,75,35.0,220000,budget
+renault,renault kwid,1.0 rxt,8,petrol,manual,70000.0,0.0,1,0.0,patna,8750.0,100,69.0,250000,budget
+tata,tata tiago,1.2 revotron xz,9,petrol,manual,65169.0,0.0,1,0.0,bangalore,7241.0,100,66.48310000000001,475000,budget
+audi,audi q5,30 tdi quattro premium plus,11,diesel,automatic,47849.0,0.0,3,0.0,kolkata,4349.909090909091,55,46.2151,800000,mid
+toyota,toyota etios,g,15,petrol,manual,70000.0,0.0,2,0.0,panchkula,4666.666666666667,75,40.0,265000,budget
+nissan,nissan magnite,xv,4,petrol,manual,3276.0,0.0,1,0.0,hyderabad,819.0,100,87.6724,818000,mid
+renault,renault duster,85ps diesel rxl plus,13,diesel,manual,90000.0,0.0,2,0.0,jodhpur,6923.076923076923,75,44.0,480000,budget
+maruti,maruti alto k10,vxi amt,10,petrol,automatic,55335.0,0.0,3,0.0,noida,5533.5,55,48.466499999999996,280000,budget
+maruti,maruti wagon r,lxi bsiii,20,petrol,manual,60000.0,0.0,3,0.0,bhopal,3000.0,55,18.0,150000,budget
+honda,honda city,i-vtec cvt vx,9,petrol,automatic,28340.0,0.0,1,0.0,bangalore,3148.8888888888887,100,70.166,1099000,mid
+honda,honda amaze,s i-dtech,12,diesel,manual,60104.0,0.0,1,0.0,new delhi,5008.666666666667,100,57.9896,300000,budget
+honda,honda city,1.5 s mt,17,petrol,manual,123037.0,0.0,3,0.0,bangalore,7237.470588235294,55,20.6963,300000,budget
+chevrolet,chevrolet cruze,ltz at,14,diesel,automatic,70000.0,0.0,2,0.0,nagpur,5000.0,75,43.0,390000,budget
+hyundai,hyundai elantra,sx at,12,petrol,automatic,64000.0,0.0,1,0.0,new delhi,5333.333333333333,100,57.6,675000,mid
+maruti,maruti eeco,7 seater standard bsiv,8,petrol,manual,42419.0,0.0,1,0.0,gurgaon,5302.375,100,71.7581,332647,budget
+hyundai,hyundai verna,1.6 sx crdi (o) at,12,diesel,automatic,70000.0,0.0,2,0.0,bangalore,5833.333333333333,75,49.0,675000,mid
+honda,honda city,anniversary i-vtec cvt zx,8,petrol,automatic,35862.0,0.0,1,0.0,pune,4482.75,100,72.4138,1090000,mid
+maruti,maruti swift dzire,s cng,9,cng,manual,50000.0,0.0,1,0.0,bareilly,5555.555555555556,100,68.0,500000,budget
+maruti,maruti swift dzire,vxi 1.2,7,petrol,manual,34786.0,0.0,2,0.0,gurgaon,4969.428571428572,75,67.5214,620000,mid
+nissan,nissan micra active,xv s,11,petrol,manual,63341.0,0.0,1,0.0,hyderabad,5758.272727272727,100,60.6659,356087,budget
+honda,honda jazz,1.2 v i vtec,10,petrol,manual,90618.0,0.0,1,0.0,ghaziabad,9061.8,100,60.9382,485000,budget
+hyundai,hyundai eon,magna plus,11,petrol,manual,53933.0,0.0,1,0.0,pune,4903.0,100,61.606700000000004,250000,budget
+nissan,nissan sunny,xl,12,petrol,manual,51700.0,0.0,1,0.0,tiruchirappalli,4308.333333333333,100,58.83,425000,budget
+maruti,maruti vitara brezza,zdi plus dual tone,9,diesel,manual,79577.0,0.0,1,0.0,new delhi,8841.888888888889,100,65.0423,640000,mid
+ford,ford figo,diesel zxi,13,diesel,manual,120650.0,0.0,1,0.0,surat,9280.76923076923,100,48.935,200000,budget
+mahindra,mahindra scorpio,sle bsiv,14,diesel,manual,95000.0,0.0,1,0.0,mumbai,6785.714285714285,100,48.5,400000,budget
+hyundai,hyundai i10,magna 1.2,16,petrol,manual,13178.0,0.0,1,0.0,pune,823.625,100,50.6822,220000,budget
+maruti,maruti vitara brezza,vdi,9,diesel,manual,35000.0,0.0,1,0.0,new delhi,3888.8888888888887,100,69.5,680000,mid
+tata,tata nexon,1.2 revotron xz plus,8,petrol,manual,27628.0,0.0,1,0.0,new delhi,3453.5,100,73.2372,630000,mid
+mg,mg hector,shine cvt,5,petrol,automatic,15871.0,0.0,1,0.0,bangalore,3174.2,100,83.4129,1700000,premium
+bmw,bmw 3 series,320d luxury line,7,diesel,automatic,37000.0,0.0,1,0.0,ahmedabad,5285.714285714285,100,75.3,3450000,premium
+maruti,maruti swift dzire,amt vdi,8,diesel,automatic,110000.0,0.0,1,0.0,kanpur,13750.0,100,65.0,600000,mid
+maruti,maruti alto 800,vxi,10,petrol,manual,54000.0,0.0,1,0.0,indore,5400.0,100,64.6,265000,budget
+bmw,bmw x5,3.0d,18,diesel,automatic,118205.0,0.0,4,0.0,kolkata,6566.944444444444,35,10.179500000000004,1185215,mid
+mahindra,mahindra tuv 300,mhawk100 t8 amt,9,diesel,automatic,138232.0,0.0,1,0.0,gurgaon,15359.111111111111,100,59.1768,500000,budget
+mercedes-benz,mercedes-benz e-class,e200 cgi blue efficiency,15,petrol,automatic,70000.0,0.0,2,0.0,pune,4666.666666666667,75,40.0,695000,mid
+mahindra,mahindra scorpio,ex,12,diesel,manual,78000.0,0.0,2,0.0,new delhi,6500.0,75,48.2,445000,budget
+maruti,maruti alto k10,2010-2014 vxi,14,petrol,manual,94333.0,0.0,2,0.0,gurgaon,6738.071428571428,75,40.5667,140000,budget
+honda,honda city,1.5 s mt,15,petrol,manual,78091.0,0.0,1,0.0,noida,5206.066666666667,100,47.1909,323056,budget
+hyundai,hyundai i20,asta option 1.2,10,petrol,manual,76620.0,0.0,2,0.0,noida,7662.0,75,54.338,584000,mid
+honda,honda city,1.5 s mt,16,petrol,manual,75946.0,0.0,2,0.0,faridabad,4746.625,75,36.4054,230000,budget
+maruti,maruti swift,amt zxi,8,petrol,automatic,23853.0,0.0,1,0.0,gurgaon,2981.625,100,73.6147,695000,mid
+maruti,maruti wagon r,lxi cng,13,cng,manual,70000.0,0.0,3,0.0,mumbai,5384.615384615385,55,38.0,245000,budget
+honda,honda amaze,e diesel,5,diesel,manual,94011.0,0.0,1,0.0,indore,18802.2,100,75.5989,726000,mid
+maruti,maruti omni,mpi std bsiv,12,petrol,manual,39600.0,0.0,1,0.0,bangalore,3300.0,100,60.04,300000,budget
+honda,honda city,1.5 s mt,15,petrol,manual,104193.0,0.0,2,0.0,gurgaon,6946.2,75,36.5807,400000,budget
+maruti,maruti swift dzire,ldi,13,diesel,manual,109189.0,0.0,1,0.0,ahmedabad,8399.153846153846,100,50.0811,250000,budget
+maruti,maruti wagon r,lxi cng,4,cng,manual,25000.0,0.0,1,0.0,ahmednagar,6250.0,100,85.5,640000,mid
+honda,honda city,v cvt,7,petrol,automatic,18812.0,0.0,1,0.0,bangalore,2687.4285714285716,100,77.1188,1100000,mid
+hyundai,hyundai i10,magna,15,petrol,manual,120000.0,0.0,2,0.0,ahmedabad,8000.0,75,35.0,220000,budget
+mahindra,mahindra xuv500,w11 at bsiv,8,diesel,automatic,32685.0,0.0,1,0.0,bangalore,4085.625,100,72.7315,1660134,premium
+tata,tata new safari,xza plus gold at,4,diesel,automatic,2322.0,0.0,1,0.0,surat,580.5,100,87.7678,2400000,premium
+honda,honda city,corporate edition,14,petrol,manual,74634.0,0.0,2,0.0,pune,5331.0,75,42.5366,385000,budget
+tata,tata sumo victa,cx 10 str bsiv,16,diesel,manual,70000.0,0.0,2,0.0,pune,4375.0,75,37.0,200000,budget
+maruti,maruti wagon r,lxi cng optional,7,cng,manual,52527.0,0.0,1,0.0,gurgaon,7503.857142857143,100,73.7473,568000,mid
+jeep,jeep compass,1.4 longitude plus at,7,petrol,automatic,20000.0,0.0,1,0.0,new delhi,2857.1428571428573,100,77.0,1525000,premium
+maruti,maruti ciaz,zxi,11,petrol,manual,43302.0,0.0,1,0.0,bangalore,3936.5454545454545,100,62.6698,554371,mid
+hyundai,hyundai verna,vtvt 1.6 sx,8,petrol,manual,14088.0,0.0,1,0.0,bangalore,1761.0,100,74.5912,899000,mid
+hyundai,hyundai creta,1.6 vtvt sx plus dual tone,11,petrol,manual,56884.0,0.0,2,0.0,mumbai,5171.272727272727,75,53.3116,765000,mid
+chevrolet,chevrolet beat,diesel lt option,13,diesel,manual,50000.0,0.0,2,0.0,jagdalpur,3846.153846153846,75,48.0,170000,budget
+maruti,maruti swift,lxi bsiv,16,petrol,manual,38979.0,0.0,2,0.0,new delhi,2436.1875,75,40.1021,171453,budget
+hyundai,hyundai i20,1.2 magna opt,15,petrol,manual,61954.0,0.0,2,0.0,bangalore,4130.266666666666,75,40.8046,350000,budget
+hyundai,hyundai verna,1.4 vtvt,13,petrol,manual,35600.0,0.0,2,0.0,kolkata,2738.4615384615386,75,49.44,299300,budget
+maruti,maruti alto 800,lxi,8,petrol,manual,22718.0,0.0,1,0.0,gurgaon,2839.75,100,73.7282,260000,budget
+maruti,maruti s-presso,vxi plus 2019-2022,6,petrol,manual,20761.0,0.0,1,0.0,bangalore,3460.1666666666665,100,79.9239,476000,budget
+maruti,maruti swift,vxi bsiv,16,petrol,manual,97498.0,0.0,1,0.0,gurgaon,6093.625,100,42.2502,184366,budget
+volvo,volvo xc60,d3 summum,14,diesel,automatic,109000.0,0.0,1,0.0,hyderabad,7785.714285714285,100,47.1,1199000,mid
+mahindra,mahindra xylo,e4 bs iv,14,diesel,manual,105000.0,0.0,2,0.0,moradabad,7500.0,75,39.5,180000,budget
+maruti,maruti swift,vxi bsiii,17,petrol,manual,50000.0,0.0,1,0.0,kolkata,2941.176470588235,100,44.0,150000,budget
+toyota,toyota etios,g,15,petrol,manual,50000.0,0.0,1,0.0,patna,3333.3333333333335,100,50.0,190000,budget
+maruti,maruti zen estilo,vxi bsiv,13,petrol,manual,81738.0,0.0,1,0.0,dehradun,6287.538461538462,100,52.8262,210000,budget
+datsun,datsun go plus,a option petrol,5,petrol,manual,40000.0,0.0,2,0.0,jammu,8000.0,75,73.0,460000,budget
+hyundai,hyundai i10,magna 1.1l,14,petrol,manual,93561.0,0.0,1,0.0,vadodara,6682.928571428572,100,48.6439,200000,budget
+kia,kia sonet,1.5 hte diesel,3,diesel,manual,10000.0,0.0,1,0.0,ludhiana,3333.3333333333335,100,90.0,950000,mid
+maruti,maruti s-presso,vxi cng 2019-2020,6,cng,manual,43857.0,0.0,1,0.0,mumbai,7309.5,100,77.6143,563000,mid
+maruti,maruti swift dzire,vxi,13,petrol,manual,75000.0,0.0,2,0.0,thane,5769.2307692307695,75,45.5,425000,budget
+mahindra,mahindra xuv500,w8 2wd,13,diesel,manual,100000.0,0.0,2,0.0,agra,7692.307692307692,75,43.0,350000,budget
+tata,tata hexa,xt,9,diesel,manual,70187.0,0.0,1,0.0,gurgaon,7798.555555555556,100,65.9813,900000,mid
+hyundai,hyundai grand i10,magna,9,petrol,manual,28529.0,0.0,1,0.0,gurgaon,3169.8888888888887,100,70.1471,390000,budget
+maruti,maruti swift dzire,vxi 1.2,9,petrol,manual,44000.0,0.0,1,0.0,pune,4888.888888888889,100,68.6,640000,mid
+chevrolet,chevrolet optra,1.6 elite,20,petrol,manual,120000.0,0.0,2,0.0,nizamabad,6000.0,75,20.0,80000,budget
+maruti,maruti a-star,at vxi,14,petrol,automatic,85000.0,0.0,2,0.0,pune,6071.428571428572,75,41.5,275001,budget
+jeep,jeep compass,model s dct,4,petrol,automatic,5391.0,0.0,1,0.0,bangalore,1347.75,100,87.4609,2900000,premium
+volkswagen,volkswagen polo,petrol comfortline 1.2l,15,petrol,manual,101907.0,0.0,3,0.0,pune,6793.8,55,28.8093,250000,budget
+honda,honda jazz,1.2 sv i vtec,9,petrol,manual,26970.0,0.0,1,0.0,bangalore,2996.6666666666665,100,70.303,587469,mid
+hyundai,hyundai i20,1.4 crdi asta,14,diesel,manual,153414.0,0.0,2,0.0,pune,10958.142857142857,75,34.6586,300000,budget
+mahindra,mahindra xuv500,w7 at bsiv,7,diesel,automatic,65000.0,0.0,1,0.0,ludhiana,9285.714285714286,100,72.5,1269000,mid
+bmw,bmw 3 series,320d,16,diesel,automatic,58987.0,0.0,2,0.0,pune,3686.6875,75,38.1013,550000,mid
+toyota,toyota innova,2.5 g (diesel) 7 seater,12,diesel,manual,45000.0,0.0,1,0.0,gurgaon,3750.0,100,59.5,850000,mid
+hyundai,hyundai i20,1.4 asta (at),16,petrol,automatic,54531.0,0.0,2,0.0,pune,3408.1875,75,38.5469,287228,budget
+maruti,maruti alto,lxi,14,petrol,manual,78388.0,0.0,1,0.0,kolkata,5599.142857142857,100,50.1612,115000,budget
+maruti,maruti wagon r,lxi minor,17,petrol,manual,90614.0,0.0,3,0.0,gurgaon,5330.235294117647,55,23.9386,101645,budget
+honda,honda jazz,1.2 sv i vtec,9,petrol,manual,36000.0,0.0,1,0.0,bangalore,4000.0,100,69.4,745000,mid
+maruti,maruti swift,vdi bsiv,12,diesel,manual,121550.0,0.0,1,0.0,gurgaon,10129.166666666666,100,51.845,375000,budget
+hyundai,hyundai grand i10,crdi magna,13,diesel,manual,77406.0,0.0,1,0.0,gurgaon,5954.307692307692,100,53.2594,220000,budget
+honda,honda city,i vtec v,9,petrol,manual,54799.0,0.0,2,0.0,bangalore,6088.777777777777,75,59.5201,784000,mid
+maruti,maruti baleno,zeta,5,petrol,manual,45284.0,0.0,1,0.0,vadodara,9056.8,100,80.4716,700000,mid
+honda,honda city,i vtec vx,11,petrol,manual,56243.0,0.0,2,0.0,jaipur,5113.0,75,53.3757,650000,mid
+skoda,skoda octavia,elegance 1.8 tsi at,11,petrol,automatic,49000.0,0.0,1,0.0,mumbai,4454.545454545455,100,62.1,869999,mid
+hyundai,hyundai creta,1.6 crdi at sx plus,9,diesel,automatic,69732.0,0.0,1,0.0,gurgaon,7748.0,100,66.0268,1000000,mid
+tata,tata tiago,1.2 revotron xza,9,petrol,automatic,20791.0,0.0,1,0.0,mumbai,2310.1111111111113,100,70.9209,477000,budget
+ford,ford ecosport,1.5 ti vct mt ambiente,11,petrol,manual,17447.0,0.0,1,0.0,new delhi,1586.090909090909,100,65.2553,460000,budget
+honda,honda jazz,1.2 v i vtec,11,petrol,manual,66000.0,0.0,2,0.0,pune,6000.0,75,52.4,465000,budget
+maruti,maruti ritz,vdi,12,diesel,manual,101678.0,0.0,1,0.0,new delhi,8473.166666666666,100,53.8322,300000,budget
+tata,tata harrier,xz bsiv,7,diesel,manual,48909.0,0.0,1,0.0,coimbatore,6987.0,100,74.1091,1630000,premium
+toyota,toyota urban cruiser,premium,5,petrol,manual,14000.0,0.0,1,0.0,madurai,2800.0,100,83.6,1050000,mid
+tata,tata altroz,xz,5,petrol,manual,21089.0,0.0,1,0.0,gurgaon,4217.8,100,82.8911,771703,mid
+mg,mg hector plus,sharp diesel mt,6,diesel,manual,16133.0,0.0,1,0.0,noida,2688.8333333333335,100,80.3867,1850000,premium
+mahindra,mahindra tuv 300,t8,10,diesel,manual,60091.0,0.0,2,0.0,pune,6009.1,75,55.990899999999996,550000,mid
+renault,renault duster,110ps diesel rxz,9,diesel,manual,120000.0,0.0,1,0.0,durgapur,13333.333333333334,100,61.0,533000,mid
+mercedes-benz,mercedes-benz cla,200 cdi style,8,diesel,automatic,33609.0,0.0,1,0.0,bangalore,4201.125,100,72.6391,3300000,premium
+mahindra,mahindra thar,lx 4-str convert top diesel at,5,diesel,automatic,10047.0,0.0,1,0.0,kolkata,2009.4,100,83.9953,1411000,mid
+maruti,maruti wagon r,lxi bs iv,11,petrol,manual,53229.0,0.0,1,0.0,gurgaon,4839.0,100,61.6771,290000,budget
+honda,honda amaze,vx petrol,6,petrol,manual,10015.0,0.0,1,0.0,kolkata,1669.1666666666667,100,80.9985,813632,mid
+hyundai,hyundai creta,1.6 sx,7,petrol,manual,4470.0,0.0,1,0.0,pune,638.5714285714286,100,78.553,1116000,mid
+honda,honda city,i-vtec cvt vx,8,petrol,automatic,80000.0,0.0,1,0.0,bhubaneswar,10000.0,100,68.0,900000,mid
+tata,tata nexon,xza plus amt l,4,petrol,automatic,527.0,0.0,1,0.0,vadodara,131.75,100,87.9473,1150000,mid
+honda,honda civic,1.8 s mt,18,petrol,manual,160155.0,0.0,2,0.0,ghaziabad,8897.5,75,21.9845,130000,budget
+nissan,nissan micra active,xv,10,petrol,manual,52000.0,0.0,2,0.0,bhubaneswar,5200.0,75,56.8,250000,budget
+mahindra,mahindra kuv 100,mfalcon g80 k4 plus,9,petrol,manual,37526.0,0.0,1,0.0,ghaziabad,4169.555555555556,100,69.2474,332759,budget
+mg,mg hector,sharp at bsiv,5,petrol,automatic,9005.0,0.0,1,0.0,pune,1801.0,100,84.0995,1900000,premium
+maruti,maruti ritz,vxi,17,petrol,manual,90864.0,0.0,2,0.0,pune,5344.941176470588,75,31.913600000000002,200000,budget
+maruti,maruti vitara brezza,vdi option,9,diesel,manual,68535.0,0.0,1,0.0,gurgaon,7615.0,100,66.1465,660364,mid
+maruti,maruti swift dzire,amt zxi plus,7,petrol,automatic,35033.0,0.0,1,0.0,bangalore,5004.714285714285,100,75.4967,765000,mid
+hyundai,hyundai i20,sportz option 1.2,10,petrol,manual,25000.0,0.0,1,0.0,bangalore,2500.0,100,67.5,635000,mid
+maruti,maruti swift,vdi bsiv,10,diesel,manual,55133.0,0.0,1,0.0,agra,5513.3,100,64.4867,400000,budget
+hyundai,hyundai eon,sportz,11,petrol,manual,40315.0,0.0,3,0.0,pune,3665.0,55,46.9685,280000,budget
+skoda,skoda superb,elegance 2.0 tdi cr at,16,diesel,automatic,151696.0,0.0,3,0.0,pune,9481.0,55,20.830399999999997,465529,budget
+renault,renault kwid,climber 1.0 amt opt,4,petrol,automatic,7803.0,0.0,1,0.0,chennai,1950.75,100,87.2197,576000,mid
+tata,tata harrier,xz bsiv,7,diesel,manual,39119.0,0.0,1,0.0,mumbai,5588.428571428572,100,75.0881,1439000,mid
+audi,audi q3,35 tdi quattro premium,10,diesel,automatic,31617.0,0.0,1,0.0,pune,3161.7,100,66.8383,2500000,premium
+maruti,maruti swift,zxi,14,petrol,manual,38155.0,0.0,2,0.0,gurgaon,2725.3571428571427,75,46.1845,285763,budget
+skoda,skoda rapid,1.5 tdi elegance black package,11,diesel,manual,120000.0,0.0,1,0.0,chennai,10909.09090909091,100,55.0,550000,mid
+tata,tata harrier,xt plus 2020-2022,5,diesel,manual,24529.0,0.0,1,0.0,bangalore,4905.8,100,82.5471,1810033,premium
+ford,ford figo,petrol exi option,15,petrol,manual,58120.0,0.0,1,0.0,vadodara,3874.6666666666665,100,49.188,150000,budget
+jaguar,jaguar xj,3.0l portfolio lwb,11,diesel,automatic,67000.0,0.0,1,0.0,mumbai,6090.909090909091,100,60.3,3750000,premium
+maruti,maruti eeco,5 seater ac bsiv,8,petrol,manual,44671.0,0.0,1,0.0,vadodara,5583.875,100,71.5329,430000,budget
+kia,kia sonet,1.2 htk plus,6,petrol,manual,11225.0,0.0,1,0.0,bangalore,1870.8333333333333,100,80.8775,850000,mid
+ford,ford figo,1.5d trend mt,11,diesel,manual,136383.0,0.0,1,0.0,ahmedabad,12398.454545454546,100,53.3617,300000,budget
+hyundai,hyundai i20,sportz 1.2,12,petrol,manual,63639.0,0.0,1,0.0,mumbai,5303.25,100,57.6361,475000,budget
+honda,honda city,1.5 v at exclusive,16,petrol,automatic,70000.0,0.0,2,0.0,mumbai,4375.0,75,37.0,255000,budget
+maruti,maruti baleno,zeta amt,3,petrol,automatic,1800.0,0.0,1,0.0,new delhi,600.0,100,90.82,965000,mid
+hyundai,hyundai verna,crdi 1.6 sx option,7,diesel,manual,57086.0,0.0,2,0.0,hyderabad,8155.142857142857,75,65.2914,1130000,mid
+tata,tata nexon,1.2 revotron xza plus,8,petrol,automatic,39545.0,0.0,1,0.0,gurgaon,4943.125,100,72.0455,900000,mid
+maruti,maruti wagon r,vxi,6,petrol,manual,9231.0,0.0,1,0.0,kolkata,1538.5,100,81.0769,515000,mid
+maruti,maruti vitara brezza,zdi plus amt,8,diesel,automatic,65580.0,0.0,1,0.0,jaipur,8197.5,100,69.44200000000001,995000,mid
+volvo,volvo xc40,t4 r-design,5,petrol,automatic,28000.0,0.0,1,0.0,mumbai,5600.0,100,82.2,3795000,premium
+hyundai,hyundai i10,sportz,15,petrol,manual,94289.0,0.0,1,0.0,vadodara,6285.933333333333,100,45.5711,200000,budget
+mg,mg gloster,savvy 7-str,4,diesel,automatic,24500.0,0.0,1,0.0,mumbai,6125.0,100,85.55,4241000,premium
+maruti,maruti sx4 s cross,zeta ddis 200 sh,9,diesel,manual,79266.0,0.0,1,0.0,gurgaon,8807.333333333334,100,65.0734,665000,mid
+honda,honda amaze,v cvt petrol bsiv,8,petrol,automatic,21644.0,0.0,1,0.0,gurgaon,2705.5,100,73.8356,650000,mid
+chevrolet,chevrolet spark,1.0 lt,15,petrol,manual,84489.0,0.0,3,0.0,pune,5632.6,55,30.551099999999998,99205,budget
+nissan,nissan micra,xl,11,petrol,manual,83999.0,0.0,1,0.0,chennai,7636.272727272727,100,58.6001,280000,budget
+nissan,nissan magnite,turbo cvt xv,4,petrol,automatic,2437.0,0.0,1,0.0,gurgaon,609.25,100,87.7563,960000,mid
+tata,tata nano,twist xta,11,petrol,automatic,18606.0,0.0,2,0.0,bangalore,1691.4545454545455,75,57.139399999999995,231198,budget
+maruti,maruti swift,vdi bsiv,12,diesel,manual,100000.0,0.0,2,0.0,lucknow,8333.333333333334,75,46.0,380000,budget
+maruti,maruti vitara brezza,zdi plus,8,diesel,manual,63473.0,0.0,2,0.0,bangalore,7934.125,75,61.652699999999996,900955,mid
+mg,mg hector,sharp cvt,5,petrol,automatic,17567.0,0.0,2,0.0,hyderabad,3513.4,75,75.2433,1807177,premium
+nissan,nissan magnite,xl,5,petrol,manual,72096.0,0.0,1,0.0,hyderabad,14419.2,100,77.7904,600000,mid
+maruti,maruti swift dzire,vxi 1.2,6,petrol,manual,21825.0,0.0,1,0.0,hyderabad,3637.5,100,79.8175,735000,mid
+tata,tata hexa,xt,9,diesel,manual,127789.0,0.0,1,0.0,gurgaon,14198.777777777777,100,60.2211,750000,mid
+honda,honda city,1.5 v mt,15,petrol,manual,93984.0,0.0,1,0.0,pune,6265.6,100,45.6016,290000,budget
+hyundai,hyundai santro xing,gl,15,petrol,manual,98855.0,0.0,1,0.0,ahmedabad,6590.333333333333,100,45.1145,180000,budget
+hyundai,hyundai grand i10,sportz petrol bsiv,6,petrol,manual,16756.0,0.0,2,0.0,bangalore,2792.6666666666665,75,72.3244,648459,mid
+honda,honda city,i-dtec zx,9,diesel,manual,67847.0,0.0,2,0.0,pune,7538.555555555556,75,58.2153,760000,mid
+mahindra,mahindra xuv500,at w10 fwd,8,diesel,automatic,110000.0,0.0,1,0.0,kanpur,13750.0,100,65.0,1200000,mid
+maruti,maruti ertiga,zdi,12,diesel,manual,131476.0,0.0,1,0.0,ghaziabad,10956.333333333334,100,50.8524,520000,mid
+nissan,nissan micra active,xv,12,petrol,manual,59445.0,0.0,1,0.0,ahmedabad,4953.75,100,58.0555,278994,budget
+maruti,maruti swift dzire,amt zdi plus,9,diesel,automatic,62807.0,0.0,1,0.0,surat,6978.555555555556,100,66.7193,750000,mid
+hyundai,hyundai i10,sportz,14,petrol,manual,50373.0,0.0,2,0.0,pune,3598.0714285714284,75,44.9627,310000,budget
+maruti,maruti alto 800,lxi cng,7,cng,manual,54676.0,0.0,1,0.0,pune,7810.857142857143,100,73.5324,376000,budget
+honda,honda jazz,vx cvt,5,petrol,automatic,18147.0,0.0,1,0.0,new delhi,3629.4,100,83.1853,900000,mid
+audi,audi q3,35 tdi quattro technology,9,diesel,automatic,78300.0,0.0,2,0.0,new delhi,8700.0,75,57.17,1650000,premium
+maruti,maruti ertiga,vxi cng,12,cng,manual,74045.0,0.0,1,0.0,pune,6170.416666666667,100,56.5955,650000,mid
+honda,honda city,zx mt,6,petrol,manual,20039.0,0.0,1,0.0,surat,3339.8333333333335,100,79.9961,1275000,mid
+maruti,maruti celerio,zxi optional mt bsiv,8,petrol,manual,28237.0,0.0,1,0.0,mumbai,3529.625,100,73.1763,493000,budget
+maruti,maruti wagon r,lxi,20,petrol,manual,68000.0,0.0,2,0.0,rajkot,3400.0,75,25.200000000000003,130000,budget
+maruti,maruti swift dzire,vdi,12,diesel,manual,95010.0,0.0,2,0.0,noida,7917.5,75,46.499,300000,budget
+hyundai,hyundai eon,era,13,petrol,manual,56550.0,0.0,1,0.0,indore,4350.0,100,55.345,265000,budget
+hyundai,hyundai creta,1.6 vtvt s,11,petrol,manual,34000.0,0.0,1,0.0,mumbai,3090.909090909091,100,63.6,775000,mid
+bmw,bmw 5 series,520d sport line,8,diesel,automatic,24000.0,0.0,1,0.0,new delhi,3000.0,100,73.6,4000000,premium
+renault,renault kiger,rxt,5,petrol,manual,35000.0,0.0,1,0.0,nabarangpur,7000.0,100,81.5,680000,mid
+hyundai,hyundai creta,1.6 sx automatic,8,petrol,automatic,55000.0,0.0,1,0.0,mumbai,6875.0,100,70.5,1165000,mid
+hyundai,hyundai xcent,1.2 crdi sx option,9,diesel,manual,48198.0,0.0,1,0.0,gurgaon,5355.333333333333,100,68.1802,350000,budget
+maruti,maruti eeco,5 seater ac 2020-2022,6,petrol,manual,15000.0,0.0,1,0.0,bidar,2500.0,100,80.5,490000,budget
+honda,honda amaze,s petrol bsiv,7,petrol,manual,12539.0,0.0,1,0.0,kolkata,1791.2857142857142,100,77.7461,549999,mid
+nissan,nissan micra,diesel xl,12,diesel,manual,78130.0,0.0,2,0.0,gurgaon,6510.833333333333,75,48.187,190000,budget
+skoda,skoda superb,lk 1.8 tsi at,10,petrol,automatic,64120.0,0.0,2,0.0,new delhi,6412.0,75,55.588,1649999,premium
+honda,honda city,1.5 s mt,16,petrol,manual,93275.0,0.0,2,0.0,hyderabad,5829.6875,75,34.6725,350000,budget
+maruti,maruti swift,lxi,8,petrol,manual,113100.0,0.0,1,0.0,new delhi,14137.5,100,64.69,455000,budget
+kia,kia seltos,gtx dct,7,petrol,automatic,55050.0,0.0,1,0.0,bangalore,7864.285714285715,100,73.495,1630000,premium
+fiat,fiat avventura,multijet emotion,11,diesel,manual,155491.0,0.0,1,0.0,jaipur,14135.545454545454,100,51.450900000000004,350304,budget
+nissan,nissan micra,diesel xv premium,12,diesel,manual,87895.0,0.0,2,0.0,new delhi,7324.583333333333,75,47.210499999999996,210000,budget
+skoda,skoda superb,lk 1.8 tsi at,9,petrol,automatic,27000.0,0.0,1,0.0,mumbai,3000.0,100,70.3,1845000,premium
+tata,tata harrier,xz plus,6,diesel,manual,11944.0,0.0,1,0.0,bangalore,1990.6666666666667,100,80.8056,2095000,premium
+chevrolet,chevrolet aveo u-va,1.2 ls,17,petrol,manual,34520.0,0.0,3,0.0,pune,2030.5882352941176,55,29.548000000000002,111472,budget
+hyundai,hyundai grand i10 nios,sportz,6,petrol,manual,27224.0,0.0,1,0.0,bangalore,4537.333333333333,100,79.2776,694000,mid
+maruti,maruti eeco,5 seater ac bsiv,11,petrol,manual,146049.0,0.0,1,0.0,ahmedabad,13277.181818181818,100,52.3951,350000,budget
+honda,honda city,i vtec v,10,petrol,manual,52000.0,0.0,1,0.0,bhopal,5200.0,100,64.8,700000,mid
+honda,honda amaze,ex i-dtech,12,diesel,manual,98950.0,0.0,1,0.0,ghaziabad,8245.833333333334,100,54.105000000000004,288157,budget
+maruti,maruti vitara brezza,zdi,9,diesel,manual,77290.0,0.0,1,0.0,chandigarh,8587.777777777777,100,65.271,765000,mid
+maruti,maruti swift dzire,ldi,16,diesel,manual,65991.0,0.0,1,0.0,vadodara,4124.4375,100,45.4009,300000,budget
+chevrolet,chevrolet beat,ps,16,petrol,manual,48281.0,0.0,2,0.0,ghaziabad,3017.5625,75,39.1719,110000,budget
+chevrolet,chevrolet beat,diesel lt,12,diesel,manual,89498.0,0.0,1,0.0,nellore,7458.166666666667,100,55.050200000000004,120000,budget
+hyundai,hyundai i20 active,1.2 sx,9,petrol,manual,43710.0,0.0,1,0.0,kolkata,4856.666666666667,100,68.629,400000,budget
+toyota,toyota innova crysta,2.8 zx at bsiv,10,diesel,automatic,92000.0,0.0,2,0.0,mumbai,9200.0,75,52.8,1785000,premium
+maruti,maruti ertiga,shvs vdi,10,diesel,manual,90000.0,0.0,3,0.0,varanasi,9000.0,55,45.0,650000,mid
+hyundai,hyundai eon,d lite plus,12,petrol,manual,23085.0,0.0,2,0.0,bangalore,1923.75,75,53.6915,265000,budget
+maruti,maruti sx4 s cross,zeta ddis 200 sh,8,diesel,manual,81168.0,0.0,1,0.0,gurgaon,10146.0,100,67.8832,734356,mid
+maruti,maruti swift,amt zxi plus,6,petrol,automatic,19558.0,0.0,1,0.0,bangalore,3259.6666666666665,100,80.0442,830000,mid
+tata,tata tiago,1.2 revotron xz wo alloy,9,petrol,manual,38250.0,0.0,1,0.0,gurgaon,4250.0,100,69.175,515000,mid
+maruti,maruti swift dzire,zdi,12,diesel,manual,70000.0,0.0,1,0.0,ludhiana,5833.333333333333,100,57.0,500000,budget
+maruti,maruti swift dzire,vxi 1.2 bs iv,7,petrol,manual,35113.0,0.0,1,0.0,jaipur,5016.142857142857,100,75.4887,650000,mid
+skoda,skoda rapid,1.6 tdi ambition plus,12,diesel,manual,80508.0,0.0,1,0.0,hyderabad,6709.0,100,55.9492,550000,mid
+maruti,maruti sx4,vxi bsiii,16,petrol,manual,91114.0,0.0,1,0.0,dehradun,5694.625,100,42.8886,160000,budget
+hyundai,hyundai eon,era plus option,10,petrol,manual,7669.0,0.0,1,0.0,pune,766.9,100,69.2331,250000,budget
+mahindra,mahindra thar,lx 4-str hard top at,5,petrol,automatic,7912.0,0.0,1,0.0,hyderabad,1582.4,100,84.2088,1500000,mid
+maruti,maruti baleno,1.3 zeta,10,diesel,manual,62128.0,0.0,1,0.0,pune,6212.8,100,63.7872,650000,mid
+toyota,toyota innova,2.5 vx (diesel) 7 seater,11,diesel,manual,83233.0,0.0,1,0.0,rajkot,7566.636363636364,100,58.6767,970000,mid
+maruti,maruti wagon r,vxi bs iv,12,petrol,manual,25601.0,0.0,1,0.0,new delhi,2133.4166666666665,100,61.4399,322000,budget
+honda,honda amaze,v petrol,5,petrol,manual,25226.0,0.0,1,0.0,jaipur,5045.2,100,82.4774,740000,mid
+mahindra,mahindra xuv500,w6 2wd,12,diesel,manual,72045.0,0.0,2,0.0,bangalore,6003.75,75,48.7955,895000,mid
+hyundai,hyundai venue,s turbo,6,petrol,manual,21289.0,0.0,1,0.0,lucknow,3548.1666666666665,100,79.8711,946000,mid
+chevrolet,chevrolet beat,diesel ls,11,diesel,manual,58714.0,0.0,1,0.0,gurgaon,5337.636363636364,100,61.1286,134912,budget
+chevrolet,chevrolet spark,1.0 ls,14,petrol,manual,40000.0,0.0,1,0.0,mumbai,2857.1428571428573,100,54.0,140000,budget
+maruti,maruti swift dzire,vxi,11,petrol,manual,85470.0,0.0,1,0.0,kolkata,7770.0,100,58.453,409000,budget
+tata,tata safari storme,ex,13,diesel,manual,142848.0,0.0,2,0.0,lucknow,10988.307692307691,75,38.715199999999996,440000,budget
+hyundai,hyundai i20,1.2 magna,15,petrol,manual,80283.0,0.0,2,0.0,agra,5352.2,75,38.9717,180000,budget
+maruti,maruti ertiga,shvs vdi,10,diesel,manual,34470.0,0.0,1,0.0,gurgaon,3447.0,100,66.553,750000,mid
+volkswagen,volkswagen polo,diesel trendline 1.2l,14,diesel,manual,149533.0,0.0,3,0.0,surat,10680.92857142857,55,27.0467,230000,budget
+maruti,maruti wagon r,vxi,9,petrol,manual,36001.0,0.0,1,0.0,kolkata,4000.1111111111113,100,69.3999,370000,budget
+audi,audi a6,2.0 tdi premium plus,12,diesel,automatic,96000.0,0.0,2,0.0,new delhi,8000.0,75,46.4,1090000,mid
+honda,honda city,i dtec s,12,diesel,manual,89000.0,0.0,1,0.0,new delhi,7416.666666666667,100,55.1,365000,budget
+honda,honda city,i vtec cvt vx,11,petrol,automatic,120000.0,0.0,1,0.0,ludhiana,10909.09090909091,100,55.0,550000,mid
+honda,honda amaze,vx i-vtech,13,petrol,manual,109040.0,0.0,1,0.0,gurgaon,8387.692307692309,100,50.096000000000004,350000,budget
+maruti,maruti wagon r,lxi cng,12,cng,manual,70000.0,0.0,1,0.0,mumbai,5833.333333333333,100,57.0,320000,budget
+mercedes-benz,mercedes-benz e-class,e250 cdi avantgarde,11,diesel,automatic,55000.0,0.0,2,0.0,mumbai,5000.0,75,53.5,2050000,premium
+hyundai,hyundai verna,1.6 crdi s,11,diesel,manual,31837.0,0.0,2,0.0,bangalore,2894.2727272727275,75,55.8163,658402,mid
+mercedes-benz,mercedes-benz e-class,e250 cdi avantgarde,11,diesel,automatic,65412.0,0.0,1,0.0,new delhi,5946.545454545455,100,60.4588,2490000,premium
+hyundai,hyundai i10,era,15,petrol,manual,99140.0,0.0,1,0.0,surat,6609.333333333333,100,45.086,200000,budget
+maruti,maruti wagon r,lxi minor,17,petrol,manual,58040.0,0.0,1,0.0,new delhi,3414.1176470588234,100,43.196,89005,budget
+maruti,maruti vitara brezza,vdi,8,diesel,manual,28333.0,0.0,1,0.0,noida,3541.625,100,73.1667,771000,mid
+bmw,bmw 3 series,320d luxury line,10,diesel,automatic,60000.0,0.0,1,0.0,chennai,6000.0,100,64.0,2900000,premium
+chevrolet,chevrolet beat,lt,11,petrol,manual,80000.0,0.0,3,0.0,bhubaneswar,7272.727272727273,55,43.0,165000,budget
+audi,audi q2,premium,6,petrol,automatic,8443.0,0.0,1,0.0,gurgaon,1407.1666666666667,100,81.1557,3500000,premium
+hyundai,hyundai grand i10,1.2 kappa magna bsiv,8,petrol,manual,15504.0,0.0,1,0.0,pune,1938.0,100,74.4496,539000,mid
+maruti,maruti wagon r,lxi cng,13,cng,manual,71274.0,0.0,1,0.0,pune,5482.615384615385,100,53.8726,335000,budget
+maruti,maruti ciaz,zxi plus,11,petrol,manual,55437.0,0.0,2,0.0,bangalore,5039.727272727273,75,53.4563,900000,mid
+hyundai,hyundai i20,1.4 magna opt diesel,14,diesel,manual,160292.0,0.0,2,0.0,pune,11449.42857142857,75,33.9708,257233,budget
+maruti,maruti alto k10,lxi,11,petrol,manual,40567.0,0.0,1,0.0,gurgaon,3687.909090909091,100,62.9433,244599,budget
+tata,tata hexa,xta,7,diesel,automatic,25000.0,0.0,1,0.0,thiruvananthapuram,3571.4285714285716,100,76.5,1410000,mid
+tata,tata altroz,xz,5,petrol,manual,3000.0,0.0,1,0.0,mumbai,600.0,100,84.7,850000,mid
+toyota,toyota corolla altis,1.8 js,14,petrol,manual,98533.0,0.0,1,0.0,pune,7038.071428571428,100,48.146699999999996,265000,budget
+honda,honda amaze,sx i dtec,9,diesel,manual,49000.0,0.0,1,0.0,mumbai,5444.444444444444,100,68.1,595000,mid
+honda,honda city,i dtec s,12,diesel,manual,120000.0,0.0,1,0.0,pune,10000.0,100,52.0,499000,budget
+audi,audi a4,2.0 tdi,13,diesel,automatic,83000.0,0.0,2,0.0,bangalore,6384.615384615385,75,44.7,1450000,mid
+tata,tata sumo,mkii turbo 2.0 lx,16,diesel,manual,40000.0,0.0,1,0.0,chennai,2500.0,100,48.0,250000,budget
+ford,ford ecosport,1.5 tdci titanium bsiv,7,diesel,manual,49100.0,0.0,1,0.0,bangalore,7014.285714285715,100,74.09,965000,mid
+jaguar,jaguar xf,2.2 litre luxury,13,diesel,automatic,55000.0,0.0,2,0.0,mumbai,4230.7692307692305,75,47.5,1651000,premium
+tata,tata safari storme,vx varicor 400,10,diesel,manual,150000.0,0.0,2,0.0,bangalore,15000.0,75,47.0,700000,mid

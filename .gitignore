@@ -37,6 +37,28 @@ ml_training/data/**/*.csv
 ml_training/data/**/*.zip
 !ml_training/data/**/.gitkeep
 
+# ─── Large model artifacts (exceed GitHub 100 MB limit) ──────────────────────
+# Segment ensemble pickles (41 MB – 76 MB each)
+model_artifacts/ensemble_*.pkl
+# Global CatBoost model (76 MB)
+model_artifacts/vehicle_price_catboost.cbm
+# Global XGBoost model (18 MB)
+model_artifacts/vehicle_price_xgboost.json
+# Global LightGBM model (kept — only 0.5 MB; remove if you need to slim the repo)
+# model_artifacts/vehicle_price_lightgbm.txt
+
+# Small metadata & sample CSVs are NOT ignored (useful for documentation):
+# model_artifacts/model_metadata.json  ← ~11 MB — kept
+# model_artifacts/training_report.json ← ~11 MB — kept
+# model_artifacts/cleaned_training_sample.csv ← ~0.5 MB — kept
+
+# Mobile build bundles
+mobile/assets/
+mobile/build/
+
+# Antigravity / Gemini IDE tooling
+.gemini/
+
 # Environment & secrets
 .env
 .env.*
@@ -69,3 +91,4 @@ Desktop.ini
 
 # Cursor / local tooling
 .cursor/
+
