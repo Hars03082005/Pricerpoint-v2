@@ -1,5 +1,5 @@
 {
-  "model_name": "CatBoost+LightGBM+XGBoost Ensemble (v2.3 Segmented)",
+  "model_name": "CatBoost+LightGBM+XGBoost Segmented Ensemble",
   "target": "selling_price",
   "target_transform": "log1p during training, expm1 during prediction",
   "prediction_unit": "INR",
@@ -4049,29 +4049,85 @@
   },
   "segmented_models": {
     "budget": {
-      "rows": 17340,
-      "test_r2": 0.8385,
-      "test_mae": 35699.09,
-      "test_mape": 13.39
+      "rows": 11049,
+      "test_r2": 0.9161,
+      "test_mae": 41011.53,
+      "test_mape": 10.89
     },
     "mid": {
-      "rows": 15356,
-      "test_r2": 0.8275,
-      "test_mae": 72363.9,
-      "test_mape": 8.64
+      "rows": 18193,
+      "test_r2": 0.9332,
+      "test_mae": 62598.48,
+      "test_mape": 11.42
     },
     "premium": {
-      "rows": 3664,
-      "test_r2": 0.8503,
-      "test_mae": 250013.49,
-      "test_mape": 9.18
+      "rows": 4737,
+      "test_r2": 0.9344,
+      "test_mae": 122874.15,
+      "test_mape": 12.09
+    },
+    "luxury": {
+      "rows": 2423,
+      "test_r2": 0.8772,
+      "test_mae": 319281.52,
+      "test_mape": 14.86
     }
   },
-  "segment_price_bins": {
-    "budget": "\u20b90 \u2013 \u20b95L",
-    "mid": "\u20b95L \u2013 \u20b915L",
-    "premium": "\u20b915L+"
+  "segmentation_strategy": "brand_class",
+  "brand_class_map": {
+    "maruti": "budget",
+    "datsun": "budget",
+    "bajaj": "budget",
+    "chevrolet": "budget",
+    "fiat": "budget",
+    "opel": "budget",
+    "premier": "budget",
+    "hindustan motors": "budget",
+    "icml": "budget",
+    "force": "budget",
+    "ashok leyland": "budget",
+    "hyundai": "mid",
+    "honda": "mid",
+    "tata": "mid",
+    "renault": "mid",
+    "nissan": "mid",
+    "ford": "mid",
+    "mahindra": "mid",
+    "mahindra renault": "mid",
+    "mahindra ssangyong": "mid",
+    "mitsubishi": "mid",
+    "isuzu": "mid",
+    "citroen": "mid",
+    "dc": "mid",
+    "volkswagen": "premium",
+    "skoda": "premium",
+    "toyota": "premium",
+    "mg": "premium",
+    "jeep": "premium",
+    "kia": "premium",
+    "mini": "premium",
+    "volvo": "premium",
+    "lexus": "premium",
+    "bmw": "luxury",
+    "mercedes-benz": "luxury",
+    "audi": "luxury",
+    "jaguar": "luxury",
+    "land rover": "luxury",
+    "porsche": "luxury",
+    "maserati": "luxury",
+    "aston martin": "luxury",
+    "bentley": "luxury",
+    "rolls-royce": "luxury",
+    "ferrari": "luxury",
+    "lamborghini": "luxury",
+    "hummer": "luxury"
   },
+  "brand_classes": [
+    "budget",
+    "mid",
+    "premium",
+    "luxury"
+  ],
   "data_report": {
     "raw_rows": 36956,
     "rows_after_cleaning": 36439,
@@ -4291,8 +4347,8 @@
     "Final displayed market value is condition-calibrated to ensure consistent dealer logic.",
     "Quote, risk, profit, urgency, and BUY/NEGOTIATE/REJECT are calculated by the backend decision engine.",
     "Computer vision is kept on hold; manual condition input is used for the final prototype.",
-    "variant feature added in v2.1",
-    "ex_showroom_price and depreciation_ratio excluded (target leakage without real column).",
-    "v2.3 \u2014 segmented models by price bracket (budget/mid/premium)."
+    "Segmentation now uses brand class (budget/mid/premium/luxury) instead of price bracket.",
+    "Brand is always known at inference time \u2014 no two-pass price estimation needed.",
+    "ex_showroom_price and depreciation_ratio excluded (target leakage without real column)."
   ]
 }

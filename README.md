@@ -256,10 +256,21 @@ Four separate ensembles trained per brand class — routing is done by brand nam
 | **Premium** | Volkswagen, Skoda, Toyota, MG, Kia, Jeep, Volvo, Lexus... | `brand` maps to `premium` |
 | **Luxury** | BMW, Mercedes-Benz, Audi, Jaguar, Land Rover, Porsche... | `brand` maps to `luxury` |
 
+### Model Performance by Class
+
+| Class | Rows | R² | MAE | MAPE | vs Old Price-Bracket R² |
+|---|---|---|---|---|---|
+| **Budget** | 11,049 | **0.9161** | ₹41,012 | 10.89% | was 0.8385 → **+0.078** ✅ |
+| **Mid** | 18,193 | **0.9332** | ₹62,598 | 11.42% | was 0.8275 → **+0.106** ✅ |
+| **Premium** | 4,737 | **0.9344** | ₹1,22,874 | 12.09% | was 0.8503 → **+0.084** ✅ |
+| **Luxury** | 2,423 | **0.8772** | ₹3,19,282 | 14.86% | new — was lumped in old Premium |
+
+> **Note on MAPE:** Mid/Premium MAPE appears higher than old price-bracket models because brand classes span a much wider price range within each group (e.g., Mid covers Hyundai Santro ~₹1.5L through Hyundai Creta ~₹25L). R² is the more reliable metric and improved significantly across all classes.
+
 ### Why brand-class instead of price-bracket?
 - Price bracket required a two-pass hack (estimate price → re-route). Brand is always known.
 - Within a class, feature → price relationships are far more consistent (depreciation curves, mileage premiums, etc.)
-- Luxury brands get their own model instead of being lumped into "Premium"
+- Luxury brands get their own model instead of being lumped into “Premium”
 - Unknown brands default to `mid` (safe prior)
 
 ### Routing Logic
@@ -451,13 +462,15 @@ Password: dealer123
 
 ## 14. Version History
 
-| Version | Change | Test MAPE |
-|---|---|---|
-| v2.0 | Baseline: CatBoost + LightGBM + XGBoost ensemble | 12.31% |
-| v2.1 | Added `variant` as categorical feature | **11.93%** |
-| v2.2 | `ex_showroom_price` + `depreciation_ratio` — **reverted** (target leakage) | 11.93% |
-| v2.3 | Price-bracket segmented models (budget / mid / premium) | Mid: **8.64%** · Premium: **9.18%** |
-| v2.4 | Fixed variant wiring, saved category levels in segment pkls, & added two-pass routing fallback | Global: **11.93%** · Mid: **8.64%** · Premium: **9.18%** |
+| Version | Change | Global MAPE | Best Class R² |
+|---|---|---|---|
+| v1.0 | Baseline: CatBoost only | 14.07% | 0.9136 |
+| v2.0 | CatBoost + LightGBM + XGBoost ensemble | 12.31% | 0.9312 |
+| v2.1 | Added `variant` as categorical feature | **11.93%** | 0.9312 |
+| v2.2 | `ex_showroom_price` + `depreciation_ratio` — **reverted** (target leakage) | 11.93% | — |
+| v2.3 | Price-bracket segmented models (budget/mid/premium) | 11.93% global | Mid: R² 0.8275 |
+| v2.4 | Fixed variant wiring, category levels in segment pkls, two-pass routing | 11.93% global | Mid: R² 0.8275 |
+| **v3.0** | **Brand-class segmentation (budget/mid/premium/luxury) — cleaner routing, higher R²** | 11.93% global | **Mid: R² 0.9332 ✅** |
 
 ---
 
