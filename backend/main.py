@@ -45,7 +45,7 @@ CONDITION_MULTIPLIERS = METADATA.get("condition_handling", {}).get(
 predictor    = EnsemblePredictor.from_artifact_dir(ARTIFACT_DIR)
 BRAND_CATALOG = build_brand_catalog()
 
-# ── Segment models (v2.3) ─────────────────────────────────────────────────────
+# ── Segment models ────────────────────────────────────────────────────────────
 SEGMENT_MODELS: dict = {}
 for _seg in ["budget", "mid", "premium"]:
     _path = ARTIFACT_DIR / f"ensemble_{_seg}.pkl"

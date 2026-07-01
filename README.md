@@ -1,4 +1,4 @@
-# PricerPoint v2.4 — Dealership ML Valuation System
+# PricerPoint — Dealership ML Valuation System
 
 > **Scope:** Dealership / manager internal portal only.  
 > Seller portal · Buyer portal · Computer vision — all on hold.
@@ -13,7 +13,7 @@ PricerPoint automates used-car acquisition decisions for dealerships. A dealer e
 2. [How It Works](#2-how-it-works)
 3. [Tech Stack](#3-tech-stack)
 4. [Project Structure](#4-project-structure)
-5. [ML Pipeline — v2.4](#5-ml-pipeline--v24)
+5. [ML Pipeline](#5-ml-pipeline)
 6. [Model Performance](#6-model-performance)
 7. [Segmented Models](#7-segmented-models)
 8. [Backend API](#8-backend-api)
@@ -118,7 +118,7 @@ pricerpoint-v2/
 │   └── requirements.txt
 │
 ├── ml_training/
-│   ├── train_ml_model.py        # Full training pipeline (v2.4)
+│   ├── train_ml_model.py        # Full training pipeline
 │   ├── clean_data.py            # Standalone data cleaning script
 │   ├── requirements.txt
 │   └── data/
@@ -171,7 +171,7 @@ pricerpoint-v2/
 
 ---
 
-## 5. ML Pipeline — v2.4
+## 5. ML Pipeline
 
 ### Dataset
 | Metric | Value |
@@ -247,7 +247,7 @@ Applied after ensemble prediction to enforce monotonicity:
 
 ## 7. Segmented Models
 
-Three separate ensembles trained per price bracket (v2.3):
+Three separate ensembles trained per price bracket:
 
 | Segment | Price Range | Rows | MAPE | MAE | R² | Active? |
 |---|---|---|---|---|---|---|

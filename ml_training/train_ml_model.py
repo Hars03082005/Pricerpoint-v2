@@ -625,7 +625,7 @@ def train() -> None:
 
     # ── Metadata & report ─────────────────────────────────────────────────────
     metadata = {
-        "model_name": "CatBoost+LightGBM+XGBoost Ensemble (v2.3 Segmented)",
+        "model_name": "CatBoost+LightGBM+XGBoost Segmented Ensemble",
         "target": "selling_price",
         "target_transform": "log1p during training, expm1 during prediction",
         "prediction_unit": "INR",
@@ -682,7 +682,7 @@ def train() -> None:
             "Computer vision is kept on hold; manual condition input is used for the final prototype.",
             "variant feature added in v2.1",
             "ex_showroom_price and depreciation_ratio excluded (target leakage without real column).",
-            "v2.3 — segmented models by price bracket (budget/mid/premium).",
+            "segmented models by price bracket (budget/mid/premium).",
         ],
     }
 

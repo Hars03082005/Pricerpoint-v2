@@ -1,5 +1,5 @@
 """
-clean_data.py  –  PricerPoint v2 Data Cleaning & Feature Engineering
+clean_data.py  –  PricerPoint Data Cleaning & Feature Engineering
 =====================================================================
 Reads  : ml_training/data/cars.csv
 Writes : ml_training/data/cleaned.csv
