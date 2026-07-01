@@ -45,18 +45,36 @@ CONDITION_MULTIPLIERS = METADATA.get("condition_handling", {}).get(
 predictor    = EnsemblePredictor.from_artifact_dir(ARTIFACT_DIR)
 BRAND_CATALOG = build_brand_catalog()
 
-# ── Segment models ────────────────────────────────────────────────────────────
-SEGMENT_MODELS: dict = {}
-for _seg in ["budget", "mid", "premium"]:
-    _path = ARTIFACT_DIR / f"ensemble_{_seg}.pkl"
+# ── Brand-class models ───────────────────────────────────────────────────
+BRAND_CLASS_MODELS: dict = {}
+for _cls in ["budget", "mid", "premium", "luxury"]:
+    _path = ARTIFACT_DIR / f"ensemble_{_cls}.pkl"
     if _path.exists():
-        SEGMENT_MODELS[_seg] = joblib.load(_path)
+        BRAND_CLASS_MODELS[_cls] = joblib.load(_path)
 
-SEGMENT_BINS = {
-    "budget":  (0,         500_000),
-    "mid":     (500_000,   1_500_000),
-    "premium": (1_500_000, float("inf")),
-}
+# Brand → class map (mirrors train_ml_model.py; loaded from metadata when available)
+BRAND_CLASS_MAP: dict = METADATA.get("brand_class_map", {
+    # Budget
+    "maruti": "budget", "datsun": "budget", "bajaj": "budget",
+    "chevrolet": "budget", "fiat": "budget", "opel": "budget",
+    "premier": "budget", "hindustan motors": "budget", "icml": "budget",
+    "force": "budget", "ashok leyland": "budget",
+    # Mid
+    "hyundai": "mid", "honda": "mid", "tata": "mid", "renault": "mid",
+    "nissan": "mid", "ford": "mid", "mahindra": "mid",
+    "mahindra renault": "mid", "mahindra ssangyong": "mid",
+    "mitsubishi": "mid", "isuzu": "mid", "citroen": "mid", "dc": "mid",
+    # Premium
+    "volkswagen": "premium", "skoda": "premium", "toyota": "premium",
+    "mg": "premium", "jeep": "premium", "kia": "premium",
+    "mini": "premium", "volvo": "premium", "lexus": "premium",
+    # Luxury
+    "bmw": "luxury", "mercedes-benz": "luxury", "audi": "luxury",
+    "jaguar": "luxury", "land rover": "luxury", "porsche": "luxury",
+    "maserati": "luxury", "aston martin": "luxury", "bentley": "luxury",
+    "rolls-royce": "luxury", "ferrari": "luxury", "lamborghini": "luxury",
+    "hummer": "luxury",
+})
 
 # ── FastAPI app ────────────────────────────────────────────────────────────────
 app = FastAPI(title="PricerPoint ML API", version="1.0.0")
@@ -198,28 +216,25 @@ def condition_multiplier(condition: str) -> float:
     )
 
 
-# ── Segment routing helpers ───────────────────────────────────────────────────
-def get_segment(price: float) -> str:
-    """Map a known price to its bracket. Only call this when price > 0."""
-    if price > 1_500_000:
-        return "premium"
-    if price > 500_000:
-        return "mid"
-    return "budget"
+# ── Brand-class routing helpers ────────────────────────────────────────────────
+def get_brand_class(brand: str) -> str:
+    """Return the brand class for a given brand string.
+    Brand is always known at inference time — no price estimation needed.
+    Unknown brands default to 'mid' (safest middle-ground prior).
+    """
+    return BRAND_CLASS_MAP.get(clean_text(brand), "mid")
 
 
-def _run_segment_model(features: pd.DataFrame, seg_artifact: dict) -> float:
-    """Run the three sub-models for a segment and return the blended log-price.
-
-    Task 4: uses `category_levels` saved in the pkl to normalise unseen
-    categories to "unknown" so LightGBM never receives an out-of-vocab value.
+def _run_class_model(features: pd.DataFrame, artifact: dict) -> float:
+    """Run the three sub-models for a brand class and return the blended log-price.
+    Uses category_levels saved in the pkl to normalise unseen values to 'unknown'.
     """
     cb_f  = features.copy()
     lgb_f = features.copy()
     xgb_f = features.copy()
-    for col in seg_artifact.get("cat_features", []):
+    for col in artifact.get("cat_features", []):
         if col in features.columns:
-            cat_levels = seg_artifact.get("category_levels", {}).get(col, [])
+            cat_levels = artifact.get("category_levels", {}).get(col, [])
             for frame in (cb_f, lgb_f, xgb_f):
                 if cat_levels:
                     frame[col] = frame[col].astype(str).where(
@@ -227,84 +242,50 @@ def _run_segment_model(features: pd.DataFrame, seg_artifact: dict) -> float:
                     )
                 else:
                     frame[col] = frame[col].astype(str)
-    weights = seg_artifact["weights"]
+    weights = artifact["weights"]
     preds = {
-        "catboost": float(seg_artifact["catboost"].predict(cb_f)[0]),
-        "lightgbm": float(seg_artifact["lightgbm"].predict(lgb_f)[0]),
-        "xgboost":  float(seg_artifact["xgboost"].predict(xgb_f)[0]),
+        "catboost": float(artifact["catboost"].predict(cb_f)[0]),
+        "lightgbm": float(artifact["lightgbm"].predict(lgb_f)[0]),
+        "xgboost":  float(artifact["xgboost"].predict(xgb_f)[0]),
     }
     return sum(weights[k] * preds[k] for k in weights)
 
 
-# ── Core prediction ───────────────────────────────────────────────────────────
+# ── Core prediction ────────────────────────────────────────────────────────────
 def predict_base_market_value(vehicle: VehicleInput) -> tuple[int, str]:
     """
-    Returns (market_value_inr: int, routing_note: str).   # Task 5 — explicit return type doc
+    Returns (market_value_inr: int, routing_note: str).
 
-    Routing rules (in priority order):
-      1. seller_asking_price > 0  → use stated price to pick bracket directly
-           budget  (≤₹5L)   → global ensemble  (MAPE 11.93% beats segment 13.39%)
-           mid     (₹5–15L) → mid segment model (MAPE  8.64%)
-           premium (₹15L+)  → premium segment model (MAPE  9.18%)
-      2. seller_asking_price == 0 → TWO-PASS (Task 2):
-           Pass 1: run cheap global ensemble to get a rough price estimate
-           Pass 2: derive the segment from that estimate, re-predict with the
-                   correct segment model if applicable
-           This avoids blindly defaulting every unknown-price car to "mid".
+    Routing: brand → class (budget / mid / premium / luxury).
+    Brand is always known at input time — no two-pass estimation needed.
+    Falls back to global ensemble if the class model file is missing.
     """
-    features = build_features(vehicle)
-    asking   = float(vehicle.seller_asking_price or 0)
+    features   = build_features(vehicle)
+    brand_cls  = get_brand_class(vehicle.brand)
+    artifact   = BRAND_CLASS_MODELS.get(brand_cls)
 
-    if asking > 0:
-        # Seller stated a price — use it to pick segment directly
-        segment = get_segment(asking)
-    else:
-        # No asking price — run a cheap global pass to infer the price bracket
+    if artifact:
         try:
-            rough_log   = predictor.predict_log_price(features)
-            rough_price = float(np.expm1(rough_log))
+            log_price    = _run_class_model(features, artifact)
+            routing_note = f"{brand_cls} class model used"
         except Exception:
-            rough_price = 750_000  # safe mid-range fallback if global pass fails
-        segment = get_segment(max(50_000, min(rough_price, 20_000_000)))
-
-    # Budget: global model outperforms the dedicated budget segment model
-    if segment == "budget":
-        log_price    = predictor.predict_log_price(features)
-        routing_note = "budget — global model used (MAPE 11.93% vs 13.39% for segment model)"
-    else:
-        seg_artifact = SEGMENT_MODELS.get(segment)
-        if seg_artifact:
-            try:
-                log_price    = _run_segment_model(features, seg_artifact)
-                routing_note = f"{segment} segment model used"
-            except Exception:
-                log_price    = predictor.predict_log_price(features)
-                routing_note = f"{segment} segment model error — fell back to global"
-        else:
             log_price    = predictor.predict_log_price(features)
-            routing_note = "global model used (segment model not found)"
+            routing_note = f"{brand_cls} class model error — fell back to global"
+    else:
+        log_price    = predictor.predict_log_price(features)
+        routing_note = "global model used (class model not found)"
 
     market_value = float(np.expm1(log_price))
     if not math.isfinite(market_value):
         market_value = 0
     market_value = max(50_000, min(market_value, 20_000_000))
-    return int(round(market_value / 500) * 500), routing_note  # -> tuple[int, str]
+    return int(round(market_value / 500) * 500), routing_note
 
 
 def predict_market_value(vehicle: VehicleInput) -> dict:
-    """Return base ML value and final condition-calibrated market value.
-
-    Condition is applied as a monotonic calibration after ensemble prediction.
-    This guarantees Excellent >= Good >= Average >= Poor for the same vehicle.
-
-    Note: predict_base_market_value returns tuple[int, str] — always unpack both values.
-    """
-    # Task 5 audit: base_value is correctly unpacked from the tuple here.
-    # shap_like_explanation() and warnings_for() receive market_value (int) — correct.
+    """Return base ML value and final condition-calibrated market value."""
     base_value, routing_note = predict_base_market_value(vehicle)
-    # Recompute segment from asking price (consistent with predict_base_market_value routing)
-    asking  = float(vehicle.seller_asking_price or 0)
-    segment = get_segment(asking) if asking > 0 else get_segment(base_value)
+    brand_cls = get_brand_class(vehicle.brand)
 
     mult     = condition_multiplier(vehicle.condition)
     adjusted = max(50_000, min(base_value * mult, 20_000_000))
@@ -315,8 +296,8 @@ def predict_market_value(vehicle: VehicleInput) -> dict:
         "condition_multiplier": round(mult, 3),
         "condition_adjustment": int(adjusted - base_value),
         "condition_score":      condition_to_score(vehicle.condition),
-        "price_segment":        segment,
-        "segment_model_used":   segment in SEGMENT_MODELS and segment != "budget",
+        "brand_class":          brand_cls,
+        "class_model_used":     brand_cls in BRAND_CLASS_MODELS,
         "routing_note":         routing_note,
     }
 
@@ -379,11 +360,12 @@ def evaluate_vehicle(vehicle: VehicleInput) -> dict:
 @app.get("/health")
 def health():
     return {
-        "status":           "ok",
-        "model_loaded":     (ARTIFACT_DIR / "vehicle_price_catboost.cbm").exists(),
-        "ensemble_enabled": METADATA.get("ensemble", {}).get("enabled", False),
-        "model_name":       METADATA["model_name"],
-        "segments_loaded":  list(SEGMENT_MODELS.keys()),
+        "status":              "ok",
+        "model_loaded":        (ARTIFACT_DIR / "vehicle_price_lightgbm.txt").exists(),
+        "ensemble_enabled":    METADATA.get("ensemble", {}).get("enabled", False),
+        "model_name":          METADATA["model_name"],
+        "segmentation":        "brand_class",
+        "classes_loaded":      list(BRAND_CLASS_MODELS.keys()),
     }
 
 

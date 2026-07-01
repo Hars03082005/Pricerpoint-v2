@@ -43,7 +43,7 @@ ml_training/data/*.zip
 !ml_training/data/.gitkeep
 
 # ── Large model artifacts (GitHub 100 MB limit) ───────────────────────────────
-# Segment ensemble pickles (~43–76 MB each)
+# Segment ensemble pickles — all 4 brand classes (~43–76 MB each)
 model_artifacts/ensemble_*.pkl
 # Global CatBoost model (~0.8 MB — within limit but binary, retrain-able)
 model_artifacts/vehicle_price_catboost.cbm

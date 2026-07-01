@@ -245,30 +245,35 @@ Applied after ensemble prediction to enforce monotonicity:
 
 ---
 
-## 7. Segmented Models
+## 7. Brand-Class Models
 
-Three separate ensembles trained per price bracket:
+Four separate ensembles trained per brand class — routing is done by brand name, which is always known at inference time (no price estimation pass needed):
 
-| Segment | Price Range | Rows | MAPE | MAE | R² | Active? |
-|---|---|---|---|---|---|---|
-| **Budget** | ₹0 – ₹5L | 17,340 | 13.39% | ₹35,699 | 0.8385 | ❌ bypassed (global is better) |
-| **Mid** | ₹5L – ₹15L | 15,356 | **8.64%** | ₹72,364 | 0.8275 | ✅ |
-| **Premium** | ₹15L+ | 3,664 | **9.18%** | ₹2,50,013 | 0.8503 | ✅ |
+| Class | Brands | Routing |
+|---|---|---|
+| **Budget** | Maruti, Datsun, Chevrolet, Fiat, Force, Ashok Leyland... | `brand` maps to `budget` |
+| **Mid** | Hyundai, Honda, Tata, Ford, Mahindra, Renault, Nissan... | `brand` maps to `mid` |
+| **Premium** | Volkswagen, Skoda, Toyota, MG, Kia, Jeep, Volvo, Lexus... | `brand` maps to `premium` |
+| **Luxury** | BMW, Mercedes-Benz, Audi, Jaguar, Land Rover, Porsche... | `brand` maps to `luxury` |
+
+### Why brand-class instead of price-bracket?
+- Price bracket required a two-pass hack (estimate price → re-route). Brand is always known.
+- Within a class, feature → price relationships are far more consistent (depreciation curves, mileage premiums, etc.)
+- Luxury brands get their own model instead of being lumped into "Premium"
+- Unknown brands default to `mid` (safe prior)
 
 ### Routing Logic
 ```python
-seller_asking_price == 0      → mid  (default)
-seller_asking_price <= 500k   → budget → routed to GLOBAL (more accurate)
-seller_asking_price <= 1.5M   → mid segment model
-seller_asking_price >  1.5M   → premium segment model
+brand_class = BRAND_CLASS_MAP.get(brand.lower(), "mid")  # always O(1)
+model       = BRAND_CLASS_MODELS[brand_class]             # direct lookup, no estimation
 ```
 
 API response includes:
 ```json
 {
-  "price_segment": "mid",
-  "segment_model_used": true,
-  "routing_note": "mid segment model used"
+  "brand_class": "mid",
+  "class_model_used": true,
+  "routing_note": "mid class model used"
 }
 ```
 
@@ -433,13 +438,14 @@ Password: dealer123
 ## 13. Known Issues & Next Improvements
 
 ### 🟡 Medium
-- Physical features (`Seats`, `No of Cylinder`, `power_to_weight_ratio`) exist in `cleaned.csv` but are not yet in `FEATURES` — adding them would improve budget MAPE
+- Physical features (`Seats`, `No of Cylinder`, `power_to_weight_ratio`) exist in `cleaned.csv` but are not yet in `FEATURES` — adding them would further improve per-class accuracy
 - `km_per_year` is uncapped — `car_age = 0` inflates this feature to the raw odometer value
-- `training_report.json` and `model_metadata.json` are identical writes in the training script — one can be removed to avoid duplication (training_report.json is already gitignored)
+- Luxury class row count (~1,500) is thin; if test R² for luxury is low, consider merging with Premium as fallback
 
 ### 🟢 Low
 - Add `sys.stdout.reconfigure(encoding='utf-8')` at the top of the training script so it works on Windows without the `PYTHONUTF8=1` env var
 - Add model versioning (timestamp suffix on artifacts) so retrains don't silently overwrite previous metrics
+- `training_report.json` and `model_metadata.json` are identical writes in the training script — one can be removed
 
 ---
 

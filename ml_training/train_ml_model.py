@@ -516,25 +516,48 @@ def train() -> None:
         "healthy_generalization"
     )
 
-    # ── Segmented models ─────────────────────────────────────────────────────
-    PRICE_BINS = {
-        "budget":  [0,         500_000],
-        "mid":     [500_000,   1_500_000],
-        "premium": [1_500_000, 100_000_000],
+    # ── Segmented models — brand-class based ────────────────────────────────
+    # Brand is always known at inference time, so no price-estimation pass needed.
+    # Each brand maps to one of four classes; unknown brands default to "mid".
+    BRAND_CLASS_MAP: Dict[str, str] = {
+        # Budget
+        "maruti": "budget", "datsun": "budget", "bajaj": "budget",
+        "chevrolet": "budget", "fiat": "budget", "opel": "budget",
+        "premier": "budget", "hindustan motors": "budget", "icml": "budget",
+        "force": "budget", "ashok leyland": "budget",
+        # Mid
+        "hyundai": "mid", "honda": "mid", "tata": "mid", "renault": "mid",
+        "nissan": "mid", "ford": "mid", "mahindra": "mid",
+        "mahindra renault": "mid", "mahindra ssangyong": "mid",
+        "mitsubishi": "mid", "isuzu": "mid", "citroen": "mid", "dc": "mid",
+        # Premium
+        "volkswagen": "premium", "skoda": "premium", "toyota": "premium",
+        "mg": "premium", "jeep": "premium", "kia": "premium",
+        "mini": "premium", "volvo": "premium", "lexus": "premium",
+        # Luxury
+        "bmw": "luxury", "mercedes-benz": "luxury", "audi": "luxury",
+        "jaguar": "luxury", "land rover": "luxury", "porsche": "luxury",
+        "maserati": "luxury", "aston martin": "luxury", "bentley": "luxury",
+        "rolls-royce": "luxury", "ferrari": "luxury", "lamborghini": "luxury",
+        "hummer": "luxury",
     }
-    SEGMENTS      = list(PRICE_BINS.keys())
-    segment_models  = {}
-    segment_metrics = {}
+    BRAND_CLASSES = ["budget", "mid", "premium", "luxury"]
 
-    for segment in SEGMENTS:
+    # Assign brand_class column from brand name (already cleaned to lowercase)
+    df["brand_class"] = df["brand"].map(BRAND_CLASS_MAP).fillna("mid")
+
+    segment_models:  Dict[str, dict] = {}
+    segment_metrics: Dict[str, dict] = {}
+
+    for cls in BRAND_CLASSES:
         print(f"\n{'='*50}")
-        print(f"Training segment: {segment.upper()}")
+        print(f"Training brand class: {cls.upper()}")
 
-        seg_df = df[df["price_segment"] == segment].copy()
-        print(f"Rows in {segment}: {len(seg_df)}")
+        seg_df = df[df["brand_class"] == cls].copy()
+        print(f"Rows in {cls}: {len(seg_df)}")
 
         if len(seg_df) < 50:
-            print(f"  Skipping {segment} — too few rows ({len(seg_df)})")
+            print(f"  Skipping {cls} — too few rows ({len(seg_df)})")
             continue
 
         # Stratify by brand+model; drop combos with fewer than 2 rows
@@ -565,11 +588,11 @@ def train() -> None:
         s_cb_vl,  s_lgb_vl,  s_xgb_vl  = prepare_model_frames(seg_df.loc[seg_val_idx],   seg_cat_levels)
         s_cb_te,  s_lgb_te,  s_xgb_te  = prepare_model_frames(seg_df.loc[seg_test_idx],  seg_cat_levels)
 
-        print(f"  Training CatBoost [{segment}]...")
+        print(f"  Training CatBoost [{cls}]...")
         s_cat = train_catboost(s_cb_tr, y_tr, s_cb_vl, y_vl)
-        print(f"  Training LightGBM [{segment}]...")
+        print(f"  Training LightGBM [{cls}]...")
         s_lgb = train_lightgbm(s_lgb_tr, y_tr, s_lgb_vl, y_vl)
-        print(f"  Training XGBoost  [{segment}]...")
+        print(f"  Training XGBoost  [{cls}]...")
         s_xgb = train_xgboost(s_xgb_tr, y_tr, s_xgb_vl, y_vl)
 
         s_base_models = {"catboost": s_cat, "lightgbm": s_lgb, "xgboost": s_xgb}
@@ -589,23 +612,23 @@ def train() -> None:
         blended_test = blend_predictions(s_weights, s_test_preds)
         seg_m = metrics(y_test_s, blended_test)
 
-        segment_metrics[segment] = {
+        segment_metrics[cls] = {
             "rows":      len(seg_df),
             "test_r2":   seg_m["r2"],
             "test_mae":  seg_m["mae"],
             "test_mape": seg_m["mape"],
         }
-        segment_models[segment] = {
+        segment_models[cls] = {
             "catboost":        s_cat,
             "lightgbm":        s_lgb,
             "xgboost":         s_xgb,
             "weights":         s_weights,
             "category_levels": seg_cat_levels,
         }
-        print(f"  {segment.upper()} -> R2: {seg_m['r2']:.4f} | MAE: Rs.{seg_m['mae']:,.0f} | MAPE: {seg_m['mape']:.2f}%")
+        print(f"  {cls.upper()} -> R2: {seg_m['r2']:.4f} | MAE: Rs.{seg_m['mae']:,.0f} | MAPE: {seg_m['mape']:.2f}%")
 
-    # ── Save segmented artifacts ──────────────────────────────────────────────
-    for segment, models in segment_models.items():
+    # ── Save brand-class artifacts ────────────────────────────────────────────
+    for cls, models in segment_models.items():
         artifact = {
             "catboost":        models["catboost"],
             "lightgbm":        models["lightgbm"],
@@ -613,13 +636,13 @@ def train() -> None:
             "weights":         models["weights"],
             "features":        FEATURES,
             "cat_features":    CAT_FEATURES,
-            "segment":         segment,
-            "price_bins":      PRICE_BINS,
-            # Task 4: save per-segment category levels so main.py can normalise
-            # unseen brands/variants to "unknown" instead of crashing LightGBM.
+            "brand_class":     cls,
+            "brand_class_map": BRAND_CLASS_MAP,
+            # Per-class category levels so backend can normalise unseen
+            # brands/variants to "unknown" without crashing LightGBM.
             "category_levels": models["category_levels"],
         }
-        path = ARTIFACT_DIR / f"ensemble_{segment}.pkl"
+        path = ARTIFACT_DIR / f"ensemble_{cls}.pkl"
         joblib.dump(artifact, path)
         print(f"Saved: {path}")
 
@@ -668,11 +691,9 @@ def train() -> None:
             "condition_multipliers": CONDITION_MULTIPLIERS,
         },
         "segmented_models": segment_metrics,
-        "segment_price_bins": {
-            "budget":  "\u20b90 \u2013 \u20b95L",
-            "mid":     "\u20b95L \u2013 \u20b915L",
-            "premium": "\u20b915L+",
-        },
+        "segmentation_strategy": "brand_class",
+        "brand_class_map": BRAND_CLASS_MAP,
+        "brand_classes": BRAND_CLASSES,
         "data_report": data_report,
         "feature_importance": feature_importance,
         "notes": [
@@ -680,9 +701,9 @@ def train() -> None:
             "Final displayed market value is condition-calibrated to ensure consistent dealer logic.",
             "Quote, risk, profit, urgency, and BUY/NEGOTIATE/REJECT are calculated by the backend decision engine.",
             "Computer vision is kept on hold; manual condition input is used for the final prototype.",
-            "variant feature added in v2.1",
+            "Segmentation now uses brand class (budget/mid/premium/luxury) instead of price bracket.",
+            "Brand is always known at inference time — no two-pass price estimation needed.",
             "ex_showroom_price and depreciation_ratio excluded (target leakage without real column).",
-            "segmented models by price bracket (budget/mid/premium).",
         ],
     }
 
@@ -712,11 +733,11 @@ def train() -> None:
     }, indent=2))
 
     print("\n" + "="*60)
-    print("SEGMENTED MODEL RESULTS vs SINGLE MODEL")
+    print("BRAND-CLASS MODEL RESULTS vs SINGLE GLOBAL MODEL")
     print("="*60)
-    print(f"Single model MAPE:  {PREV_MAPE}%")
-    for seg, m in segment_metrics.items():
-        print(f"{seg.upper():<10} MAPE: {m['test_mape']}%   MAE: Rs.{m['test_mae']:>12,.0f}   R2: {m['test_r2']}   ({m['rows']} rows)")
+    print(f"Global model MAPE:  {PREV_MAPE}%")
+    for cls, m in segment_metrics.items():
+        print(f"{cls.upper():<10} MAPE: {m['test_mape']}%   MAE: Rs.{m['test_mae']:>12,.0f}   R2: {m['test_r2']}   ({m['rows']} rows)")
     print("="*60)
 
 
