@@ -266,8 +266,13 @@ def get_wheelr_risk_deductions(owner_count: int, odometer: int,
 def get_recon_cost(engine_grade: str = "good", tyre_grade: str = "good",
                    body_grade: str = "clean", interior_grade: str = "clean",
                    electrical_grade: str = "all_good",
-                   vendor_type: dict = None) -> dict:
-    """Reconditioning cost calculator with vendor vs in-house options."""
+                   vendor_type: dict = None,
+                   rc_transfer_cost: int = 3500) -> dict:
+    """Reconditioning cost calculator with vendor vs in-house options.
+    
+    rc_transfer_cost: RC transfer fee entered by dealer (default 3500).
+    fixed_cost = rc_transfer_cost + 2500 (detailing) + 2000 (ops)
+    """
     if vendor_type is None:
         vendor_type = {
             "engine": "vendor",
@@ -320,7 +325,11 @@ def get_recon_cost(engine_grade: str = "good", tyre_grade: str = "good",
     }
     electrical_cost = electrical_costs.get(electrical_grade, electrical_costs["all_good"])[vendor_type.get("electrical", "vendor")]
     
-    fixed_cost = 8000  # rc_transfer 3500 + detailing 2500 + platform_ops 2000
+    # fixed_cost = rc_transfer (dealer-entered) + detailing (2500) + platform_ops (2000)
+    rc_transfer_cost = max(0, int(rc_transfer_cost or 3500))
+    detailing_cost = 2500
+    ops_cost = 2000
+    fixed_cost = rc_transfer_cost + detailing_cost + ops_cost
     total = engine_cost + tyre_cost + body_cost + interior_cost + electrical_cost + fixed_cost
     
     return {
@@ -330,6 +339,7 @@ def get_recon_cost(engine_grade: str = "good", tyre_grade: str = "good",
         "interior_cost": int(interior_cost),
         "electrical_cost": int(electrical_cost),
         "fixed_cost": int(fixed_cost),
+        "rc_transfer_cost": int(rc_transfer_cost),
         "total": int(total),
         "breakdown": {
             "engine": int(engine_cost),

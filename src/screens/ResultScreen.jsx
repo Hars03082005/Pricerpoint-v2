@@ -1,25 +1,6 @@
 import { useApp } from '../context/AppContext.jsx';
-import { formatINR, CAR_IMAGES, getConditionLabel } from '../utils/mockData.js';
+import { formatINR } from '../utils/mockData.js';
 import Icon from '../components/Icon.jsx';
-
-function ConditionRing({ score }) {
-  const r = 36, cx = 44, cy = 44, sw = 7;
-  const circ = 2 * Math.PI * r;
-  const filled = (score / 100) * circ * 0.75;
-  const { label, color } = getConditionLabel(score);
-  return (
-    <div className="cond-ring-wrap">
-      <svg width={88} height={88} viewBox="0 0 88 88">
-        <circle cx={cx} cy={cy} r={r} fill="none" stroke="#f0f0f0" strokeWidth={sw} strokeDasharray={`${circ * 0.75} ${circ}`} strokeDashoffset={circ * 0.125} strokeLinecap="round" transform={`rotate(135 ${cx} ${cy})`} />
-        <circle cx={cx} cy={cy} r={r} fill="none" stroke={color} strokeWidth={sw} strokeDasharray={`${filled} ${circ}`} strokeDashoffset={circ * 0.125} strokeLinecap="round" transform={`rotate(135 ${cx} ${cy})`} style={{ transition: 'stroke-dasharray 1s ease' }} />
-        <text x={cx} y={cy - 3} textAnchor="middle" fill="#24272c" fontSize="14" fontWeight="700" fontFamily="Inter,sans-serif">{score}</text>
-        <text x={cx} y={cy + 12} textAnchor="middle" fill="#888" fontSize="8" fontFamily="Inter,sans-serif">/100</text>
-      </svg>
-      <div className="cond-ring-label" style={{ color }}>{label}</div>
-    </div>
-  );
-}
-
 
 function actionClass(action) {
   if (action === 'BUY') return 'buy';
@@ -28,36 +9,12 @@ function actionClass(action) {
   return 'review';
 }
 
-function PriceBar({ min, mid, max }) {
-  const pct = ((mid - min) / (max - min)) * 100;
-  return (
-    <div className="price-bar-wrap">
-      <div className="price-bar-track">
-        <div className="price-bar-pin" style={{ left: `${Math.max(5, Math.min(95, pct))}%` }}>
-          <div className="pin-line" />
-          <div className="pin-label">{formatINR(mid)}</div>
-        </div>
-      </div>
-      <div className="price-bar-ends">
-        <span>{formatINR(min)}</span>
-        <span className="price-bar-ci">Prediction Range</span>
-        <span>{formatINR(max)}</span>
-      </div>
-    </div>
-  );
-}
-
 export default function ResultScreen() {
-  const { valuationResult, inputs, conditionScore, setActiveScreen, isLoading } = useApp();
-  const carImage = CAR_IMAGES[`${inputs.brand} ${inputs.model}`] || '/cars/placeholder.png';
+  const { valuationResult, inputs, setActiveScreen, isLoading } = useApp();
 
   if (isLoading) {
     return (
       <div className="screen loading-screen">
-        <div className="loading-car">
-          <img src={carImage} alt="Analyzing" className="loading-car-img" />
-          <div className="loading-road" />
-        </div>
         <div className="loading-label">Analysing your vehicle…</div>
         <div className="loading-steps-list">
           {[
@@ -79,7 +36,6 @@ export default function ResultScreen() {
   if (!valuationResult) {
     return (
       <div className="screen empty-screen">
-        <img src={carImage} alt="Car" style={{ width: '60%', opacity: 0.5, margin: '0 auto 16px', display: 'block' }} />
         <h2 className="empty-title">No valuation yet</h2>
         <p className="empty-sub">Fill in vehicle details to get instant AI pricing</p>
         <button className="cd-btn-orange" onClick={() => setActiveScreen('input')}>
@@ -90,26 +46,31 @@ export default function ResultScreen() {
     );
   }
 
-  const { predictedPrice, baseMarketValue, conditionAdjustment, conditionMultiplier,
-    priceMin, priceMax, ci90Low, ci90High,
-    models, warnings, action, confidenceScore, riskScore, riskLevel,
-    dealQualityScore, urgencyScore, recommendedBuyPrice, recommendedSellPrice,
-    expectedProfit, expectedMarginPct, positiveFactors, negativeFactors,
-    isMLPowered, modelName, modelMetrics } = valuationResult;
-  const displayedConditionScore = valuationResult.conditionScore || conditionScore;
-  const rangeLow  = ci90Low  ?? priceMin;
-  const rangeHigh = ci90High ?? priceMax;
+  const {
+    action, confidenceScore,
+    recommendedBuyPrice, recommendedSellPrice,
+    expectedProfit, expectedMarginPct,
+    openingOffer, maxOffer,
+    positiveFactors, negativeFactors, warnings,
+  } = valuationResult;
+
+  // Buy range: opening offer (target) → recommended buy price (ceiling)
+  const buyLow  = openingOffer || Math.round(recommendedBuyPrice * 0.97);
+  const buyHigh = recommendedBuyPrice;
+
+  const aClass = actionClass(action);
+  const actionColors = { buy: '#00a651', negotiate: '#f7941d', reject: '#e02020', review: '#888' };
+  const actionColor = actionColors[aClass] || '#888';
 
   return (
     <div className="screen">
-      {/* Hero */}
-      <div className="result-hero">
-        <div className="result-hero-img-wrap">
-          <img src={carImage} alt={`${inputs.brand} ${inputs.model}`} className="result-hero-img" />
-        </div>
+      {/* Vehicle header */}
+      <div className="result-hero" style={{ marginBottom: 16 }}>
         <div className="result-hero-details">
           <div className="result-hero-name">{inputs.year} {inputs.model}</div>
-          <div className="result-hero-spec">{inputs.fuel} · {inputs.transmission} · Odometer {(parseInt(inputs.mileage) / 1000).toFixed(0)}k km · {inputs.fuelEfficiency || '—'} km/l</div>
+          <div className="result-hero-spec">
+            {inputs.brand} · {inputs.fuel} · {inputs.transmission} · {Number(inputs.mileage || 0).toLocaleString('en-IN')} km
+          </div>
           <div className="result-hero-city">
             <Icon name="mapPin" size={12} color="#007be5" strokeWidth={2} />
             {inputs.city}
@@ -117,112 +78,108 @@ export default function ResultScreen() {
         </div>
       </div>
 
-      <div className="result-cards-row">
-        {/* Price card */}
-        <div className="cd-card price-card">
-          <div className="price-card-label">Fair Market Value</div>
-          <div className="ml-powered-row">
-            <span className={`ml-badge ${isMLPowered ? 'on' : 'fallback'}`}>
-              <Icon name="robot" size={12} color={isMLPowered ? '#00a651' : '#f7941d'} strokeWidth={2} />
-              {isMLPowered ? `ML Powered · ${modelName || 'CatBoost'}` : 'ML Backend Required'}
-            </span>
-            {modelMetrics?.r2 && <span className="ml-metric-mini">R² {modelMetrics.r2} · MAPE {modelMetrics.mape}%</span>}
-          </div>
-          <div className="price-big">{formatINR(predictedPrice)}</div>
-          {baseMarketValue && baseMarketValue !== predictedPrice && (
-            <div className="condition-adjust-note">Base ML value {formatINR(baseMarketValue)} · Condition multiplier {conditionMultiplier} · Adjustment {formatINR(conditionAdjustment)}</div>
-          )}
-          <PriceBar min={rangeLow} mid={predictedPrice} max={rangeHigh} />
-          <div className="price-confidence-row">
-            <span className={`confidence-pill ${confidenceScore >= 75 ? 'good' : confidenceScore >= 55 ? 'medium' : 'bad'}`}>
-              <Icon name="shield" size={12} color={confidenceScore >= 75 ? '#00a651' : confidenceScore >= 55 ? '#f7941d' : '#e02020'} strokeWidth={2} />
-              {confidenceScore}% Confidence
-            </span>
-            <span className="price-updated">Updated today</span>
-          </div>
-          {/* Low / High estimate row — prominent */}
-          <div className="price-range-lowhigh">
-            <div className="price-range-lowhigh-item">
-              <span className="price-range-lowhigh-label">Low estimate</span>
-              <span className="price-range-lowhigh-val">{formatINR(rangeLow)}</span>
-            </div>
-            <div className="price-range-lowhigh-divider" />
-            <div className="price-range-lowhigh-item">
-              <span className="price-range-lowhigh-label">High estimate</span>
-              <span className="price-range-lowhigh-val">{formatINR(rangeHigh)}</span>
-            </div>
-          </div>
-          {/* One-line confidence summary */}
-          <div className="price-range-summary">
-            Model is <strong>{confidenceScore}% confident</strong> the fair market price falls between{' '}
-            <strong>{formatINR(rangeLow)}</strong> and <strong>{formatINR(rangeHigh)}</strong>
-          </div>
+      {/* ── ACTION BANNER ── */}
+      <div className="cd-card" style={{
+        background: `linear-gradient(135deg, ${actionColor}18 0%, ${actionColor}08 100%)`,
+        border: `2px solid ${actionColor}40`,
+        padding: '20px 18px',
+        marginBottom: 12,
+        textAlign: 'center',
+      }}>
+        <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 8 }}>
+          Acquisition Recommendation
         </div>
-
-        {/* Original PricerPoint decision cards */}
-        <div className="cd-card decision-hero-card">
-          <div className="decision-top-row">
-            <div>
-              <div className="cd-section-label">Acquisition Recommendation</div>
-              <div className={`action-badge ${actionClass(action)}`}>{action}</div>
-            </div>
-            <div className="decision-score">
-              <span>{dealQualityScore}</span>
-              <small>Deal Quality</small>
-            </div>
-          </div>
-          <div className="decision-grid">
-            <div className="decision-metric"><span>Buy Price</span><strong>{formatINR(recommendedBuyPrice)}</strong></div>
-            <div className="decision-metric"><span>Sell Price</span><strong>{formatINR(recommendedSellPrice)}</strong></div>
-            <div className="decision-metric"><span>Expected Profit</span><strong>{formatINR(expectedProfit)}</strong><em>{expectedMarginPct}% margin</em></div>
-            <div className="decision-metric"><span>Risk</span><strong>{riskScore}/100</strong><em>{riskLevel}</em></div>
-            <div className="decision-metric"><span>Urgency</span><strong>{urgencyScore}/100</strong><em>Respond fast</em></div>
-          </div>
+        <div className={`action-badge ${aClass}`} style={{ fontSize: 28, padding: '10px 28px', display: 'inline-block' }}>
+          {action}
+        </div>
+        <div style={{ marginTop: 12 }}>
+          <span className={`confidence-pill ${confidenceScore >= 75 ? 'good' : confidenceScore >= 55 ? 'medium' : 'bad'}`}>
+            <Icon name="shield" size={12} color={confidenceScore >= 75 ? '#00a651' : confidenceScore >= 55 ? '#f7941d' : '#e02020'} strokeWidth={2} />
+            {confidenceScore}% Confidence
+          </span>
         </div>
       </div>
 
-      <div className="two-col result-factors-row">
-        <div className="cd-card factor-card positive">
-          <div className="cd-section-label"><Icon name="trendUp" size={13} color="#00a651" strokeWidth={2} /> Positive Factors</div>
-          {(positiveFactors?.length ? positiveFactors : ['No strong positive factor detected']).map((f, i) => <div key={i} className="factor-row">+ {f}</div>)}
+      {/* ── PRICE DECISION GRID ── */}
+      <div className="cd-card" style={{ marginBottom: 12 }}>
+        <div className="cd-section-label" style={{ marginBottom: 12 }}>
+          <Icon name="coins" size={13} color="#f75d34" strokeWidth={2} /> Pricing Decision
         </div>
-        <div className="cd-card factor-card negative">
-          <div className="cd-section-label"><Icon name="trendDown" size={13} color="#e02020" strokeWidth={2} /> Risk Factors</div>
-          {(negativeFactors?.length ? negativeFactors : ['No major risk factor detected']).map((f, i) => <div key={i} className="factor-row">− {f}</div>)}
-        </div>
-      </div>
-
-      <div className="cd-card cond-card" style={{ maxWidth: 320 }}>
-        <div className="cd-section-label">Condition</div>
-        <ConditionRing score={displayedConditionScore} />
-      </div>
-
-      {/* Model breakdown */}
-      <div className="cd-card">
-        <div className="cd-section-label">
-          <Icon name="robot" size={13} color="#888" strokeWidth={1.8} />
-          Valuation Engine Breakdown
-        </div>
-        <div className="model-breakdown">
-          {models.map((m, i) => (
-            <div key={i} className="mb-row">
-              <div className="mb-name">{m.name}</div>
-              <div className="mb-bar-track">
-                <div className="mb-bar-fill" style={{ width: `${m.weight * 3}%` }} />
+        {/* Buy range — full width */}
+        <div style={{ background: 'var(--surface-2)', borderRadius: 10, padding: '16px 14px', marginBottom: 10 }}>
+          <div style={{ fontSize: 10, color: 'var(--text-3)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}>
+            <Icon name="coins" size={11} color="#00a651" strokeWidth={2} />
+            Buy Price Range
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+            <div style={{ textAlign: 'center', flex: 1 }}>
+              <div style={{ fontSize: 10, color: 'var(--text-3)', marginBottom: 4 }}>Start offer at</div>
+              <div style={{ fontSize: 19, fontWeight: 800, color: '#00a651' }}>{formatINR(buyLow)}</div>
+            </div>
+            {/* Range bar */}
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <div style={{ width: '100%', height: 6, borderRadius: 3, background: 'linear-gradient(90deg, #00a651 0%, #f7941d 100%)', position: 'relative', margin: '4px 0' }}>
+                <div style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', width: 10, height: 10, borderRadius: '50%', background: '#00a651', border: '2px solid white', boxShadow: '0 1px 4px rgba(0,0,0,0.2)' }} />
+                <div style={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)', width: 10, height: 10, borderRadius: '50%', background: '#f7941d', border: '2px solid white', boxShadow: '0 1px 4px rgba(0,0,0,0.2)' }} />
               </div>
-              <div className="mb-price">{formatINR(m.price)}</div>
-              <div className="mb-pct">{m.weight}%</div>
+              <div style={{ fontSize: 9, color: 'var(--text-3)', marginTop: 4 }}>negotiation window</div>
             </div>
-          ))}
+            <div style={{ textAlign: 'center', flex: 1 }}>
+              <div style={{ fontSize: 10, color: 'var(--text-3)', marginBottom: 4 }}>Walk away at</div>
+              <div style={{ fontSize: 19, fontWeight: 800, color: '#f7941d' }}>{formatINR(buyHigh)}</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Sell price */}
+        <div style={{ background: 'var(--surface-2)', borderRadius: 10, padding: '14px 12px', textAlign: 'center' }}>
+          <div style={{ fontSize: 10, color: 'var(--text-3)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: 4 }}>
+            Sell at
+          </div>
+          <div style={{ fontSize: 20, fontWeight: 800, color: '#007be5' }}>
+            {formatINR(recommendedSellPrice)}
+          </div>
+        </div>
+        <div style={{ marginTop: 12, background: 'var(--surface-2)', borderRadius: 10, padding: '12px 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontSize: 13, color: 'var(--text-2)' }}>Expected profit</span>
+          <span style={{ fontSize: 16, fontWeight: 700, color: expectedProfit > 0 ? '#00a651' : '#e02020' }}>
+            {formatINR(expectedProfit)}
+            <span style={{ fontSize: 11, fontWeight: 500, color: 'var(--text-3)', marginLeft: 6 }}>({expectedMarginPct}% margin)</span>
+          </span>
         </div>
       </div>
 
-      {/* Warnings */}
-      {warnings.length > 0 && (
-        <div className="cd-card warn-card">
+      {/* ── FACTORS ── */}
+      {((positiveFactors?.length > 0) || (negativeFactors?.length > 0)) && (
+        <div className="two-col result-factors-row" style={{ marginBottom: 12 }}>
+          {positiveFactors?.length > 0 && (
+            <div className="cd-card factor-card positive">
+              <div className="cd-section-label">
+                <Icon name="trendUp" size={13} color="#00a651" strokeWidth={2} /> Positives
+              </div>
+              {positiveFactors.slice(0, 3).map((f, i) => (
+                <div key={i} className="factor-row">+ {f}</div>
+              ))}
+            </div>
+          )}
+          {negativeFactors?.length > 0 && (
+            <div className="cd-card factor-card negative">
+              <div className="cd-section-label">
+                <Icon name="trendDown" size={13} color="#e02020" strokeWidth={2} /> Watch out
+              </div>
+              {negativeFactors.slice(0, 3).map((f, i) => (
+                <div key={i} className="factor-row">− {f}</div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── WARNINGS ── */}
+      {warnings?.length > 0 && (
+        <div className="cd-card warn-card" style={{ marginBottom: 12 }}>
           <div className="cd-section-label">
-            <Icon name="warning" size={13} color="#f75d34" strokeWidth={2} />
-            Points to Note
+            <Icon name="warning" size={13} color="#f75d34" strokeWidth={2} /> Points to Note
           </div>
           {warnings.map((w, i) => (
             <div key={i} className="warn-row">
@@ -233,15 +190,15 @@ export default function ResultScreen() {
         </div>
       )}
 
-      {/* CTA */}
+      {/* ── CTAs ── */}
       <div className="cta-pair">
-        <button className="cd-btn-outline flex1" onClick={() => setActiveScreen('explain')}>
-          <Icon name="brain" size={15} color="#f75d34" strokeWidth={2} />
-          AI Explainability
+        <button className="cd-btn-outline flex1" onClick={() => setActiveScreen('enhanced-input')}>
+          <Icon name="zap" size={15} color="#f75d34" strokeWidth={2} />
+          Full Analysis
         </button>
-        <button className="cd-btn-orange flex1" onClick={() => setActiveScreen('pricing')}>
-          <Icon name="coins" size={15} color="white" strokeWidth={2} />
-          Pricing Intel
+        <button className="cd-btn-orange flex1" onClick={() => setActiveScreen('explain')}>
+          <Icon name="brain" size={15} color="white" strokeWidth={2} />
+          Why this price?
         </button>
       </div>
     </div>

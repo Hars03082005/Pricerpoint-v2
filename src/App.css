@@ -16,8 +16,8 @@
   --green-bg:    #f0fff7;
   --red:         #e02020;
   --text:        #24272c;
-  --text-2:      rgba(36,39,44,.65);
-  --text-3:      rgba(36,39,44,.45);
+  --text-2:      rgba(36,39,44,.80);
+  --text-3:      rgba(36,39,44,.62);
   --border:      rgba(36,39,44,.12);
   --border-2:    rgba(36,39,44,.07);
   --bg:          #f5f6fa;
@@ -3158,3 +3158,118 @@ img { max-width: 100%; display: block; }
   color: var(--text-2);
   font-weight: 700;
 }
+
+/* ── Condition grade fields ── */
+.live-cost-preview {
+  font-size: 11px;
+  color: #4a5260;
+  margin-top: 5px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.grade-field { margin-bottom: 14px; }
+
+.grade-field .spec-label,
+.spec-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #24272c;
+  margin-bottom: 6px;
+}
+
+.grade-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.grade-pill {
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  font-size: 12px;
+  font-weight: 500;
+  color: #24272c;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.grade-pill.active {
+  border-color: var(--orange);
+  color: var(--orange);
+  background: var(--orange-bg);
+  font-weight: 700;
+}
+
+.grade-grid { display: flex; flex-direction: column; gap: 4px; }
+
+/* ── Darken all secondary/helper text globally ── */
+.cd-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #24272c;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.result-metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border-2);
+  font-size: 13px;
+  color: #24272c;
+}
+
+.result-metric-row:last-child { border-bottom: none; }
+
+.result-metric-row span { color: #4a5260; font-weight: 500; }
+
+.result-metric-row strong { font-weight: 700; color: #24272c; }
+
+.pipeline-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #24272c;
+}
+
+.pipeline-section-sub {
+  font-size: 11px;
+  color: #4a5260;
+  margin-top: 2px;
+}
+
+.pipeline-step-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #24272c;
+}
+
+.pipeline-sub-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #4a5260;
+  padding: 2px 0;
+}
+
+.pipeline-sub-row strong { color: #24272c; }
+
+.factor-row {
+  font-size: 12px;
+  color: #24272c;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border-2);
+  font-weight: 500;
+}
+
+.factor-row:last-child { border-bottom: none; }

@@ -21,6 +21,8 @@ const DEFAULT_INSPECTION = {
   bodyGrade: 'clean',
   interiorGrade: 'clean',
   electricalGrade: 'all_good',
+  rcTransferCost: '3500',
+  idvValue: '0',
   vendorType: {
     engine: 'vendor',
     tyre: 'vendor',

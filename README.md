@@ -1,4 +1,4 @@
-# PricerPoint v2.3 — Dealership ML Valuation System
+# PricerPoint v2.4 — Dealership ML Valuation System
 
 > **Scope:** Dealership / manager internal portal only.  
 > Seller portal · Buyer portal · Computer vision — all on hold.
@@ -13,7 +13,7 @@ PricerPoint automates used-car acquisition decisions for dealerships. A dealer e
 2. [How It Works](#2-how-it-works)
 3. [Tech Stack](#3-tech-stack)
 4. [Project Structure](#4-project-structure)
-5. [ML Pipeline — v2.3](#5-ml-pipeline--v23)
+5. [ML Pipeline — v2.4](#5-ml-pipeline--v24)
 6. [Model Performance](#6-model-performance)
 7. [Segmented Models](#7-segmented-models)
 8. [Backend API](#8-backend-api)
@@ -114,27 +114,22 @@ pricerpoint-v2/
 │   ├── decision_engine.py       # Rule-based dealer logic
 │   ├── ensemble_predictor.py    # Global ensemble loader
 │   ├── brand_catalog.py         # Brand/model lookup
+│   ├── __init__.py
 │   └── requirements.txt
 │
 ├── ml_training/
-│   ├── train_ml_model.py        # Full training pipeline (v2.3)
+│   ├── train_ml_model.py        # Full training pipeline (v2.4)
 │   ├── clean_data.py            # Standalone data cleaning script
 │   ├── requirements.txt
 │   └── data/
-│       ├── cars.csv             # Raw dataset (36,956 rows, 46 OEMs)
-│       ├── cleaned.csv          # Output of clean_data.py
-│       └── brand_stats.csv      # Per-brand depreciation stats
+│       ├── cars.csv             # Raw dataset – gitignored (36,956 rows, 46 OEMs)
+│       ├── cleaned.csv          # Output of clean_data.py – gitignored
+│       └── brand_stats.csv      # Per-brand depreciation stats (tracked)
 │
-├── model_artifacts/
-│   ├── vehicle_price_catboost.cbm     # Global CatBoost (fallback)
-│   ├── vehicle_price_lightgbm.txt     # Global LightGBM (fallback)
-│   ├── vehicle_price_xgboost.json     # Global XGBoost (fallback)
-│   ├── ensemble_budget.pkl            # Budget segment ensemble
-│   ├── ensemble_mid.pkl               # Mid segment ensemble
-│   ├── ensemble_premium.pkl           # Premium segment ensemble
-│   ├── model_metadata.json            # Training metadata + metrics
-│   ├── training_report.json           # Full training report
-│   └── cleaned_training_sample.csv    # 500-row sample for inspection
+├── model_artifacts/             # All large binaries are gitignored; retrain to reproduce
+│   ├── vehicle_price_lightgbm.txt     # Global LightGBM (tracked, ~2.5 MB)
+│   ├── model_metadata.json            # Training metadata + metrics (tracked)
+│   └── cleaned_training_sample.csv    # 500-row sample for inspection (tracked)
 │
 ├── src/
 │   ├── screens/
@@ -159,18 +154,24 @@ pricerpoint-v2/
 │   ├── App.jsx
 │   └── App.css
 │
-├── mobile/                       # Flutter shell
+├── mobile/                       # Flutter shell (WebView wraps the React build)
+│   ├── lib/
+│   ├── pubspec.yaml
+│   └── README.md
+├── scripts/
+│   └── bundle-web-for-mobile.ps1 # Copies dist/ into Flutter assets
 ├── public/
-├── dist/                         # Production build output
+├── dist/                         # Production build output – gitignored
 ├── index.html
 ├── vite.config.js
+├── eslint.config.js
 ├── package.json
 └── README.md
 ```
 
 ---
 
-## 5. ML Pipeline — v2.3
+## 5. ML Pipeline — v2.4
 
 ### Dataset
 | Metric | Value |
@@ -387,11 +388,12 @@ Action thresholds:
 ```bash
 pip install -r ml_training/requirements.txt
 
-# Clean the dataset
+# Clean the dataset (outputs ml_training/data/cleaned.csv)
 python ml_training/clean_data.py
 
 # Train all models (global + 3 segments, ~3 minutes)
-python ml_training/train_ml_model.py
+# On Windows, set PYTHONUTF8=1 to avoid encoding errors in the training log
+set PYTHONUTF8=1 && python ml_training/train_ml_model.py
 ```
 
 ### 2. Run backend
@@ -430,21 +432,14 @@ Password: dealer123
 
 ## 13. Known Issues & Next Improvements
 
-### ✅ Resolved (v2.4)
-- **`variant` sent from frontend** — Wired the variant field end-to-end so that variant-specific pricing operates dynamically.
-- **`fuel_efficiency` distribution sync** — Documented that the backend correctly sets fuel efficiency to 0.0 to match the training distribution of `cars.csv`.
-- **Budget segment fallback** — Programmed a fallback check that defaults to the more accurate global model if the budget segment model has a higher MAPE.
-- **`category_levels` saved in segment pkls** — Included category levels in the segment pickles to normalise unseen brands to "unknown" and prevent lightgbm/xgboost out-of-vocab inference crashes.
-- **Two-pass segment routing for seller_asking_price = 0** — Uses a cheap global ensemble pass to estimate the price bracket, then routes to the correct segment model.
-
 ### 🟡 Medium
-- Physical features (`Seats`, `No of Cylinder`, `power_to_weight_ratio`) exist in `cleaned.csv` but are not in `FEATURES` — adding them would improve budget MAPE
-- `km_per_year` uncapped — `car_age = 0` inflates this feature to raw `km` value
-- `training_report.json` and `model_metadata.json` are identical writes — redundant
+- Physical features (`Seats`, `No of Cylinder`, `power_to_weight_ratio`) exist in `cleaned.csv` but are not yet in `FEATURES` — adding them would improve budget MAPE
+- `km_per_year` is uncapped — `car_age = 0` inflates this feature to the raw odometer value
+- `training_report.json` and `model_metadata.json` are identical writes in the training script — one can be removed to avoid duplication (training_report.json is already gitignored)
 
 ### 🟢 Low
-- Add `sys.stdout.reconfigure(encoding='utf-8')` so training works on Windows without `PYTHONUTF8=1`
-- Add model versioning (timestamp suffix on artifacts) so retrains don't silently overwrite metrics
+- Add `sys.stdout.reconfigure(encoding='utf-8')` at the top of the training script so it works on Windows without the `PYTHONUTF8=1` env var
+- Add model versioning (timestamp suffix on artifacts) so retrains don't silently overwrite previous metrics
 
 ---
 

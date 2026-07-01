@@ -45,8 +45,8 @@ export default function EnhancedValuationScreen() {
   const ownerCount = Number(inputs.ownerCount || 1);
   const grades = inspectionGrades(enhancedInspection);
   const recon = useMemo(
-    () => getReconCost(grades, enhancedInspection.vendorType),
-    [grades, enhancedInspection.vendorType],
+    () => getReconCost(grades, enhancedInspection.vendorType, enhancedInspection.rcTransferCost),
+    [grades, enhancedInspection.vendorType, enhancedInspection.rcTransferCost],
   );
   const disqualifier = useMemo(
     () => checkDisqualifier(vehicleAge, odometer, ownerCount, enhancedInspection.accidentHistory),
@@ -254,7 +254,45 @@ export default function EnhancedValuationScreen() {
               <div className="recon-live-total">{formatINR(recon.total)}</div>
               <div className="recon-live-breakdown">
                 <div><span>Categories</span><strong>{formatINR(recon.total - recon.fixed_cost)}</strong></div>
-                <div><span>Fixed (RC + detail + ops)</span><strong>{formatINR(recon.fixed_cost)}</strong></div>
+                <div><span>RC Transfer</span><strong>{formatINR(recon.rc_transfer_cost)}</strong></div>
+                <div><span>Fixed (detailing + ops)</span><strong>{formatINR(recon.fixed_cost - recon.rc_transfer_cost)}</strong></div>
+              </div>
+            </div>
+
+            {/* RC Transfer Cost field */}
+            <div className="cd-card" style={{ padding: '14px 16px', marginTop: 0 }}>
+              <div className="cd-section-label">RC &amp; Fixed Costs</div>
+              <div className="spec-field" style={{ marginBottom: 10 }}>
+                <label className="spec-label">RC Transfer Cost (₹)</label>
+                <input
+                  type="number"
+                  className="cd-input"
+                  min="0"
+                  step="500"
+                  placeholder="e.g. 3500"
+                  value={enhancedInspection.rcTransferCost}
+                  onChange={e => updateEnhancedInspection('rcTransferCost', e.target.value)}
+                />
+                <div style={{ fontSize: 10, color: 'var(--text-3)', marginTop: 4 }}>
+                  Detailing (₹2,500) + Ops (₹2,000) added automatically
+                </div>
+              </div>
+
+              {/* IDV field */}
+              <div className="spec-field">
+                <label className="spec-label">IDV from insurance policy (optional)</label>
+                <input
+                  type="number"
+                  className="cd-input"
+                  min="0"
+                  step="5000"
+                  placeholder="e.g. 380000"
+                  value={enhancedInspection.idvValue === '0' ? '' : enhancedInspection.idvValue}
+                  onChange={e => updateEnhancedInspection('idvValue', e.target.value || '0')}
+                />
+                <div style={{ fontSize: 10, color: 'var(--text-3)', marginTop: 4 }}>
+                  ML will compare IDV vs predicted price and flag any large gap
+                </div>
               </div>
             </div>
           </div>

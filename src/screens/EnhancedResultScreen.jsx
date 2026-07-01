@@ -2,7 +2,7 @@ import { useApp } from '../context/AppContext.jsx';
 import { CAR_IMAGES } from '../utils/mockData.js';
 import { formatINR, getSeasonalContext } from '../utils/format.js';
 import { DEAL_HEALTH_META, GRADE_OPTIONS } from '../utils/wheelrCosts.js';
-import { DealHealthBanner, ExpandableBreakdownTable, NegotiationPlaybook } from '../components/WheelrPanels.jsx';
+import { NegotiationPlaybook, ExpandableBreakdownTable } from '../components/WheelrPanels.jsx';
 import Icon from '../components/Icon.jsx';
 
 function actionClass(action) {
@@ -16,6 +16,45 @@ function gradeLabel(category, value) {
   return GRADE_OPTIONS[category]?.find(o => o.value === value)?.label || value;
 }
 
+// ─── IDV Comparison Banner ─────────────────────────────────
+function IDVBanner({ idvAnalysis }) {
+  if (!idvAnalysis) return null;
+  const { idv_value, ml_value, idv_gap_pct, flag, flag_type } = idvAnalysis;
+  const sign = idv_gap_pct >= 0 ? '+' : '';
+  const bgColor = flag_type === 'warning' ? '#fff3e0' : flag_type === 'positive' ? '#e8f5e9' : '#f5f5f5';
+  const borderColor = flag_type === 'warning' ? '#f7941d' : flag_type === 'positive' ? '#00a651' : '#ccc';
+  const textColor = flag_type === 'warning' ? '#b45309' : flag_type === 'positive' ? '#15803d' : '#555';
+  const icon = flag_type === 'warning' ? '⚠️' : flag_type === 'positive' ? '✅' : 'ℹ️';
+
+  return (
+    <div style={{
+      background: bgColor,
+      border: `1.5px solid ${borderColor}`,
+      borderRadius: 12,
+      padding: '12px 14px',
+      marginBottom: 12,
+    }}>
+      <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: 6 }}>
+        IDV vs ML Valuation
+      </div>
+      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-1)', marginBottom: 4 }}>
+        IDV: {formatINR(idv_value)} &nbsp;|&nbsp; ML Value: {formatINR(ml_value)} &nbsp;|&nbsp;
+        <span style={{ color: flag_type === 'warning' ? '#b45309' : flag_type === 'positive' ? '#15803d' : '#555', fontWeight: 700 }}>
+          Gap: {sign}{idv_gap_pct}%
+        </span>
+      </div>
+      <div style={{ fontSize: 12, color: textColor, fontWeight: 500 }}>
+        {icon} {flag}
+      </div>
+      {flag_type === 'warning' && (
+        <div style={{ fontSize: 11, color: 'var(--text-3)', marginTop: 4 }}>
+          ₹15,000 additional risk deduction applied to max buy price
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── Connector arrow between pipeline steps ────────────────
 function PipelineArrow() {
   return (
@@ -25,8 +64,8 @@ function PipelineArrow() {
   );
 }
 
-// ─── Single pipeline step card ──────────────────────────────
-function PipelineStep({ icon, iconClass, bodyClass, label, amount, amountClass, barPct, barClass, subRows, ruleTags, description }) {
+// ─── Single pipeline step — simplified (numbers only, no verbose descriptions) ──
+function PipelineStep({ icon, iconClass, bodyClass, label, amount, amountClass, barPct, barClass, subRows }) {
   return (
     <div className="pipeline-step">
       <div className={`pipeline-icon ${iconClass}`}>{icon}</div>
@@ -35,11 +74,6 @@ function PipelineStep({ icon, iconClass, bodyClass, label, amount, amountClass, 
           <div className="pipeline-step-label">{label}</div>
           <div className={`pipeline-step-amount ${amountClass}`}>{amount}</div>
         </div>
-        {description && (
-          <div style={{ fontSize: 10, color: 'var(--text-3)', marginBottom: 4, lineHeight: 1.5 }}>
-            {description}
-          </div>
-        )}
         {subRows && subRows.length > 0 && (
           <div className="pipeline-sub-rows">
             {subRows.map((row, i) => (
@@ -57,48 +91,6 @@ function PipelineStep({ icon, iconClass, bodyClass, label, amount, amountClass, 
             </div>
           </div>
         )}
-        {ruleTags && ruleTags.length > 0 && (
-          <div className="pipeline-rule-tags">
-            {ruleTags.map((tag, i) => (
-              <span key={i} className={`pipeline-rule-tag ${tag.cls}`}>{tag.text}</span>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-// ─── Profit composition waterfall bar ──────────────────────
-function ProfitWaterfall({ buyPrice, reconTotal, riskTotal, holdingCost, expectedProfit, sellPrice }) {
-  const total = Math.max(sellPrice || (buyPrice + reconTotal + riskTotal + holdingCost + expectedProfit), 1);
-  const buyPct = (buyPrice / total) * 100;
-  const reconPct = (reconTotal / total) * 100;
-  const riskPct = (riskTotal / total) * 100;
-  const holdPct = (holdingCost / total) * 100;
-  const profPct = (expectedProfit / total) * 100;
-  return (
-    <div className="profit-waterfall">
-      <div className="profit-wf-track">
-        <div className="profit-wf-segment buy" style={{ width: `${buyPct}%` }}>Buy</div>
-        <div className="profit-wf-segment recon" style={{ width: `${reconPct}%` }}>Recon</div>
-        <div className="profit-wf-segment risk" style={{ width: `${riskPct}%` }}>Risk</div>
-        <div className="profit-wf-segment hold" style={{ width: `${holdPct}%` }}>Hold</div>
-        <div className="profit-wf-segment prof" style={{ width: `${profPct}%` }}>Profit</div>
-      </div>
-      <div className="profit-wf-labels">
-        {[
-          { cls: 'buy', color: 'var(--green)', label: 'Buy Price' },
-          { cls: 'recon', color: 'var(--orange)', label: 'Recon' },
-          { cls: 'risk', color: '#e05020', label: 'Risk Deductions' },
-          { cls: 'hold', color: '#888', label: 'Holding Cost' },
-          { cls: 'prof', color: 'var(--blue)', label: 'Target Profit' },
-        ].map(item => (
-          <div key={item.cls} className="profit-wf-lbl">
-            <div className="profit-wf-dot" style={{ background: item.color }} />
-            {item.label}
-          </div>
-        ))}
       </div>
     </div>
   );
@@ -135,12 +127,10 @@ function RuleBasedPricingPipeline({ result, inputs }) {
   const marginPct = expectedMarginPct || 0;
   const targetMPct = targetMarginPct || 15;
 
-  // Health color
   const healthColor = dealHealth === 'green' ? 'green' : dealHealth === 'yellow' ? 'yellow' : 'red';
   const healthIcon = dealHealth === 'green' ? '✅' : dealHealth === 'yellow' ? '⚠️' : '🔴';
   const healthMsg = DEAL_HEALTH_META[dealHealth]?.title || 'Deal health unknown';
 
-  // Recon sub-rows
   const reconBreakdown = recon?.breakdown || {};
   const reconSubRows = [
     reconBreakdown.engine > 0 && { label: '🔧 Engine', value: formatINR(reconBreakdown.engine), color: 'var(--red)' },
@@ -148,10 +138,9 @@ function RuleBasedPricingPipeline({ result, inputs }) {
     reconBreakdown.body_paint > 0 && { label: '🎨 Body & Paint', value: formatINR(reconBreakdown.body_paint), color: 'var(--red)' },
     reconBreakdown.interior > 0 && { label: '🪑 Interior', value: formatINR(reconBreakdown.interior), color: 'var(--red)' },
     reconBreakdown.electricals > 0 && { label: '⚡ Electricals', value: formatINR(reconBreakdown.electricals), color: 'var(--red)' },
-    { label: '📋 Fixed (RC + detail + ops)', value: formatINR(reconBreakdown.fixed || 8000), color: 'var(--text-3)' },
+    { label: '📋 RC + detailing + ops', value: formatINR(recon?.rc_transfer_cost != null ? reconBreakdown.fixed : (reconBreakdown.fixed || 8000)), color: 'var(--text-3)' },
   ].filter(Boolean);
 
-  // Wheelr risk sub-rows
   const riskBreakdown = wheelrRisk?.breakdown || {};
   const riskSubRows = [
     riskBreakdown.owner_deduction > 0 && { label: `👤 Owner #${inputs.ownerCount}`, value: `−${formatINR(riskBreakdown.owner_deduction)}`, color: 'var(--red)' },
@@ -160,191 +149,83 @@ function RuleBasedPricingPipeline({ result, inputs }) {
     riskBreakdown.state_deduction > 0 && { label: '🗺️ Out-of-state', value: `−${formatINR(riskBreakdown.state_deduction)}`, color: 'var(--red)' },
     riskBreakdown.loan_deduction > 0 && { label: '🏦 Loan outstanding', value: `−${formatINR(riskBreakdown.loan_deduction)}`, color: 'var(--red)' },
   ].filter(Boolean);
-  if (riskSubRows.length === 0) riskSubRows.push({ label: '✔ No risk deductions applied', value: '₹0', color: 'var(--green)' });
+  if (riskSubRows.length === 0) riskSubRows.push({ label: '✔ No risk deductions', value: '₹0', color: 'var(--green)' });
 
   return (
-    <div className="cd-card" style={{ padding: '16px' }}>
-      {/* Section header */}
+    <div className="cd-card" style={{ padding: '16px', marginBottom: 12 }}>
       <div className="pipeline-section-head">
         <div>
-          <div className="pipeline-section-title">Rule-Based Pricing Pipeline</div>
-          <div className="pipeline-section-sub">
-            How the ML base price flows through every rule to reach your final buy price
-          </div>
+          <div className="pipeline-section-title">Pricing Pipeline</div>
+          <div className="pipeline-section-sub">How the ML price flows to your buy price</div>
         </div>
-        <div className="pipeline-badge">⚙️ 6-Stage Rules</div>
       </div>
 
-      {/* Deal health banner */}
       <div className={`pipeline-health-row ${healthColor}`} style={{ marginBottom: 14 }}>
         <span>{healthIcon}</span>
         <span>{healthMsg}</span>
-        <span style={{ marginLeft: 'auto', fontSize: 10, opacity: 0.75 }}>
-          {DEAL_HEALTH_META[dealHealth]?.reason}
-        </span>
       </div>
 
-      {/* ── PIPELINE STEPS ── */}
       <div className="pricing-pipeline">
-
-        {/* STEP 1 — ML Base Market Value */}
         <PipelineStep
-          icon="🤖"
-          iconClass="start"
-          bodyClass="start-body"
-          label="Stage 1 · ML Base Market Value"
-          amount={formatINR(mlBasePrice)}
-          amountClass="blue"
-          barPct={100}
-          barClass="blue"
-          description="CatBoost model predicts fair market value from vehicle specs, odometer, age, fuel, transmission and city demand."
-          ruleTags={[
-            { text: 'CatBoost ML', cls: 'blue' },
-            { text: `${confidenceScore}% Confidence`, cls: 'blue' },
-          ]}
+          icon="🤖" iconClass="start" bodyClass="start-body"
+          label="ML Market Value"
+          amount={formatINR(mlBasePrice)} amountClass="blue"
+          barPct={100} barClass="blue"
         />
-
         <PipelineArrow />
-
-        {/* STEP 2 — Reconditioning Cost */}
         <PipelineStep
-          icon="🔧"
-          iconClass="deduct"
-          label="Stage 2 · Reconditioning Cost (Recon)"
-          amount={`−${formatINR(reconTotal)}`}
-          amountClass="red"
-          barPct={(reconTotal / mlBasePrice) * 100}
-          barClass="red"
-          description="Deducted for physical repairs needed before the vehicle can be resold. Calculated from field inspection grades."
+          icon="🔧" iconClass="deduct"
+          label="Recon Cost"
+          amount={`−${formatINR(reconTotal)}`} amountClass="red"
+          barPct={(reconTotal / mlBasePrice) * 100} barClass="red"
           subRows={reconSubRows}
-          ruleTags={[
-            { text: 'Field Inspection', cls: 'orange' },
-            { text: reconTotal > mlBasePrice * 0.2 ? 'High Recon' : 'Low Recon', cls: reconTotal > mlBasePrice * 0.2 ? 'red' : 'green' },
-          ]}
         />
-
         <PipelineArrow />
-
-        {/* STEP 3 — Wheelr Risk Deductions */}
         <PipelineStep
-          icon="⚠️"
-          iconClass="deduct"
-          label="Stage 3 · Wheelr Risk Deductions"
-          amount={`−${formatINR(wheelrRiskTotal)}`}
-          amountClass="red"
-          barPct={(wheelrRiskTotal / mlBasePrice) * 100}
-          barClass="red"
-          description="Rule-based deductions for owner count, high odometer, accident history, out-of-state registration, and loan outstanding."
+          icon="⚠️" iconClass="deduct"
+          label="Risk Deductions"
+          amount={`−${formatINR(wheelrRiskTotal)}`} amountClass="red"
+          barPct={(wheelrRiskTotal / mlBasePrice) * 100} barClass="red"
           subRows={riskSubRows}
-          ruleTags={[
-            { text: 'Owner Risk', cls: 'orange' },
-            { text: 'Accident History', cls: 'orange' },
-            { text: 'State Transfer', cls: 'orange' },
-          ]}
         />
-
         <PipelineArrow />
-
-        {/* STEP 4 — Holding Cost */}
         <PipelineStep
-          icon="📦"
-          iconClass="deduct"
-          label="Stage 4 · Holding Cost (2.5% of market value)"
-          amount={`−${formatINR(hCost)}`}
-          amountClass="orange"
-          barPct={(hCost / mlBasePrice) * 100}
-          barClass="orange"
-          description="Fixed 2.5% holding buffer for the time the vehicle sits in inventory before resale (insurance, parking, depreciation)."
-          ruleTags={[
-            { text: 'Rule: 2.5% × Market Value', cls: 'orange' },
-          ]}
+          icon="📦" iconClass="deduct"
+          label="Holding Cost"
+          amount={`−${formatINR(hCost)}`} amountClass="orange"
+          barPct={(hCost / mlBasePrice) * 100} barClass="orange"
         />
-
         <PipelineArrow />
-
-        {/* STEP 5 — Risk Buffer */}
         <PipelineStep
-          icon="🛡️"
-          iconClass="deduct"
-          label="Stage 5 · Risk Buffer (risk score × 8%)"
-          amount={`−${formatINR(rBuf)}`}
-          amountClass="red"
-          barPct={(rBuf / mlBasePrice) * 100}
-          barClass="red"
-          description={`Dynamic buffer based on vehicle risk score (${riskScore}/100 · ${riskLevel}). Higher risk = larger buffer deducted from buy price.`}
+          icon="🛡️" iconClass="deduct"
+          label="Risk Buffer"
+          amount={`−${formatINR(rBuf)}`} amountClass="red"
+          barPct={(rBuf / mlBasePrice) * 100} barClass="red"
+        />
+        <PipelineArrow />
+        <PipelineStep
+          icon="💰" iconClass="margin"
+          label={`Target Profit (${targetMPct}%)`}
+          amount={`−${formatINR(targetProfit)}`} amountClass="amber"
+          barPct={targetMPct} barClass="amber"
           subRows={[
-            { label: '📊 Risk score', value: `${riskScore}/100 (${riskLevel})` },
-            { label: '📐 Formula', value: `Market × (${riskScore}/100) × 8%` },
-          ]}
-          ruleTags={[
-            { text: `Risk: ${riskLevel}`, cls: riskLevel === 'Low' ? 'green' : riskLevel === 'Medium' ? 'orange' : 'red' },
-            { text: 'Rule: Dynamic Buffer', cls: 'orange' },
-          ]}
-        />
-
-        <PipelineArrow />
-
-        {/* STEP 6 — Target Profit Margin */}
-        <PipelineStep
-          icon="💰"
-          iconClass="margin"
-          label={`Stage 6 · Target Profit Margin (${targetMPct}%)`}
-          amount={`−${formatINR(targetProfit)}`}
-          amountClass="amber"
-          barPct={targetMPct}
-          barClass="amber"
-          description={`Dealer's target margin (${targetMPct}%) is pre-deducted from market value to set a profitable buy price ceiling.`}
-          subRows={[
-            { label: '🎯 Target margin', value: `${targetMPct}%` },
-            { label: '💵 Profit at sell price', value: formatINR(expectedProfit || targetProfit), color: 'var(--green)' },
+            { label: '💵 Profit at sell', value: formatINR(expectedProfit || targetProfit), color: 'var(--green)' },
             { label: '📈 Actual margin', value: `${marginPct.toFixed(1)}%`, color: marginPct >= targetMPct ? 'var(--green)' : 'var(--red)' },
           ]}
-          ruleTags={[
-            { text: `Target: ${targetMPct}%`, cls: 'blue' },
-            { text: marginPct >= targetMPct ? 'Meets Target ✓' : 'Below Target ✗', cls: marginPct >= targetMPct ? 'green' : 'red' },
-          ]}
         />
-
       </div>
 
-      {/* ── Final buy price result box ── */}
       <div className="pipeline-final-box">
         <div className="pipeline-final-left">
           <div className="pipeline-final-label">✅ Recommended Buy Price</div>
           <div className="pipeline-final-price">{formatINR(finalBuyPrice)}</div>
-          <div className="pipeline-final-sub">
-            Sell at {formatINR(sellPrice)} · Net profit {formatINR(expectedProfit)}
-          </div>
+          <div className="pipeline-final-sub">Sell at {formatINR(sellPrice)} · Net profit {formatINR(expectedProfit)}</div>
         </div>
         <div className="pipeline-final-right">
           <div className="pipeline-final-margin-label">Actual Margin</div>
           <div className="pipeline-final-margin-pct">{marginPct.toFixed(1)}%</div>
           <div className="pipeline-final-margin-tag">Target: {targetMPct}%</div>
         </div>
-      </div>
-
-      {/* Margin gauge */}
-      <div className="pipeline-margin-gauge" style={{ marginTop: 12 }}>
-        <div className="pipeline-mg-track">
-          <div className="pipeline-mg-fill" style={{ width: `${Math.min(100, (marginPct / 30) * 100)}%` }} />
-        </div>
-        <div className="pipeline-mg-label">{marginPct.toFixed(1)}%</div>
-        <div className="pipeline-mg-target">/ {targetMPct}% target</div>
-      </div>
-
-      {/* Profit composition waterfall bar */}
-      <div style={{ marginTop: 14 }}>
-        <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: 4 }}>
-          Sell Price Composition
-        </div>
-        <ProfitWaterfall
-          buyPrice={finalBuyPrice}
-          reconTotal={reconTotal}
-          riskTotal={wheelrRiskTotal}
-          holdingCost={hCost}
-          expectedProfit={expectedProfit || targetProfit}
-          sellPrice={sellPrice}
-        />
       </div>
     </div>
   );
@@ -354,7 +235,6 @@ function RuleBasedPricingPipeline({ result, inputs }) {
 export default function EnhancedResultScreen() {
   const { enhancedResult, inputs, setActiveScreen, isLoading } = useApp();
   const carImage = CAR_IMAGES[`${inputs.brand} ${inputs.model}`] || '/cars/placeholder.png';
-  const seasonal = getSeasonalContext(enhancedResult?.seasonalMonth || new Date().getMonth() + 1);
 
   if (isLoading) {
     return (
@@ -379,8 +259,9 @@ export default function EnhancedResultScreen() {
   }
 
   const {
-    predictedPrice, recommendedBuyPrice, riskScore, riskLevel, action, confidenceScore,
-    enhancedMaxBuyPrice, recon, wheelrRisk, negotiation, dealHealth, seasonalMultiplier,
+    predictedPrice, recommendedBuyPrice, action, confidenceScore,
+    enhancedMaxBuyPrice, recon, wheelrRisk, negotiation, dealHealth,
+    idvAnalysis,
   } = enhancedResult;
 
   const inspection = enhancedResult.inspection || {};
@@ -401,40 +282,92 @@ export default function EnhancedResultScreen() {
     { Factor: 'Loan', Value: inspection.loanOutstanding ? 'Yes' : 'No', Deduction: wheelrRisk?.breakdown?.loan_deduction || 0 },
   ];
 
+  const actionColors = { buy: '#00a651', negotiate: '#f7941d', reject: '#e02020', review: '#888' };
+  const aClass = actionClass(action);
+  const actionColor = actionColors[aClass] || '#888';
+
   return (
     <div className="screen enhanced-screen">
-      <DealHealthBanner dealHealth={dealHealth} meta={DEAL_HEALTH_META} />
+      {/* ── IDV Banner (only when IDV was provided) ── */}
+      <IDVBanner idvAnalysis={idvAnalysis} />
 
-      <div className="enhanced-result-cards">
-        <div className="cd-card">
-          <div className="cd-section-label">ML Valuation</div>
-          <div className="result-metric-row"><span>Market value</span><strong>{formatINR(predictedPrice)}</strong></div>
-          <div className="result-metric-row"><span>Recommended buy price</span><strong>{formatINR(recommendedBuyPrice)}</strong></div>
-          <div className="result-metric-row"><span>Risk score</span><strong>{riskScore}/100 · {riskLevel}</strong></div>
-          <div className="result-metric-row">
-            <span>Action</span>
-            <span className={`action-pill action-${actionClass(action)}`}>{action}</span>
+      {/* ── Action + Key Numbers ── */}
+      <div className="cd-card" style={{
+        background: `linear-gradient(135deg, ${actionColor}18 0%, ${actionColor}08 100%)`,
+        border: `2px solid ${actionColor}40`,
+        padding: '16px 18px',
+        marginBottom: 12,
+      }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+          <div>
+            <div style={{ fontSize: 10, fontWeight: 600, color: 'var(--text-3)', textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: 4 }}>
+              Recommendation
+            </div>
+            <div className={`action-badge ${aClass}`}>{action}</div>
           </div>
-          <div className="result-metric-row"><span>Confidence</span><strong>{confidenceScore}%</strong></div>
+          <div style={{ textAlign: 'right' }}>
+            <div style={{ fontSize: 10, color: 'var(--text-3)', fontWeight: 600, textTransform: 'uppercase', marginBottom: 2 }}>Confidence</div>
+            <span className={`confidence-pill ${confidenceScore >= 75 ? 'good' : confidenceScore >= 55 ? 'medium' : 'bad'}`}>
+              {confidenceScore}%
+            </span>
+          </div>
+        </div>
+        {/* ML value row */}
+        <div style={{ background: 'rgba(255,255,255,0.5)', borderRadius: 8, padding: '10px 12px', marginBottom: 10 }}>
+          <div style={{ fontSize: 10, color: 'var(--text-3)', fontWeight: 600, textTransform: 'uppercase', marginBottom: 2 }}>ML Market Value</div>
+          <div style={{ fontSize: 17, fontWeight: 800, color: '#007be5' }}>{formatINR(predictedPrice)}</div>
         </div>
 
-        <div className="cd-card">
-          <div className="cd-section-label">Wheelr Analysis</div>
-          <div className="result-metric-row highlight"><span>Enhanced max buy</span><strong className="orange-text">{formatINR(enhancedMaxBuyPrice)}</strong></div>
-          <div className="result-metric-row"><span>Recon cost</span><strong>{formatINR(recon?.total)}</strong></div>
-          <div className="result-metric-row"><span>Wheelr risk deductions</span><strong>{formatINR(wheelrRisk?.total)}</strong></div>
-          <div className="result-metric-row"><span>Seasonal multiplier</span><strong>{seasonalMultiplier}× ({seasonal.label})</strong></div>
+        {/* Buy range row */}
+        <div style={{ background: 'rgba(255,255,255,0.5)', borderRadius: 8, padding: '12px 12px' }}>
+          <div style={{ fontSize: 10, color: 'var(--text-3)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 5 }}>
+            <span style={{ fontSize: 12 }}>💰</span> Buy Price Range
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ textAlign: 'center', flex: 1 }}>
+              <div style={{ fontSize: 9, color: 'var(--text-3)', marginBottom: 3 }}>Open at</div>
+              <div style={{ fontSize: 16, fontWeight: 800, color: '#00a651' }}>{formatINR(negotiation?.opening_offer || Math.round((enhancedMaxBuyPrice || recommendedBuyPrice) * 0.95))}</div>
+            </div>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <div style={{ width: '100%', height: 5, borderRadius: 3, background: 'linear-gradient(90deg, #00a651 0%, #f7941d 100%)', position: 'relative' }}>
+                <div style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', width: 9, height: 9, borderRadius: '50%', background: '#00a651', border: '2px solid white' }} />
+                <div style={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)', width: 9, height: 9, borderRadius: '50%', background: '#f7941d', border: '2px solid white' }} />
+              </div>
+              <div style={{ fontSize: 8, color: 'var(--text-3)', marginTop: 4 }}>window</div>
+            </div>
+            <div style={{ textAlign: 'center', flex: 1 }}>
+              <div style={{ fontSize: 9, color: 'var(--text-3)', marginBottom: 3 }}>Walk away</div>
+              <div style={{ fontSize: 16, fontWeight: 800, color: '#f7941d' }}>{formatINR(enhancedMaxBuyPrice)}</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* ── RULE-BASED PRICING PIPELINE ── */}
-      <RuleBasedPricingPipeline
-        result={enhancedResult}
-        inputs={inputs}
-      />
+      {/* ── Inspection Deductions breakdown ── */}
+      <div className="enhanced-result-cards" style={{ marginBottom: 12 }}>
+        <div className="cd-card" style={{ borderLeft: '3px solid #f7941d' }}>
+          <div className="cd-section-label">Inspection Deductions</div>
+          <div className="result-metric-row">
+            <span>Recon cost</span>
+            <strong>{formatINR(recon?.total)}</strong>
+          </div>
+          <div className="result-metric-row">
+            <span>Risk deductions</span>
+            <strong>{formatINR(wheelrRisk?.total)}</strong>
+          </div>
+        </div>
+      </div>
 
-      <div className="cd-card">
+      {/* ── Negotiation Playbook ── */}
+      <div className="cd-card" style={{ marginBottom: 12 }}>
         <NegotiationPlaybook negotiation={negotiation} confidenceScore={confidenceScore} />
+      </div>
+
+      {/* ── Rule-Based Pricing Pipeline ── */}
+      <RuleBasedPricingPipeline result={enhancedResult} inputs={inputs} />
+
+      {/* ── Expandable breakdown tables ── */}
+      <div className="cd-card" style={{ marginBottom: 12 }}>
         <ExpandableBreakdownTable title="View reconditioning breakdown" rows={reconRows} totalLabel="Total" totalValue={recon?.total} />
         <ExpandableBreakdownTable title="View risk breakdown" rows={riskRows} totalLabel="Total" totalValue={wheelrRisk?.total} />
       </div>

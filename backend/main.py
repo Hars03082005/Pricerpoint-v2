@@ -108,6 +108,8 @@ class EnhancedEvaluateRequest(VehicleInput):
     interior_grade: str = "clean"
     electrical_grade: str = "all_good"
     vendor_type: dict = Field(default_factory=lambda: dict(DEFAULT_VENDOR_TYPE))
+    rc_transfer_cost: float = Field(3500, ge=0, description="RC transfer cost entered by dealer")
+    idv_value: float = Field(0, ge=0, description="Insurance Declared Value from policy (optional)")
 
 
 class ReverseCalculateRequest(BaseModel):
@@ -429,13 +431,46 @@ def _wheelr_enrichment(
     interior_grade: str,
     electrical_grade: str,
     vendor_type: dict,
+    rc_transfer_cost: int = 3500,
+    idv_value: float = 0,
 ) -> dict:
     current_month      = datetime.now().month
     seasonal_multiplier = get_seasonal_multiplier(current_month)
     disqualifier       = check_disqualifier(vehicle_age, odometer, owner_count, accident_history)
-    recon              = get_recon_cost(engine_grade, tyre_grade, body_grade, interior_grade, electrical_grade, vendor_type)
+    recon              = get_recon_cost(engine_grade, tyre_grade, body_grade, interior_grade, electrical_grade, vendor_type, rc_transfer_cost)
     wheelr_risk        = get_wheelr_risk_deductions(owner_count, odometer, accident_history, registration_state, sale_state, loan_outstanding, seller_reason)
-    enhanced_max_buy_price = max(0, int(recommended_buy_price - recon["total"] - wheelr_risk["total"]))
+
+    # ── IDV gap analysis ────────────────────────────────────────────────────────
+    idv_analysis = None
+    idv_extra_risk_deduction = 0
+    idv_confidence_boost = 0
+    if idv_value and idv_value > 0:
+        idv_gap = market_value - idv_value
+        idv_gap_pct = round((idv_gap / idv_value) * 100, 1)
+        if idv_gap_pct > 20:
+            flag = "ML price significantly above IDV — verify condition"
+            flag_type = "warning"
+            idv_extra_risk_deduction = 15000
+        elif idv_gap_pct < -10:
+            flag = "IDV above ML price — car may be undervalued, good buy"
+            flag_type = "positive"
+            idv_confidence_boost = 5
+        else:
+            flag = "IDV aligns with ML valuation"
+            flag_type = "neutral"
+        idv_analysis = {
+            "idv_value": int(idv_value),
+            "ml_value": int(market_value),
+            "idv_gap": int(idv_gap),
+            "idv_gap_pct": idv_gap_pct,
+            "flag": flag,
+            "flag_type": flag_type,
+            "extra_risk_deduction": idv_extra_risk_deduction,
+            "confidence_boost": idv_confidence_boost,
+        }
+
+    total_risk_deduction = wheelr_risk["total"] + idv_extra_risk_deduction
+    enhanced_max_buy_price = max(0, int(recommended_buy_price - recon["total"] - total_risk_deduction))
     negotiation        = get_negotiation_trio(enhanced_max_buy_price, wheelr_risk["seller_reason_adj"])
     deal_health        = get_deal_health(market_value, recon["total"], profit_target, owner_count, odometer, accident_history)
     return {
@@ -443,14 +478,16 @@ def _wheelr_enrichment(
         "seasonal_multiplier": seasonal_multiplier,
         "seasonal_month":      current_month,
         "recon": {
-            "total":      recon["total"],
-            "breakdown":  recon["breakdown"],
-            "fixed_cost": recon["fixed_cost"],
+            "total":           recon["total"],
+            "breakdown":       recon["breakdown"],
+            "fixed_cost":      recon["fixed_cost"],
+            "rc_transfer_cost": recon["rc_transfer_cost"],
         },
-        "wheelr_risk":           wheelr_risk,
-        "negotiation":           negotiation,
-        "deal_health":           deal_health,
+        "wheelr_risk":            wheelr_risk,
+        "negotiation":            negotiation,
+        "deal_health":            deal_health,
         "enhanced_max_buy_price": enhanced_max_buy_price,
+        "idv_analysis":           idv_analysis,
     }
 
 
@@ -482,6 +519,8 @@ def evaluate_enhanced(vehicle: EnhancedEvaluateRequest):
         interior_grade=vehicle.interior_grade,
         electrical_grade=vehicle.electrical_grade,
         vendor_type=vehicle.vendor_type,
+        rc_transfer_cost=int(vehicle.rc_transfer_cost or 3500),
+        idv_value=float(vehicle.idv_value or 0),
     )
     return {**base, **enrichment}
 

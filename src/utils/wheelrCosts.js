@@ -50,7 +50,7 @@ const ELECTRICAL_COSTS = {
   multi_fault: { inhouse: 8000, vendor: 15000 },
 };
 
-const FIXED_COST = 8000;
+const FIXED_COST = 8000; // default fallback (rc 3500 + detailing 2500 + ops 2000)
 
 export const GRADE_OPTIONS = {
   engine: [
@@ -87,13 +87,15 @@ function categoryCost(table, grade, vendorKey) {
   return row[vendorKey === 'inhouse' ? 'inhouse' : 'vendor'];
 }
 
-export function getReconCost(grades, vendorType = DEFAULT_VENDOR_TYPE) {
+export function getReconCost(grades, vendorType = DEFAULT_VENDOR_TYPE, rcCost = 3500) {
   const engineCost = categoryCost(ENGINE_COSTS, grades.engine, vendorType.engine);
   const tyreCost = categoryCost(TYRE_COSTS, grades.tyre, vendorType.tyre);
   const bodyCost = categoryCost(BODY_COSTS, grades.body, vendorType.body);
   const interiorCost = categoryCost(INTERIOR_COSTS, grades.interior, vendorType.interior);
   const electricalCost = categoryCost(ELECTRICAL_COSTS, grades.electrical, vendorType.electrical);
-  const total = engineCost + tyreCost + bodyCost + interiorCost + electricalCost + FIXED_COST;
+  const rcTransferCost = Math.max(0, Number(rcCost) || 3500);
+  const fixedCost = rcTransferCost + 2500 + 2000; // rc + detailing + ops
+  const total = engineCost + tyreCost + bodyCost + interiorCost + electricalCost + fixedCost;
 
   return {
     engine_cost: engineCost,
@@ -101,7 +103,8 @@ export function getReconCost(grades, vendorType = DEFAULT_VENDOR_TYPE) {
     body_cost: bodyCost,
     interior_cost: interiorCost,
     electrical_cost: electricalCost,
-    fixed_cost: FIXED_COST,
+    fixed_cost: fixedCost,
+    rc_transfer_cost: rcTransferCost,
     total,
     breakdown: {
       engine: engineCost,
@@ -109,7 +112,7 @@ export function getReconCost(grades, vendorType = DEFAULT_VENDOR_TYPE) {
       body_paint: bodyCost,
       interior: interiorCost,
       electricals: electricalCost,
-      fixed: FIXED_COST,
+      fixed: fixedCost,
     },
   };
 }

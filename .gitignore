@@ -1,17 +1,18 @@
-# Dependencies
+# ── Node / Frontend ───────────────────────────────────────────────────────────
 node_modules/
-venv/
-.venv/
-env/
-ENV/
 
-# Build output
+# Build output (generated; run `npm run build` to reproduce)
 dist/
 dist-ssr/
 build/
 *.local
 
-# Python
+# ── Python / Backend ──────────────────────────────────────────────────────────
+venv/
+.venv/
+env/
+ENV/
+
 __pycache__/
 *.py[cod]
 *$py.class
@@ -27,39 +28,47 @@ htmlcov/
 .coverage
 .coverage.*
 
-# ML runtime / training cache
+# ── ML runtime / training cache ───────────────────────────────────────────────
 catboost_info/
 mlruns/
 .wandb/
 
-# Large training datasets (GitHub 100MB file limit)
-ml_training/data/**/*.csv
-ml_training/data/**/*.zip
-!ml_training/data/**/.gitkeep
+# ── Large training datasets (GitHub 100 MB file limit) ────────────────────────
+# Raw and cleaned CSVs are large; keep only brand_stats.csv (small reference file)
+ml_training/data/cars.csv
+ml_training/data/cleaned.csv
+ml_training/data/*.zip
+# Keep brand_stats.csv (tiny) and any .gitkeep sentinels
+!ml_training/data/brand_stats.csv
+!ml_training/data/.gitkeep
 
-# ─── Large model artifacts (exceed GitHub 100 MB limit) ──────────────────────
-# Segment ensemble pickles (41 MB – 76 MB each)
+# ── Large model artifacts (GitHub 100 MB limit) ───────────────────────────────
+# Segment ensemble pickles (~43–76 MB each)
 model_artifacts/ensemble_*.pkl
-# Global CatBoost model (76 MB)
+# Global CatBoost model (~0.8 MB — within limit but binary, retrain-able)
 model_artifacts/vehicle_price_catboost.cbm
-# Global XGBoost model (18 MB)
+# Global XGBoost model (~2.2 MB)
 model_artifacts/vehicle_price_xgboost.json
-# Global LightGBM model (kept — only 0.5 MB; remove if you need to slim the repo)
+# Global LightGBM model (~2.5 MB — kept; remove if repo size is a concern)
 # model_artifacts/vehicle_price_lightgbm.txt
 
-# Small metadata & sample CSVs are NOT ignored (useful for documentation):
-# model_artifacts/model_metadata.json  ← ~11 MB — kept
-# model_artifacts/training_report.json ← ~11 MB — kept
-# model_artifacts/cleaned_training_sample.csv ← ~0.5 MB — kept
+# training_report.json is an exact duplicate of model_metadata.json — skip it
+model_artifacts/training_report.json
 
-# Mobile build bundles
-mobile/assets/
+# Small files kept for documentation & reproducibility:
+#   model_artifacts/model_metadata.json        (~110 KB)
+#   model_artifacts/cleaned_training_sample.csv (~56 KB)
+
+# ── Mobile (Flutter) ──────────────────────────────────────────────────────────
+mobile/.dart_tool/
+mobile/.idea/
+mobile/.flutter-plugins-dependencies
+mobile/.metadata
 mobile/build/
+mobile/assets/flutter_assets/
+# Keep mobile/assets/web/ (the bundled React app for WebView)
 
-# Antigravity / Gemini IDE tooling
-.gemini/
-
-# Environment & secrets
+# ── Environment & secrets ─────────────────────────────────────────────────────
 .env
 .env.*
 !.env.example
@@ -67,7 +76,7 @@ mobile/build/
 credentials.json
 secrets.json
 
-# Logs
+# ── Logs ──────────────────────────────────────────────────────────────────────
 logs/
 *.log
 npm-debug.log*
@@ -76,7 +85,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# OS & editor
+# ── OS & editor ───────────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
 Desktop.ini
@@ -89,6 +98,7 @@ Desktop.ini
 *.sln
 *.sw?
 
-# Cursor / local tooling
+# ── IDE / local tooling ───────────────────────────────────────────────────────
+.gemini/
 .cursor/
-
+.agents/

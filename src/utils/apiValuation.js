@@ -210,6 +210,7 @@ function normalizeEnhancedResult(data, inputs) {
     negotiation: data.negotiation,
     dealHealth: data.deal_health,
     enhancedMaxBuyPrice: data.enhanced_max_buy_price,
+    idvAnalysis: data.idv_analysis || null,
   };
 }
 
@@ -233,6 +234,8 @@ export function enhancedPayloadFromInputs(inputs, inspection) {
       interior: 'vendor',
       electrical: 'vendor',
     },
+    rc_transfer_cost: Math.max(0, Number(inspection.rcTransferCost) || 3500),
+    idv_value: Math.max(0, Number(inspection.idvValue) || 0),
   };
 }
 
