@@ -40,16 +40,17 @@ PricerPoint solves this by:
 ## 2. How It Works
 
 ```
-Dealer enters vehicle details
+Dealer enters vehicle details (brand, model, year, km, condition...)
         ↓
 FastAPI backend receives request
         ↓
-get_segment() routes to correct price bracket model
-    Budget (≤₹5L)   → Global ensemble  (MAPE 11.93%)
-    Mid    (₹5–15L) → Mid segment model (MAPE  8.64%)
-    Premium (₹15L+) → Premium segment model (MAPE 9.18%)
+get_brand_class(brand) → O(1) dict lookup, no price estimation needed
+    Budget class  → Maruti, Datsun, Chevrolet, Fiat...  (R² 0.9161)
+    Mid class     → Hyundai, Honda, Tata, Ford...        (R² 0.9332)
+    Premium class → VW, Toyota, Kia, MG, Skoda...       (R² 0.9344)
+    Luxury class  → BMW, Mercedes-Benz, Audi, JLR...    (R² 0.8772)
         ↓
-Base market value predicted (log1p → expm1)
+Brand-class ensemble predicts base market value (log1p → expm1)
         ↓
 Condition multiplier applied (Excellent/Good/Average/Poor)
         ↓
